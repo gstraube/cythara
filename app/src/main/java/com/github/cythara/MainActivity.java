@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
+import java.util.Locale;
 
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.AudioEvent;
@@ -56,13 +57,19 @@ public class MainActivity extends AppCompatActivity {
                         float pitch = pitchDetectionResult.getPitch();
 
                         if (pitch != -1) {
+                            PitchDifference pitchDifference = PitchComparator.retrieveNote(pitch);
+
+                            String msg = String.format(Locale.US, "Closest: %s Diff: %f Freq: %f",
+                                    pitchDifference.closest.getGuitarString(),
+                                    pitchDifference.deviation, pitch);
+
                             Message message = new Message();
                             Bundle bundle = new Bundle();
-                            bundle.putString("pitch", String.valueOf(pitch));
+                            bundle.putString("pitch", msg);
                             message.setData(bundle);
                             activity.updateHandler.sendMessage(message);
 
-                            Log.d("com.github.cythara", "Pitch: " + pitch);
+                            Log.d("com.github.cythara", msg);
                         }
                     }
                 };
