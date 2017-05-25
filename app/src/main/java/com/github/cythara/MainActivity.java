@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.lang.ref.WeakReference;
+
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.AudioEvent;
 import be.tarsos.dsp.pitch.McLeodPitchMethod;
@@ -23,23 +25,30 @@ public class MainActivity extends AppCompatActivity {
     private static final int BUFFER_SIZE = McLeodPitchMethod.DEFAULT_BUFFER_SIZE * 7;
     private static final int OVERLAP = McLeodPitchMethod.DEFAULT_OVERLAP;
 
-    final Handler myHandler = new Handler() {
-
-        public void handleMessage(Message msg) {
-            final TextView pitchText = (TextView) findViewById(R.id.pitch);
-
-            pitchText.setText(msg.getData().getString("pitch"));
-        }
-    };
+    final Handler updateHandler = new UpdateHandler(this);
+    final PitchListener pitchListener = new PitchListener(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
+        new Thread(pitchListener).start();
+    }
+
+    private static class PitchListener implements Runnable {
+
+        private final WeakReference<MainActivity> mainActivity;
+
+        PitchListener(MainActivity activity) {
+            mainActivity = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void run() {
+            final MainActivity activity = mainActivity.get();
+
+            if (activity != null) {
                 PitchDetectionHandler pitchDetectionHandler = new PitchDetectionHandler() {
                     @Override
                     public void handlePitch(PitchDetectionResult pitchDetectionResult,
@@ -51,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                             Bundle bundle = new Bundle();
                             bundle.putString("pitch", String.valueOf(pitch));
                             message.setData(bundle);
-                            myHandler.sendMessage(message);
+                            activity.updateHandler.sendMessage(message);
 
                             Log.d("com.github.cythara", "Pitch: " + pitch);
                         }
@@ -68,8 +77,25 @@ public class MainActivity extends AppCompatActivity {
 
                 audioDispatcher.run();
             }
-        };
+        }
+    }
 
-        new Thread(runnable).start();
+    private static class UpdateHandler extends Handler {
+
+        private final WeakReference<MainActivity> mainActivity;
+
+        UpdateHandler(MainActivity activity) {
+            mainActivity = new WeakReference<>(activity);
+        }
+
+        public void handleMessage(Message msg) {
+            MainActivity activity = mainActivity.get();
+
+            if (activity != null) {
+                TextView pitchText = (TextView) activity.findViewById(R.id.pitch);
+
+                pitchText.setText(msg.getData().getString("pitch"));
+            }
+        }
     }
 }
