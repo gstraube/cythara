@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int SAMPLE_RATE = 44100;
     private static final int BUFFER_SIZE = McLeodPitchMethod.DEFAULT_BUFFER_SIZE * 7;
-    private static final int OVERLAP = McLeodPitchMethod.DEFAULT_OVERLAP * 7;
+    private static final int OVERLAP = McLeodPitchMethod.DEFAULT_OVERLAP;
 
     final Handler myHandler = new Handler() {
 
