@@ -12,19 +12,19 @@ import java.util.Locale;
 
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.AudioEvent;
-import be.tarsos.dsp.pitch.McLeodPitchMethod;
+import be.tarsos.dsp.pitch.FastYin;
 import be.tarsos.dsp.pitch.PitchDetectionHandler;
 import be.tarsos.dsp.pitch.PitchDetectionResult;
 import be.tarsos.dsp.pitch.PitchProcessor;
 
 import static be.tarsos.dsp.io.android.AudioDispatcherFactory.fromDefaultMicrophone;
-import static be.tarsos.dsp.pitch.PitchProcessor.PitchEstimationAlgorithm.MPM;
+import static be.tarsos.dsp.pitch.PitchProcessor.PitchEstimationAlgorithm.FFT_YIN;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int SAMPLE_RATE = 44100;
-    private static final int BUFFER_SIZE = McLeodPitchMethod.DEFAULT_BUFFER_SIZE * 7;
-    private static final int OVERLAP = McLeodPitchMethod.DEFAULT_OVERLAP;
+    private static final int BUFFER_SIZE = FastYin.DEFAULT_BUFFER_SIZE;
+    private static final int OVERLAP = FastYin.DEFAULT_OVERLAP;
 
     final Handler updateHandler = new UpdateHandler(this);
     final PitchListener pitchListener = new PitchListener(this);
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 };
 
-                PitchProcessor pitchProcessor = new PitchProcessor(MPM, SAMPLE_RATE,
+                PitchProcessor pitchProcessor = new PitchProcessor(FFT_YIN, SAMPLE_RATE,
                         BUFFER_SIZE, pitchDetectionHandler);
 
                 AudioDispatcher audioDispatcher = fromDefaultMicrophone(SAMPLE_RATE,
