@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int SAMPLE_RATE = 44100;
     private static final int BUFFER_SIZE = FastYin.DEFAULT_BUFFER_SIZE;
     private static final int OVERLAP = FastYin.DEFAULT_OVERLAP;
+    private static final double MAX_DEVIATION = 50;
 
     final Handler updateHandler = new UpdateHandler(this);
     final PitchListener pitchListener = new PitchListener(this);
@@ -59,17 +60,21 @@ public class MainActivity extends AppCompatActivity {
                         if (pitch != -1) {
                             PitchDifference pitchDifference = PitchComparator.retrieveNote(pitch);
 
-                            String msg = String.format(Locale.US, "Closest: %s Diff: %f Freq: %f",
-                                    pitchDifference.closest.getGuitarString(),
-                                    pitchDifference.deviation, pitch);
+                            String msg = "";
+
+                            if (Math.abs(pitchDifference.deviation) < MAX_DEVIATION) {
+                                msg = String.format(Locale.US, "Closest: %s Diff: %f Freq: %f",
+                                        pitchDifference.closest.getGuitarString(),
+                                        pitchDifference.deviation, pitch);
+                                Log.d("com.github.cythara", msg);
+                            }
 
                             Message message = new Message();
                             Bundle bundle = new Bundle();
                             bundle.putString("pitch", msg);
                             message.setData(bundle);
-                            activity.updateHandler.sendMessage(message);
 
-                            Log.d("com.github.cythara", msg);
+                            activity.updateHandler.sendMessage(message);
                         }
                     }
                 };
