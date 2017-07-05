@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 import java.util.Locale;
@@ -60,21 +59,22 @@ public class MainActivity extends AppCompatActivity {
                         if (pitch != -1) {
                             PitchDifference pitchDifference = PitchComparator.retrieveNote(pitch);
 
-                            String msg = "";
+                            String msg;
 
                             if (Math.abs(pitchDifference.deviation) < MAX_DEVIATION) {
                                 msg = String.format(Locale.US, "Closest: %s Diff: %f Freq: %f",
                                         pitchDifference.closest.getGuitarString(),
                                         pitchDifference.deviation, pitch);
+
+                                Message message = new Message();
+                                Bundle bundle = new Bundle();
+                                bundle.putParcelable("pitchDiff", pitchDifference);
+                                message.setData(bundle);
+
+                                activity.updateHandler.sendMessage(message);
+
                                 Log.d("com.github.cythara", msg);
                             }
-
-                            Message message = new Message();
-                            Bundle bundle = new Bundle();
-                            bundle.putString("pitch", msg);
-                            message.setData(bundle);
-
-                            activity.updateHandler.sendMessage(message);
                         }
                     }
                 };
@@ -104,9 +104,12 @@ public class MainActivity extends AppCompatActivity {
             MainActivity activity = mainActivity.get();
 
             if (activity != null) {
-                TextView pitchText = (TextView) activity.findViewById(R.id.pitch);
+                TunerView tunerView = (TunerView) activity.findViewById(R.id.pitch);
 
-                pitchText.setText(msg.getData().getString("pitch"));
+                PitchDifference pitchDiff = msg.getData().getParcelable("pitchDiff");
+
+                tunerView.setPitchDifference(pitchDiff);
+                tunerView.invalidate();
             }
         }
     }
