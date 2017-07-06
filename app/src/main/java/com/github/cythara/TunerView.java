@@ -32,7 +32,7 @@ public class TunerView extends View {
         float y = canvas.getHeight() / 2F;
 
         if (pitchDifference != null) {
-            canvas.drawText(pitchDifference.closest.getGuitarString(), x, y, paint);
+            canvas.drawText(pitchDifference.closest.name(), x, y, paint);
         }
     }
 

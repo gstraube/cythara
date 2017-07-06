@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
                             if (Math.abs(pitchDifference.deviation) < MAX_DEVIATION) {
                                 msg = String.format(Locale.US, "Closest: %s Diff: %f Freq: %f",
-                                        pitchDifference.closest.getGuitarString(),
+                                        pitchDifference.closest.name(),
                                         pitchDifference.deviation, pitch);
 
                                 Message message = new Message();

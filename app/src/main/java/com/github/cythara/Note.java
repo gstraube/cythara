@@ -2,23 +2,17 @@ package com.github.cythara;
 
 enum Note {
 
-    E2("E", 82.41f),
-    A2("A", 110f),
-    D3("D", 146.83f),
-    G3("G", 196f),
-    B3("B", 246.94f),
-    E4("E", 329.63f);
+    E2(82.41f),
+    A2(110f),
+    D3(146.83f),
+    G3(196f),
+    B3(246.94f),
+    E4(329.63f);
 
-    private final String guitarString;
     private final float frequency;
 
-    Note(String guitarString, float frequency) {
-        this.guitarString = guitarString;
+    Note(float frequency) {
         this.frequency = frequency;
-    }
-
-    public String getGuitarString() {
-        return guitarString;
     }
 
     public float getFrequency() {
