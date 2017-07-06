@@ -10,7 +10,10 @@ import android.view.View;
 
 public class TunerView extends View {
 
+    private static final double MAX_ALLOWED_DEVIATION = 3D;
+
     private Paint paint = new Paint();
+    private Paint background = new Paint();
     private PitchDifference pitchDifference;
 
     public TunerView(Context context) {
@@ -32,8 +35,23 @@ public class TunerView extends View {
         float y = canvas.getHeight() / 2F;
 
         if (pitchDifference != null) {
+            int color = Color.RED;
+            if (pitchDifference.deviation <= MAX_ALLOWED_DEVIATION) {
+                color = Color.GREEN;
+            }
+            background.setColor(color);
+
+            setBackground(canvas);
+
             canvas.drawText(pitchDifference.closest.name(), x, y, paint);
         }
+    }
+
+    private void setBackground(Canvas canvas) {
+        background.setStyle(Paint.Style.FILL);
+        background.setAlpha(70);
+
+        canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), background);
     }
 
     public void setPitchDifference(PitchDifference pitchDifference) {
