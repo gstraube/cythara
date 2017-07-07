@@ -29,7 +29,7 @@ public class TunerView extends View {
         super.onDraw(canvas);
 
         paint.setColor(Color.BLACK);
-        paint.setTextSize(60F);
+        paint.setTextSize(120F);
 
         float x = canvas.getWidth() / 2F;
         float y = canvas.getHeight() / 2F;
