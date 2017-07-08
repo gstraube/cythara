@@ -35,12 +35,6 @@ public class TunerView extends View {
         float y = canvas.getHeight() / 2F;
 
         if (pitchDifference != null) {
-            int color = Color.RED;
-            if (pitchDifference.deviation <= MAX_ALLOWED_DEVIATION) {
-                color = Color.GREEN;
-            }
-            background.setColor(color);
-
             setBackground(canvas);
 
             canvas.drawText(pitchDifference.closest.name(), x, y, paint);
@@ -48,6 +42,12 @@ public class TunerView extends View {
     }
 
     private void setBackground(Canvas canvas) {
+        int color = Color.RED;
+        if (pitchDifference.deviation <= MAX_ALLOWED_DEVIATION) {
+            color = Color.GREEN;
+        }
+        background.setColor(color);
+
         background.setStyle(Paint.Style.FILL);
         background.setAlpha(70);
 
