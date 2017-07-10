@@ -37,7 +37,10 @@ public class TunerView extends View {
         if (pitchDifference != null) {
             setBackground(canvas);
 
-            canvas.drawText(pitchDifference.closest.name(), x, y, paint);
+            String note = pitchDifference.closest.name();
+            float offset = paint.measureText(note) / 2F;
+
+            canvas.drawText(note, x - offset, y, paint);
         }
     }
 
