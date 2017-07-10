@@ -12,7 +12,7 @@ public class TunerView extends View {
 
     private static final double MAX_ALLOWED_DEVIATION = 3D;
 
-    private Paint paint = new Paint();
+    private Paint textPaint = new Paint();
     private Paint background = new Paint();
     private PitchDifference pitchDifference;
 
@@ -28,8 +28,8 @@ public class TunerView extends View {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        paint.setColor(Color.BLACK);
-        paint.setTextSize(120F);
+        textPaint.setColor(Color.BLACK);
+        textPaint.setTextSize(120F);
 
         if (pitchDifference != null) {
             setBackground(canvas);
@@ -43,9 +43,9 @@ public class TunerView extends View {
         float y = canvas.getHeight() / 2F;
 
         String note = pitchDifference.closest.name();
-        float offset = paint.measureText(note) / 2F;
+        float offset = textPaint.measureText(note) / 2F;
 
-        canvas.drawText(note, x - offset, y, paint);
+        canvas.drawText(note, x - offset, y, textPaint);
     }
 
     private void setBackground(Canvas canvas) {
