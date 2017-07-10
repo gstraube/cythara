@@ -31,17 +31,21 @@ public class TunerView extends View {
         paint.setColor(Color.BLACK);
         paint.setTextSize(120F);
 
-        float x = canvas.getWidth() / 2F;
-        float y = canvas.getHeight() / 2F;
-
         if (pitchDifference != null) {
             setBackground(canvas);
 
-            String note = pitchDifference.closest.name();
-            float offset = paint.measureText(note) / 2F;
-
-            canvas.drawText(note, x - offset, y, paint);
+            drawText(canvas);
         }
+    }
+
+    private void drawText(Canvas canvas) {
+        float x = canvas.getWidth() / 2F;
+        float y = canvas.getHeight() / 2F;
+
+        String note = pitchDifference.closest.name();
+        float offset = paint.measureText(note) / 2F;
+
+        canvas.drawText(note, x - offset, y, paint);
     }
 
     private void setBackground(Canvas canvas) {
