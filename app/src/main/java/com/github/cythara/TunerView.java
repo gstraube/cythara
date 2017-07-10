@@ -40,7 +40,7 @@ public class TunerView extends View {
 
     private void drawText(Canvas canvas) {
         float x = canvas.getWidth() / 2F;
-        float y = canvas.getHeight() / 2F;
+        float y = canvas.getHeight() - canvas.getHeight() / 3F;
 
         String note = pitchDifference.closest.name();
         float offset = textPaint.measureText(note) / 2F;
