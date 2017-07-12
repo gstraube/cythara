@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -12,7 +13,7 @@ public class TunerView extends View {
 
     private static final double MAX_ALLOWED_DEVIATION = 3D;
 
-    private Paint textPaint = new Paint();
+    private TextPaint textPaint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
     private Paint background = new Paint();
     private PitchDifference pitchDifference;
 
