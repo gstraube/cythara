@@ -30,7 +30,8 @@ public class TunerView extends View {
         super.onDraw(canvas);
 
         textPaint.setColor(Color.BLACK);
-        textPaint.setTextSize(120F);
+        int textSize = getResources().getDimensionPixelSize(R.dimen.noteTextSize);
+        textPaint.setTextSize(textSize);
 
         if (pitchDifference != null) {
             setBackground(canvas);
