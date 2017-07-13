@@ -52,7 +52,7 @@ public class TunerView extends View {
 
     private void setBackground(Canvas canvas) {
         int color = Color.RED;
-        if (pitchDifference.deviation <= MAX_ALLOWED_DEVIATION) {
+        if (Math.abs(pitchDifference.deviation) <= MAX_ALLOWED_DEVIATION) {
             color = Color.GREEN;
         }
         background.setColor(color);
