@@ -62,23 +62,19 @@ public class TunerView extends View {
         float spaceWidth = gaugeWidth / 3F;
 
         for (int i = 0; i <= 30; i = i + 10) {
-            if (i % 10 == 0) {
                 float xPos = x + (i / 10F) * spaceWidth;
                 canvas.drawLine(xPos, y - 10, xPos, y + 10, gaugePaint);
                 String text = String.valueOf(i);
                 canvas.drawText(text, xPos - numbersPaint.measureText(text) / 2F, y - 30,
                         numbersPaint);
-            }
         }
 
         for (int i = 30; i >= 0; i = i - 10) {
-            if (i % 10 == 0) {
                 float xPos = x - (i / 10F) * spaceWidth;
                 canvas.drawLine(xPos, y - 10, xPos, y + 10, gaugePaint);
                 String text = String.valueOf(i);
                 canvas.drawText(text, xPos - numbersPaint.measureText(text) / 2F, y - 30,
                         numbersPaint);
-            }
         }
 
         float deviation = (float) pitchDifference.deviation;
