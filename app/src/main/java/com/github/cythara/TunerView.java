@@ -62,19 +62,9 @@ public class TunerView extends View {
         float spaceWidth = gaugeWidth / 3F;
 
         for (int i = 0; i <= 30; i = i + 10) {
-                float xPos = x + (i / 10F) * spaceWidth;
-                canvas.drawLine(xPos, y - 10, xPos, y + 10, gaugePaint);
-                String text = String.valueOf(i);
-                canvas.drawText(text, xPos - numbersPaint.measureText(text) / 2F, y - 30,
-                        numbersPaint);
-        }
-
-        for (int i = 30; i >= 0; i = i - 10) {
-                float xPos = x - (i / 10F) * spaceWidth;
-                canvas.drawLine(xPos, y - 10, xPos, y + 10, gaugePaint);
-                String text = String.valueOf(i);
-                canvas.drawText(text, xPos - numbersPaint.measureText(text) / 2F, y - 30,
-                        numbersPaint);
+            float factor = i / 10F;
+            drawMark(canvas, y, x + factor * spaceWidth, String.valueOf(i));
+            drawMark(canvas, y, x - factor * spaceWidth, String.valueOf(i));
         }
 
         float deviation = (float) pitchDifference.deviation;
@@ -83,6 +73,11 @@ public class TunerView extends View {
         String text = "|";
         canvas.drawText(text, xPos - numbersPaint.measureText(text) / 2F, y + 30,
                 numbersPaint);
+    }
+
+    private void drawMark(Canvas canvas, float y, float xPos, String text) {
+        canvas.drawLine(xPos, y - 10, xPos, y + 10, gaugePaint);
+        canvas.drawText(text, xPos - numbersPaint.measureText(text) / 2F, y - 30, numbersPaint);
     }
 
     private void drawText(Canvas canvas) {
