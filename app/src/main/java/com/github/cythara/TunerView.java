@@ -12,6 +12,8 @@ public class TunerView extends View {
 
     private static final double MAX_ALLOWED_DEVIATION = 3D;
 
+    private Canvas canvas;
+
     private TextPaint textPaint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
     private TextPaint numbersPaint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
     private Paint gaugePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -30,20 +32,22 @@ public class TunerView extends View {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        this.canvas = canvas;
+
         textPaint.setColor(Color.BLACK);
         int textSize = getResources().getDimensionPixelSize(R.dimen.noteTextSize);
         textPaint.setTextSize(textSize);
 
         if (pitchDifference != null) {
-            setBackground(canvas);
+            setBackground();
 
-            drawGauge(canvas);
+            drawGauge();
 
-            drawText(canvas);
+            drawText();
         }
     }
 
-    private void drawGauge(Canvas canvas) {
+    private void drawGauge() {
         float x = canvas.getWidth() / 2F;
         float y = canvas.getHeight() / 2F;
 
@@ -63,8 +67,8 @@ public class TunerView extends View {
 
         for (int i = 0; i <= 30; i = i + 10) {
             float factor = i / 10F;
-            drawMark(canvas, y, x + factor * spaceWidth, String.valueOf(i));
-            drawMark(canvas, y, x - factor * spaceWidth, String.valueOf(i));
+            drawMark(y, x + factor * spaceWidth, String.valueOf(i));
+            drawMark(y, x - factor * spaceWidth, String.valueOf(i));
         }
 
         float deviation = (float) pitchDifference.deviation;
@@ -75,12 +79,12 @@ public class TunerView extends View {
                 numbersPaint);
     }
 
-    private void drawMark(Canvas canvas, float y, float xPos, String text) {
+    private void drawMark(float y, float xPos, String text) {
         canvas.drawLine(xPos, y - 10, xPos, y + 10, gaugePaint);
         canvas.drawText(text, xPos - numbersPaint.measureText(text) / 2F, y - 30, numbersPaint);
     }
 
-    private void drawText(Canvas canvas) {
+    private void drawText() {
         float x = canvas.getWidth() / 2F;
         float y = canvas.getHeight() - canvas.getHeight() / 3F;
 
@@ -90,7 +94,7 @@ public class TunerView extends View {
         canvas.drawText(note, x - offset, y, textPaint);
     }
 
-    private void setBackground(Canvas canvas) {
+    private void setBackground() {
         int color = Color.RED;
         if (Math.abs(pitchDifference.deviation) <= MAX_ALLOWED_DEVIATION) {
             color = Color.GREEN;
