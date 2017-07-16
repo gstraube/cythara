@@ -20,6 +20,10 @@ public class TunerView extends View {
     private Paint background = new Paint();
     private PitchDifference pitchDifference;
 
+    private float gaugeWidth;
+    private float x;
+    private float y;
+
     public TunerView(Context context) {
         super(context);
     }
@@ -33,6 +37,9 @@ public class TunerView extends View {
         super.onDraw(canvas);
 
         this.canvas = canvas;
+        gaugeWidth = 0.45F * canvas.getWidth();
+        x = canvas.getWidth() / 2F;
+        y = canvas.getHeight() / 2F;
 
         textPaint.setColor(Color.BLACK);
         int textSize = getResources().getDimensionPixelSize(R.dimen.noteTextSize);
@@ -42,15 +49,13 @@ public class TunerView extends View {
             setBackground();
 
             drawGauge();
+            drawIndicator();
 
             drawText();
         }
     }
 
     private void drawGauge() {
-        float x = canvas.getWidth() / 2F;
-        float y = canvas.getHeight() / 2F;
-
         gaugePaint.setColor(Color.BLACK);
 
         int gaugeSize = getResources().getDimensionPixelSize(R.dimen.gaugeSize);
@@ -58,8 +63,6 @@ public class TunerView extends View {
 
         int textSize = getResources().getDimensionPixelSize(R.dimen.numbersTextSize);
         numbersPaint.setTextSize(textSize);
-
-        float gaugeWidth = 0.45F * canvas.getWidth();
 
         canvas.drawLine(x - gaugeWidth, y, x + gaugeWidth, y, gaugePaint);
 
@@ -70,7 +73,9 @@ public class TunerView extends View {
             drawMark(y, x + factor * spaceWidth, String.valueOf(i));
             drawMark(y, x - factor * spaceWidth, String.valueOf(i));
         }
+    }
 
+    private void drawIndicator() {
         float deviation = (float) pitchDifference.deviation;
 
         float xPos = x + (deviation * gaugeWidth / 30F);
