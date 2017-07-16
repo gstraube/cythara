@@ -45,10 +45,11 @@ public class TunerView extends View {
         int textSize = getResources().getDimensionPixelSize(R.dimen.noteTextSize);
         textPaint.setTextSize(textSize);
 
+        drawGauge();
+
         if (pitchDifference != null) {
             setBackground();
 
-            drawGauge();
             drawIndicator();
 
             drawText();
