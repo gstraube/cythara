@@ -18,6 +18,7 @@ public class TunerView extends View {
     private TextPaint numbersPaint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
     private Paint gaugePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint symbolPaint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
+    private Paint guitarPaint = new Paint(TextPaint.ANTI_ALIAS_FLAG);
     private Paint background = new Paint();
     private PitchDifference pitchDifference;
 
@@ -87,6 +88,12 @@ public class TunerView extends View {
 
         canvas.drawText(flat, x - 3 * spaceWidth - symbolPaint.measureText(flat) / 2F, y - 200,
                 symbolPaint);
+
+        String guitar = "\uD83C\uDFB8";
+
+        int guitarTextSize = getResources().getDimensionPixelSize(R.dimen.guitarTextSize);
+        guitarPaint.setTextSize(guitarTextSize);
+        canvas.drawText(guitar, x - guitarPaint.measureText(guitar) / 2F, y - 400, guitarPaint);
     }
 
     private void drawIndicator() {
