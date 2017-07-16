@@ -71,8 +71,8 @@ public class TunerView extends View {
 
         for (int i = 0; i <= 30; i = i + 10) {
             float factor = i / 10F;
-            drawMark(y, x + factor * spaceWidth, String.valueOf(i));
-            drawMark(y, x - factor * spaceWidth, String.valueOf(i));
+            drawMark(y, x + factor * spaceWidth, i);
+            drawMark(y, x - factor * spaceWidth, -i);
         }
     }
 
@@ -85,7 +85,13 @@ public class TunerView extends View {
                 numbersPaint);
     }
 
-    private void drawMark(float y, float xPos, String text) {
+    private void drawMark(float y, float xPos, int mark) {
+        String prefix = "";
+        if (mark > 0) {
+            prefix = "+";
+        }
+        String text = prefix + String.valueOf(mark);
+
         canvas.drawLine(xPos, y - 10, xPos, y + 10, gaugePaint);
         canvas.drawText(text, xPos - numbersPaint.measureText(text) / 2F, y - 30, numbersPaint);
     }
