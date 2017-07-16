@@ -17,6 +17,7 @@ public class TunerView extends View {
     private TextPaint textPaint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
     private TextPaint numbersPaint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
     private Paint gaugePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint symbolPaint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
     private Paint background = new Paint();
     private PitchDifference pitchDifference;
 
@@ -74,6 +75,18 @@ public class TunerView extends View {
             drawMark(y, x + factor * spaceWidth, i);
             drawMark(y, x - factor * spaceWidth, -i);
         }
+
+        String sharp = "♯";
+        String flat = "♭";
+
+        int symbolsTextSize = getResources().getDimensionPixelSize(R.dimen.symbolsTextSize);
+        symbolPaint.setTextSize(symbolsTextSize);
+
+        canvas.drawText(sharp, x + 3 * spaceWidth - symbolPaint.measureText(sharp) / 2F, y - 200,
+                symbolPaint);
+
+        canvas.drawText(flat, x - 3 * spaceWidth - symbolPaint.measureText(flat) / 2F, y - 200,
+                symbolPaint);
     }
 
     private void drawIndicator() {

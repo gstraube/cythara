@@ -2,5 +2,6 @@
 <resources>
     <dimen name="noteTextSize">40sp</dimen>
     <dimen name="numbersTextSize">20sp</dimen>
+    <dimen name="symbolsTextSize">30sp</dimen>
     <dimen name="gaugeSize">2sp</dimen>
 </resources>
