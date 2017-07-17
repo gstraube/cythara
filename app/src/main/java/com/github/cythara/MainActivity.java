@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import be.tarsos.dsp.AudioDispatcher;
@@ -25,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int BUFFER_SIZE = FastYin.DEFAULT_BUFFER_SIZE;
     private static final int OVERLAP = FastYin.DEFAULT_OVERLAP;
     private static final double MAX_DEVIATION = 50;
+    private static final int MIN_ITEMS_COUNT = 5;
+    private static List<PitchDifference> pitchDifferences = new ArrayList<>();
 
     final Handler updateHandler = new UpdateHandler(this);
     final PitchListener pitchListener = new PitchListener(this);
@@ -66,14 +70,23 @@ public class MainActivity extends AppCompatActivity {
                                         pitchDifference.closest.name(),
                                         pitchDifference.deviation, pitch);
 
-                                Message message = new Message();
-                                Bundle bundle = new Bundle();
-                                bundle.putParcelable("pitchDiff", pitchDifference);
-                                message.setData(bundle);
+                                pitchDifferences.add(pitchDifference);
 
-                                activity.updateHandler.sendMessage(message);
+                                if (pitchDifferences.size() >= MIN_ITEMS_COUNT) {
+                                    PitchDifference average =
+                                            Sampler.calculateAverageDifference(pitchDifferences);
 
-                                Log.d("com.github.cythara", msg);
+                                    Message message = new Message();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putParcelable("pitchDiff", average);
+                                    message.setData(bundle);
+
+                                    activity.updateHandler.sendMessage(message);
+
+                                    pitchDifferences.clear();
+
+                                    Log.d("com.github.cythara", msg);
+                                }
                             }
                         }
                     }
