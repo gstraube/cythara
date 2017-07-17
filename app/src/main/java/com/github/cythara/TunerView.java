@@ -93,7 +93,8 @@ public class TunerView extends View {
 
         int guitarTextSize = getResources().getDimensionPixelSize(R.dimen.guitarTextSize);
         guitarPaint.setTextSize(guitarTextSize);
-        canvas.drawText(guitar, x - guitarPaint.measureText(guitar) / 2F, y - 400, guitarPaint);
+        float y = canvas.getHeight() / 3F;
+        canvas.drawText(guitar, x - guitarPaint.measureText(guitar) / 2F, y, guitarPaint);
     }
 
     private void drawIndicator() {
