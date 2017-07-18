@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
                                         pitchDifference.closest.name(),
                                         pitchDifference.deviation, pitch);
 
+                                Log.d("com.github.cythara", msg);
+
                                 pitchDifferences.add(pitchDifference);
 
                                 if (pitchDifferences.size() >= MIN_ITEMS_COUNT) {
@@ -84,8 +86,6 @@ public class MainActivity extends AppCompatActivity {
                                     activity.updateHandler.sendMessage(message);
 
                                     pitchDifferences.clear();
-
-                                    Log.d("com.github.cythara", msg);
                                 }
                             }
                         }
