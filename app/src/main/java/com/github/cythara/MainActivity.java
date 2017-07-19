@@ -83,6 +83,12 @@ public class MainActivity extends AppCompatActivity {
                                     bundle.putParcelable("pitchDiff", average);
                                     message.setData(bundle);
 
+                                    msg = String.format(Locale.US, "Note: %s Diff: %f",
+                                            pitchDifference.closest.name(),
+                                            pitchDifference.deviation);
+
+                                    Log.d("com.github.cythara", msg);
+
                                     activity.updateHandler.sendMessage(message);
 
                                     pitchDifferences.clear();
