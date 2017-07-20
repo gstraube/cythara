@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                                         pitchDifference.closest.name(),
                                         pitchDifference.deviation, pitch);
 
-                                Log.d("com.github.cythara", msg);
+                                log(msg);
 
                                 pitchDifferences.add(pitchDifference);
 
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                                             pitchDifference.closest.name(),
                                             pitchDifference.deviation);
 
-                                    Log.d("com.github.cythara", msg);
+                                    log(msg);
 
                                     activity.updateHandler.sendMessage(message);
 
@@ -109,6 +109,10 @@ public class MainActivity extends AppCompatActivity {
                 audioDispatcher.run();
             }
         }
+    }
+
+    private static void log(String msg) {
+        Log.d("com.github.cythara", msg);
     }
 
     private static class UpdateHandler extends Handler {
