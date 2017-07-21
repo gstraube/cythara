@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 
+apply plugin: 'findbugs'
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
