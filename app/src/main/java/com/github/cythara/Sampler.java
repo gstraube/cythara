@@ -2,6 +2,7 @@ package com.github.cythara;
 
 import android.support.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,14 +11,13 @@ class Sampler {
 
     static PitchDifference calculateAverageDifference(List<PitchDifference> samples) {
         Note mostFrequentNote = extractMostFrequentNote(samples);
+        List<PitchDifference> filteredSamples = filterByNote(samples, mostFrequentNote);
 
         double deviationSum = 0;
         int sameNoteCount = 0;
-        for (PitchDifference pitchDifference : samples) {
-            if (pitchDifference.closest == mostFrequentNote) {
+        for (PitchDifference pitchDifference : filteredSamples) {
                 deviationSum += pitchDifference.deviation;
                 sameNoteCount++;
-            }
         }
 
         if (sameNoteCount > 0) {
@@ -27,6 +27,18 @@ class Sampler {
         }
 
         return null;
+    }
+
+    static List<PitchDifference> filterByNote(List<PitchDifference> samples, Note note) {
+        List<PitchDifference> filteredSamples = new ArrayList<>();
+
+        for (PitchDifference sample : samples) {
+            if (sample.closest == note) {
+                filteredSamples.add(sample);
+            }
+        }
+
+        return filteredSamples;
     }
 
     @Nullable

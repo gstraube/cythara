@@ -33,6 +33,24 @@ public class SamplerTest {
     }
 
     @Test
+    public void samples_are_filtered_correctly() {
+        List<PitchDifference> samples = new ArrayList<>();
+
+        samples.add(new PitchDifference(E2, 2D));
+        samples.add(new PitchDifference(E2, 2D));
+        samples.add(new PitchDifference(B3, 3D));
+        samples.add(new PitchDifference(E2, 2D));
+        samples.add(new PitchDifference(Note.G3, 4D));
+        samples.add(new PitchDifference(B3, 3D));
+
+        List<PitchDifference> filteredSamples = filterByNote(samples, B3);
+
+        for (PitchDifference sample : filteredSamples) {
+            assertThat(sample.closest, is(B3));
+        }
+    }
+
+    @Test
     public void the_most_frequent_note_is_extracted_correctly() throws Exception {
         List<PitchDifference> samples = new ArrayList<>();
 
