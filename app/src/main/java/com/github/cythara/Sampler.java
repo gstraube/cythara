@@ -30,7 +30,7 @@ class Sampler {
     }
 
     @Nullable
-    private static Note extractMostFrequentNote(List<PitchDifference> samples) {
+    static Note extractMostFrequentNote(List<PitchDifference> samples) {
         Map<Note, Integer> noteFrequencies = new HashMap<>();
 
         for (PitchDifference pitchDifference : samples) {
