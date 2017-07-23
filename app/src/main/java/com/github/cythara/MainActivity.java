@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int BUFFER_SIZE = FastYin.DEFAULT_BUFFER_SIZE;
     private static final int OVERLAP = FastYin.DEFAULT_OVERLAP;
     private static final double MAX_DEVIATION = 50;
-    private static final int MIN_ITEMS_COUNT = 5;
+    private static final int MIN_ITEMS_COUNT = 15;
     private static List<PitchDifference> pitchDifferences = new ArrayList<>();
 
     final Handler updateHandler = new UpdateHandler(this);
