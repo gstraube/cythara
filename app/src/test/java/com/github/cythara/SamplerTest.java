@@ -7,6 +7,7 @@ import java.util.List;
 
 import static com.github.cythara.Note.*;
 import static com.github.cythara.Sampler.*;
+import static org.hamcrest.CoreMatchers.either;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.closeTo;
 import static org.junit.Assert.*;
@@ -67,7 +68,7 @@ public class SamplerTest {
     }
 
     @Test
-    public void if_there_are_notes_with_the_same_number_of_occurrences_the_first_one_is_returned() {
+    public void if_there_are_notes_with_the_same_number_of_occurrences_one_of_them_is_returned() {
         List<PitchDifference> samples = new ArrayList<>();
 
         samples.add(new PitchDifference(G3, 2D));
@@ -78,6 +79,6 @@ public class SamplerTest {
 
         Note note = extractMostFrequentNote(samples);
 
-        assertThat(note, is(E2));
+        assertThat(note, either(is(E2)).or(is(B3)));
     }
 }
