@@ -8,6 +8,7 @@ android:
     - build-tools-25.0.3
     - android-25
     - extra-android-support
+    - sys-img-armeabi-v7a-android-26
 before_install:
   - mkdir "$ANDROID_HOME/licenses" || true
   - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
