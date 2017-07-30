@@ -1,10 +1,12 @@
 package com.github.cythara;
 
+import android.Manifest;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.os.Environment;
 import android.support.test.rule.ActivityTestRule;
+import android.support.test.rule.GrantPermissionRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Assert;
@@ -17,12 +19,22 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import static android.support.test.rule.GrantPermissionRule.grant;
+
 @RunWith(AndroidJUnit4.class)
 public class TunerViewTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
             MainActivity.class);
+
+    @Rule
+    public GrantPermissionRule writePermissionRule =
+            grant(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+    @Rule
+    public GrantPermissionRule readPermissionRule =
+            grant(Manifest.permission.READ_EXTERNAL_STORAGE);
 
     @Test
     public void exactly_matching_pitch_is_displayed() throws IOException {
