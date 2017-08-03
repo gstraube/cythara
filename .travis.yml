@@ -1,4 +1,6 @@
 language: android
+dist: trusty
+group: edge
 jdk: oraclejdk8
 android:
   components:
@@ -18,6 +20,6 @@ licenses:
   - '.+'
 before_script:
   - echo no | android create avd --force -n test -t android-25 --abi google_apis/armeabi-v7a --device 'Nexus 4'
-  - emulator -avd test -skin 1080x1920 -no-window &
+  - emulator -avd test -skin 1080x1920 -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
