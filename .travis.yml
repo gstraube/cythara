@@ -29,7 +29,7 @@ licenses:
   - '.+'
 before_script:
   - echo no | avdmanager create avd --force -n test --tag google_apis --abi google_apis/x86_64 -k 'system-images;android-25;google_apis;x86_64' --device 'Nexus 5X'
-  - emulator -avd test -engine classic -skin 1080x1920 -no-audio -no-window &
+  - emulator -avd test -skin 1080x1920 -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
 notifications:
