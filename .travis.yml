@@ -34,4 +34,4 @@ before_script:
 notifications:
   email: false
 script:
-  - ./gradlew build connectedCheck --debug
+  - travis_wait 30 ./gradlew build connectedCheck
