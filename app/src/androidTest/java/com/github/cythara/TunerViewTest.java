@@ -38,39 +38,28 @@ public class TunerViewTest {
 
     @Test
     public void exactly_matching_pitch_is_displayed() throws IOException {
-        MainActivity mainActivity = mActivityRule.getActivity();
-
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inScaled = false;
-        Bitmap reference = BitmapFactory.decodeResource(mainActivity.getResources(),
-                R.drawable.exact, options);
-
-        Bitmap generated = Bitmap.createBitmap(2048, 1024, Bitmap.Config.ARGB_4444);
-        Canvas canvas = new Canvas(generated);
-        TunerView tunerView = (TunerView) mainActivity.findViewById(R.id.pitch);
-        tunerView.setPitchDifference(new PitchDifference(Note.E4, 0));
-
-        tunerView.draw(canvas);
-
-        Assert.assertTrue(reference.sameAs(generated));
-
-        writeToFile(generated, "generated.png");
-        writeToFile(reference, "reference.png");
+        isDisplayedCorrectly(R.drawable.exact, new PitchDifference(Note.E4, 0));
     }
 
     @Test
     public void positive_10_cents_deviation_is_displayed() throws IOException {
+        isDisplayedCorrectly(R.drawable.positive_10_cents,
+                new PitchDifference(Note.B3, 10));
+    }
+
+    public void isDisplayedCorrectly(int referenceId, PitchDifference pitchDifference)
+            throws IOException {
         MainActivity mainActivity = mActivityRule.getActivity();
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
         Bitmap reference = BitmapFactory.decodeResource(mainActivity.getResources(),
-                R.drawable.positive_10_cents, options);
+                referenceId, options);
 
         Bitmap generated = Bitmap.createBitmap(2048, 1024, Bitmap.Config.ARGB_4444);
         Canvas canvas = new Canvas(generated);
         TunerView tunerView = (TunerView) mainActivity.findViewById(R.id.pitch);
-        tunerView.setPitchDifference(new PitchDifference(Note.B3, 10));
+        tunerView.setPitchDifference(pitchDifference);
 
         tunerView.draw(canvas);
 
