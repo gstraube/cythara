@@ -63,10 +63,10 @@ public class TunerViewTest {
 
         tunerView.draw(canvas);
 
-        Assert.assertTrue(reference.sameAs(generated));
-
         writeToFile(generated, "generated.png");
         writeToFile(reference, "reference.png");
+
+        Assert.assertTrue(reference.sameAs(generated));
     }
 
     private void writeToFile(Bitmap bitmap, String name) throws IOException {
