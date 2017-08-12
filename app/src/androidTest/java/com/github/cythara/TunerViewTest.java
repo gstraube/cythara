@@ -65,6 +65,23 @@ public class TunerViewTest {
         }
     }
 
+    @Test
+    public void non_exact_deviations_are_displayed_correctly() throws IOException {
+        Map<Double, Integer> deviationToReferenceId = new HashMap<>();
+
+        deviationToReferenceId.put(-6.4, R.drawable.negative_6_4_cents);
+        deviationToReferenceId.put(15.41, R.drawable.positive_15_41_cents);
+        deviationToReferenceId.put(5.1, R.drawable.positive_5_1_cents);
+        deviationToReferenceId.put(-27.32, R.drawable.negative_27_32_cents);
+        deviationToReferenceId.put(4.7, R.drawable.positive_4_7_cents);
+        deviationToReferenceId.put(29.5, R.drawable.positive_29_5_cents);
+
+        for (Double deviation : deviationToReferenceId.keySet()) {
+            isDisplayedCorrectly(deviationToReferenceId.get(deviation),
+                    new PitchDifference(Note.B3, deviation));
+        }
+    }
+
     public void isDisplayedCorrectly(int referenceId, PitchDifference pitchDifference)
             throws IOException {
         MainActivity mainActivity = mActivityRule.getActivity();
