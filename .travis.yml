@@ -16,3 +16,5 @@ script: ./gradlew test
 licenses:
   - android-sdk-license-.+
   - '.+'
++notifications:
++  email: false
