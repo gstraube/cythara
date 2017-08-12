@@ -18,6 +18,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.support.test.rule.GrantPermissionRule.grant;
 
@@ -42,9 +44,20 @@ public class TunerViewTest {
     }
 
     @Test
-    public void positive_10_cents_deviation_is_displayed() throws IOException {
-        isDisplayedCorrectly(R.drawable.positive_10_cents,
-                new PitchDifference(Note.B3, 10));
+    public void exact_deviations_are_displayed_correctly() throws IOException {
+        Map<Integer, Integer> deviationToReferenceId = new HashMap<>();
+
+        deviationToReferenceId.put(-30, R.drawable.negative_30_cents);
+        deviationToReferenceId.put(-20, R.drawable.negative_20_cents);
+        deviationToReferenceId.put(-10, R.drawable.negative_10_cents);
+        deviationToReferenceId.put(10, R.drawable.positive_10_cents);
+        deviationToReferenceId.put(20, R.drawable.positive_20_cents);
+        deviationToReferenceId.put(30, R.drawable.positive_30_cents);
+
+        for (Integer deviation : deviationToReferenceId.keySet()) {
+            isDisplayedCorrectly(deviationToReferenceId.get(deviation),
+                    new PitchDifference(Note.B3, deviation));
+        }
     }
 
     public void isDisplayedCorrectly(int referenceId, PitchDifference pitchDifference)
