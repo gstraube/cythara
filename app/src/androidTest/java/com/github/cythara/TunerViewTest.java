@@ -58,6 +58,28 @@ public class TunerViewTest {
         writeToFile(reference, "reference.png");
     }
 
+    @Test
+    public void positive_10_cents_deviation_is_displayed() throws IOException {
+        MainActivity mainActivity = mActivityRule.getActivity();
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inScaled = false;
+        Bitmap reference = BitmapFactory.decodeResource(mainActivity.getResources(),
+                R.drawable.positive_10_cents, options);
+
+        Bitmap generated = Bitmap.createBitmap(2048, 1024, Bitmap.Config.ARGB_4444);
+        Canvas canvas = new Canvas(generated);
+        TunerView tunerView = (TunerView) mainActivity.findViewById(R.id.pitch);
+        tunerView.setPitchDifference(new PitchDifference(Note.B3, 10));
+
+        tunerView.draw(canvas);
+
+        Assert.assertTrue(reference.sameAs(generated));
+
+        writeToFile(generated, "generated.png");
+        writeToFile(reference, "reference.png");
+    }
+
     private void writeToFile(Bitmap bitmap, String name) throws IOException {
         File sdCard = Environment.getExternalStorageDirectory();
         FileOutputStream out = null;
