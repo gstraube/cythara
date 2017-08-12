@@ -44,6 +44,11 @@ public class TunerViewTest {
     }
 
     @Test
+    public void close_match_is_displayed_correctly() throws IOException {
+        isDisplayedCorrectly(R.drawable.close, new PitchDifference(Note.G3, 2.4));
+    }
+
+    @Test
     public void exact_deviations_are_displayed_correctly() throws IOException {
         Map<Integer, Integer> deviationToReferenceId = new HashMap<>();
 
