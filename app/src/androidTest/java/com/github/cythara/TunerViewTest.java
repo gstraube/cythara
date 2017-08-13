@@ -82,6 +82,14 @@ public class TunerViewTest {
         }
     }
 
+    @Test
+    public void values_outside_of_boundaries_are_not_displayed() throws IOException {
+        isDisplayedCorrectly(R.drawable.blank,
+                new PitchDifference(Note.D3, 30.5));
+        isDisplayedCorrectly(R.drawable.blank,
+                new PitchDifference(Note.D3, -30.5));
+    }
+
     public void isDisplayedCorrectly(int referenceId, PitchDifference pitchDifference)
             throws IOException {
         MainActivity mainActivity = mActivityRule.getActivity();

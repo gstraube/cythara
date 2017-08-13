@@ -9,6 +9,7 @@ import android.text.TextPaint;
 class CanvasPainter {
 
     private static final double TOLERANCE = 3D;
+    private static final double MAX_DEVIATION = 30;
     private final Context context;
 
     private Canvas canvas;
@@ -52,7 +53,7 @@ class CanvasPainter {
 
         drawGauge();
 
-        if (pitchDifference != null) {
+        if (pitchDifference != null && Math.abs(pitchDifference.deviation) <= MAX_DEVIATION) {
             setBackground();
 
             drawIndicator();
@@ -74,7 +75,7 @@ class CanvasPainter {
 
         float spaceWidth = gaugeWidth / 3F;
 
-        for (int i = 0; i <= 30; i = i + 10) {
+        for (int i = 0; i <= MAX_DEVIATION; i = i + 10) {
             float factor = i / 10F;
             drawMark(y, x + factor * spaceWidth, i);
             drawMark(y, x - factor * spaceWidth, -i);

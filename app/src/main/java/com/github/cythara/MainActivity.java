@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int SAMPLE_RATE = 44100;
     private static final int BUFFER_SIZE = FastYin.DEFAULT_BUFFER_SIZE;
     private static final int OVERLAP = FastYin.DEFAULT_OVERLAP;
-    private static final double MAX_DEVIATION = 50;
     private static final int MIN_ITEMS_COUNT = 15;
     private static List<PitchDifference> pitchDifferences = new ArrayList<>();
 
@@ -65,34 +64,32 @@ public class MainActivity extends AppCompatActivity {
 
                             String msg;
 
-                            if (Math.abs(pitchDifference.deviation) < MAX_DEVIATION) {
-                                msg = String.format(Locale.US, "Closest: %s Diff: %f Freq: %f",
+                            msg = String.format(Locale.US, "Closest: %s Diff: %f Freq: %f",
+                                    pitchDifference.closest.name(),
+                                    pitchDifference.deviation, pitch);
+
+                            log(msg);
+
+                            pitchDifferences.add(pitchDifference);
+
+                            if (pitchDifferences.size() >= MIN_ITEMS_COUNT) {
+                                PitchDifference average =
+                                        Sampler.calculateAverageDifference(pitchDifferences);
+
+                                Message message = new Message();
+                                Bundle bundle = new Bundle();
+                                bundle.putParcelable("pitchDiff", average);
+                                message.setData(bundle);
+
+                                msg = String.format(Locale.US, "Note: %s Diff: %f",
                                         pitchDifference.closest.name(),
-                                        pitchDifference.deviation, pitch);
+                                        pitchDifference.deviation);
 
                                 log(msg);
 
-                                pitchDifferences.add(pitchDifference);
+                                activity.updateHandler.sendMessage(message);
 
-                                if (pitchDifferences.size() >= MIN_ITEMS_COUNT) {
-                                    PitchDifference average =
-                                            Sampler.calculateAverageDifference(pitchDifferences);
-
-                                    Message message = new Message();
-                                    Bundle bundle = new Bundle();
-                                    bundle.putParcelable("pitchDiff", average);
-                                    message.setData(bundle);
-
-                                    msg = String.format(Locale.US, "Note: %s Diff: %f",
-                                            pitchDifference.closest.name(),
-                                            pitchDifference.deviation);
-
-                                    log(msg);
-
-                                    activity.updateHandler.sendMessage(message);
-
-                                    pitchDifferences.clear();
-                                }
+                                pitchDifferences.clear();
                             }
                         }
                     }
