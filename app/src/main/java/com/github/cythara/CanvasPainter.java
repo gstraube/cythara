@@ -8,7 +8,7 @@ import android.text.TextPaint;
 
 class CanvasPainter {
 
-    private static final double MAX_ALLOWED_DEVIATION = 3D;
+    private static final double TOLERANCE = 3D;
     private final Context context;
 
     private Canvas canvas;
@@ -125,7 +125,7 @@ class CanvasPainter {
 
     private void setBackground() {
         int color = Color.RED;
-        if (Math.abs(pitchDifference.deviation) <= MAX_ALLOWED_DEVIATION) {
+        if (Math.abs(pitchDifference.deviation) <= TOLERANCE) {
             color = Color.GREEN;
         }
         background.setColor(color);
