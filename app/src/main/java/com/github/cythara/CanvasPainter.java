@@ -87,10 +87,11 @@ class CanvasPainter {
         int symbolsTextSize = context.getResources().getDimensionPixelSize(R.dimen.symbolsTextSize);
         symbolPaint.setTextSize(symbolsTextSize);
 
-        canvas.drawText(sharp, x + 3 * spaceWidth - symbolPaint.measureText(sharp) / 2F, y - 200,
+        float yPos = this.y - 200;
+        canvas.drawText(sharp, x + 3 * spaceWidth - symbolPaint.measureText(sharp) / 2F, yPos,
                 symbolPaint);
 
-        canvas.drawText(flat, x - 3 * spaceWidth - symbolPaint.measureText(flat) / 2F, y - 200,
+        canvas.drawText(flat, x - 3 * spaceWidth - symbolPaint.measureText(flat) / 2F, yPos,
                 symbolPaint);
     }
 
