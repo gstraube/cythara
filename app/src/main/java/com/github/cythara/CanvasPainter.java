@@ -81,6 +81,10 @@ class CanvasPainter {
             drawMark(y, x - factor * spaceWidth, -i);
         }
 
+        drawSymbols(spaceWidth);
+    }
+
+    private void drawSymbols(float spaceWidth) {
         String sharp = "♯";
         String flat = "♭";
 
