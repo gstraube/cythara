@@ -1,7 +1,5 @@
 package com.github.cythara;
 
-import android.support.annotation.Nullable;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +39,6 @@ class Sampler {
         return filteredSamples;
     }
 
-    @Nullable
     static Note extractMostFrequentNote(List<PitchDifference> samples) {
         Map<Note, Integer> noteFrequencies = new HashMap<>();
 
