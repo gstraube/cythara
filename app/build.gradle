@@ -19,6 +19,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        disable 'GoogleAppIndexingWarning', 'IconLocation'
+    }
 }
 
 dependencies {
@@ -29,7 +32,7 @@ dependencies {
     androidTestCompile('com.android.support.test:runner:1.0.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    androidTestCompile ('com.android.support.test:rules:1.0.0', {
+    androidTestCompile('com.android.support.test:rules:1.0.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:26.0.1'
