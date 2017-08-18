@@ -91,7 +91,7 @@ class CanvasPainter {
         int symbolsTextSize = context.getResources().getDimensionPixelSize(R.dimen.symbolsTextSize);
         symbolPaint.setTextSize(symbolsTextSize);
 
-        float yPos = this.y - 200;
+        float yPos = canvas.getHeight() / 4F;
         canvas.drawText(sharp, x + 3 * spaceWidth - symbolPaint.measureText(sharp) / 2F, yPos,
                 symbolPaint);
 
