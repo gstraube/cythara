@@ -1,0 +1,22 @@
+# Cythara
+A guitar tuning app for Android
+
+## Functionality
+
+* Supports standard guitar tuning (see https://en.wikipedia.org/wiki/Guitar#Standard)
+* Changes background color from red to green to indicate that the string is in tune (with a tolerance of 3 cents)
+* Displays deviations between -30 and 30 cents
+
+## Tests
+
+Run `./gradlew test` to run all unit tests. In addition, there are UI tests based on image comparisons which
+can be run using `./gradlew connectedCheck`. The reference images are generated using a Nexus 5X emulator
+(resolution: 1080 x 1920, 420 dpi) with API level 26.
+
+## Libraries
+
+The Tarsos DSP library (https://github.com/JorenSix/TarsosDSP) is used for pitch detection.
+
+## License
+
+Cythara is licensed under the GPL, version 3. A copy of the license is included in LICENSE.txt.
