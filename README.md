@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/gstraube/cythara.svg?branch=master)](https://travis-ci.org/gstraube/cythara)
+
 # Cythara
 A guitar tuning app for Android
 
