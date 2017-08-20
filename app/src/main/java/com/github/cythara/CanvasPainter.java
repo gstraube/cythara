@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.text.TextPaint;
 
 class CanvasPainter {
@@ -59,6 +61,8 @@ class CanvasPainter {
             drawIndicator();
 
             drawText();
+        } else {
+            drawListeningIndicator();
         }
     }
 
@@ -82,6 +86,22 @@ class CanvasPainter {
         }
 
         drawSymbols(spaceWidth);
+    }
+
+    private void drawListeningIndicator() {
+        Drawable drawable = ContextCompat.getDrawable(context,
+                R.drawable.ic_line_style_icons_mic);
+
+        int x = (int) (canvas.getWidth() / 2F);
+        int y = (int) (canvas.getHeight() - canvas.getHeight() / 3F);
+
+        int width = drawable.getIntrinsicWidth() * 2;
+        int height = drawable.getIntrinsicHeight() * 2;
+        drawable.setBounds(x - width / 2, y,
+                x + width / 2, y + height);
+
+
+        drawable.draw(canvas);
     }
 
     private void drawSymbols(float spaceWidth) {
