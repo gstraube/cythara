@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
 
     @Override
     public void onProgressUpdate(PitchDifference pitchDifference) {
-        TunerView tunerView = (TunerView) this.findViewById(R.id.pitch);
+        TunerView tunerView = this.findViewById(R.id.pitch);
 
         tunerView.setPitchDifference(pitchDifference);
         tunerView.invalidate();
