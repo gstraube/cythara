@@ -40,7 +40,7 @@ public class TunerViewTest {
 
     @Test
     public void exactly_matching_pitch_is_displayed() throws IOException {
-        isDisplayedCorrectly(R.drawable.exact, new PitchDifference(Note.E4, 0));
+        isDisplayedCorrectly(R.drawable.exact, new PitchDifference(Note.E1, 0));
     }
 
     @Test
@@ -61,7 +61,7 @@ public class TunerViewTest {
 
         for (Integer deviation : deviationToReferenceId.keySet()) {
             isDisplayedCorrectly(deviationToReferenceId.get(deviation),
-                    new PitchDifference(Note.B3, deviation));
+                    new PitchDifference(Note.B2, deviation));
         }
     }
 
@@ -78,16 +78,16 @@ public class TunerViewTest {
 
         for (Double deviation : deviationToReferenceId.keySet()) {
             isDisplayedCorrectly(deviationToReferenceId.get(deviation),
-                    new PitchDifference(Note.B3, deviation));
+                    new PitchDifference(Note.B2, deviation));
         }
     }
 
     @Test
     public void values_outside_of_boundaries_are_not_displayed() throws IOException {
         isDisplayedCorrectly(R.drawable.blank,
-                new PitchDifference(Note.D3, 30.5));
+                new PitchDifference(Note.D4, 30.5));
         isDisplayedCorrectly(R.drawable.blank,
-                new PitchDifference(Note.D3, -30.5));
+                new PitchDifference(Note.D4, -30.5));
     }
 
     public void isDisplayedCorrectly(int referenceId, PitchDifference pitchDifference)

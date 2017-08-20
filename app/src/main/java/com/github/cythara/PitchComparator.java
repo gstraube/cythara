@@ -15,7 +15,7 @@ class PitchComparator {
         });
 
         double minCentDifference = Float.POSITIVE_INFINITY;
-        Note closest = Note.E4;
+        Note closest = Note.E1;
         for (Note note : notes) {
             double centDifference = 1200d * log2(pitch / note.getFrequency());
 
