@@ -4,6 +4,7 @@ import android.Manifest;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.rule.GrantPermissionRule;
@@ -22,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static android.support.test.rule.GrantPermissionRule.grant;
+import static java.lang.String.*;
 
 @RunWith(AndroidJUnit4.class)
 public class TunerViewTest {
@@ -40,57 +42,72 @@ public class TunerViewTest {
 
     @Test
     public void exactly_matching_pitch_is_displayed() throws IOException {
-        isDisplayedCorrectly(R.drawable.exact, new PitchDifference(Note.E1, 0));
+        isDisplayedCorrectly(R.drawable.exact, "exact", new PitchDifference(Note.E1, 0));
     }
 
     @Test
     public void close_match_is_displayed_correctly() throws IOException {
-        isDisplayedCorrectly(R.drawable.close, new PitchDifference(Note.G3, 2.4));
+        isDisplayedCorrectly(R.drawable.close, "close", new PitchDifference(Note.G3, 2.4));
     }
 
     @Test
     public void exact_deviations_are_displayed_correctly() throws IOException {
-        Map<Integer, Integer> deviationToReferenceId = new HashMap<>();
+        Map<Integer, DrawableResource> deviationToReferenceId = new HashMap<>();
 
-        deviationToReferenceId.put(-30, R.drawable.negative_30_cents);
-        deviationToReferenceId.put(-20, R.drawable.negative_20_cents);
-        deviationToReferenceId.put(-10, R.drawable.negative_10_cents);
-        deviationToReferenceId.put(10, R.drawable.positive_10_cents);
-        deviationToReferenceId.put(20, R.drawable.positive_20_cents);
-        deviationToReferenceId.put(30, R.drawable.positive_30_cents);
+        deviationToReferenceId.put(-30, new DrawableResource(R.drawable.negative_30_cents,
+                "negative_30_cents"));
+        deviationToReferenceId.put(-20, new DrawableResource(R.drawable.negative_20_cents,
+                "negative_20_cents"));
+        deviationToReferenceId.put(-10, new DrawableResource(R.drawable.negative_10_cents,
+                "negative_10_cents"));
+        deviationToReferenceId.put(10, new DrawableResource(R.drawable.positive_10_cents,
+                "positive_10_cents"));
+        deviationToReferenceId.put(20, new DrawableResource(R.drawable.positive_20_cents,
+                "positive_20_cents"));
+        deviationToReferenceId.put(30, new DrawableResource(R.drawable.positive_30_cents,
+                "positive_30_cents"));
 
         for (Integer deviation : deviationToReferenceId.keySet()) {
-            isDisplayedCorrectly(deviationToReferenceId.get(deviation),
+            DrawableResource drawableResource = deviationToReferenceId.get(deviation);
+            isDisplayedCorrectly(drawableResource.id, drawableResource.name,
                     new PitchDifference(Note.B2, deviation));
         }
     }
 
     @Test
     public void non_exact_deviations_are_displayed_correctly() throws IOException {
-        Map<Double, Integer> deviationToReferenceId = new HashMap<>();
+        Map<Double, DrawableResource> deviationToReferenceId = new HashMap<>();
 
-        deviationToReferenceId.put(-6.4, R.drawable.negative_6_4_cents);
-        deviationToReferenceId.put(15.41, R.drawable.positive_15_41_cents);
-        deviationToReferenceId.put(5.1, R.drawable.positive_5_1_cents);
-        deviationToReferenceId.put(-27.32, R.drawable.negative_27_32_cents);
-        deviationToReferenceId.put(4.7, R.drawable.positive_4_7_cents);
-        deviationToReferenceId.put(29.5, R.drawable.positive_29_5_cents);
+        deviationToReferenceId.put(-6.4, new DrawableResource(R.drawable.negative_6_4_cents,
+                "negative_6_4_cents"));
+        deviationToReferenceId.put(15.41, new DrawableResource(R.drawable.positive_15_41_cents,
+                "positive_15_41_cents"));
+        deviationToReferenceId.put(5.1, new DrawableResource(R.drawable.positive_5_1_cents,
+                "positive_5_1_cents"));
+        deviationToReferenceId.put(-27.32, new DrawableResource(R.drawable.negative_27_32_cents,
+                "negative_27_32_cents"));
+        deviationToReferenceId.put(4.7, new DrawableResource(R.drawable.positive_4_7_cents,
+                "positive_4_7_cents"));
+        deviationToReferenceId.put(29.5, new DrawableResource(R.drawable.positive_29_5_cents,
+                "positive_29_5_cents"));
 
         for (Double deviation : deviationToReferenceId.keySet()) {
-            isDisplayedCorrectly(deviationToReferenceId.get(deviation),
+            DrawableResource drawableResource = deviationToReferenceId.get(deviation);
+            isDisplayedCorrectly(drawableResource.id, drawableResource.name,
                     new PitchDifference(Note.B2, deviation));
         }
     }
 
     @Test
     public void values_outside_of_boundaries_are_not_displayed() throws IOException {
-        isDisplayedCorrectly(R.drawable.blank,
+        isDisplayedCorrectly(R.drawable.blank, "blank",
                 new PitchDifference(Note.D4, 30.5));
-        isDisplayedCorrectly(R.drawable.blank,
+        isDisplayedCorrectly(R.drawable.blank, "blank",
                 new PitchDifference(Note.D4, -30.5));
     }
 
-    public void isDisplayedCorrectly(int referenceId, PitchDifference pitchDifference)
+    public void isDisplayedCorrectly(int referenceId, String fileName,
+                                     PitchDifference pitchDifference)
             throws IOException {
         MainActivity mainActivity = mActivityRule.getActivity();
 
@@ -106,8 +123,7 @@ public class TunerViewTest {
 
         tunerView.draw(canvas);
 
-        writeToFile(generated, "generated.png");
-        writeToFile(reference, "reference.png");
+        writeToFile(generated, format("%s.png", fileName));
 
         Assert.assertTrue(reference.sameAs(generated));
     }
@@ -124,6 +140,16 @@ public class TunerViewTest {
             if (out != null) {
                 out.close();
             }
+        }
+    }
+
+    private static class DrawableResource {
+        int id;
+        String name;
+
+        DrawableResource(int id, String name) {
+            this.id = id;
+            this.name = name;
         }
     }
 }
