@@ -118,7 +118,7 @@ public class TunerViewTest {
 
         Bitmap generated = Bitmap.createBitmap(2048, 1024, Bitmap.Config.ARGB_4444);
         Canvas canvas = new Canvas(generated);
-        TunerView tunerView = (TunerView) mainActivity.findViewById(R.id.pitch);
+        TunerView tunerView = mainActivity.findViewById(R.id.pitch);
         tunerView.setPitchDifference(pitchDifference);
 
         tunerView.draw(canvas);
