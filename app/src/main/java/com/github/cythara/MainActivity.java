@@ -33,4 +33,9 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
         tunerView.setPitchDifference(pitchDifference);
         tunerView.invalidate();
     }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }
