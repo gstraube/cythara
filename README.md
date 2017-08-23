@@ -1,13 +1,13 @@
 [![Build Status](https://travis-ci.org/gstraube/cythara.svg?branch=master)](https://travis-ci.org/gstraube/cythara)
 
 # Cythara
-A guitar tuning app for Android
+A guitar tuner for Android
 
 ## Functionality
 
 * Supports standard guitar tuning (see https://en.wikipedia.org/wiki/Guitar#Standard)
-* Changes background color from red to green to indicate that the string is in tune (with a tolerance of 3 cents)
-* Displays deviations between -30 and 30 cents
+* Changes background color from red to green to indicate that the string is in tune (with a tolerance of 5 cents)
+* Displays deviations between -60 and 60 cents
 
 ## Tests
 
