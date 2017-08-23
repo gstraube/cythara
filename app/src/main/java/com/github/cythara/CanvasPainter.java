@@ -10,7 +10,7 @@ import android.text.TextPaint;
 
 class CanvasPainter {
 
-    private static final double TOLERANCE = 3D;
+    private static final double TOLERANCE = 5D;
     private static final int MAX_DEVIATION = 60;
     private static final int NUMBER_OF_MARKS = 7;
     private final Context context;
