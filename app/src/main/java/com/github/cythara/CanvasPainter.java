@@ -11,7 +11,8 @@ import android.text.TextPaint;
 class CanvasPainter {
 
     private static final double TOLERANCE = 3D;
-    private static final double MAX_DEVIATION = 30;
+    private static final int MAX_DEVIATION = 60;
+    private static final int NUMBER_OF_MARKS = 7;
     private final Context context;
 
     private Canvas canvas;
@@ -79,8 +80,9 @@ class CanvasPainter {
 
         float spaceWidth = gaugeWidth / 3F;
 
-        for (int i = 0; i <= MAX_DEVIATION; i = i + 10) {
-            float factor = i / 10F;
+        int stepWidth = MAX_DEVIATION / ((NUMBER_OF_MARKS - 1) / 2);
+        for (int i = 0; i <= MAX_DEVIATION; i = i + stepWidth) {
+            float factor = i / stepWidth;
             drawMark(y, x + factor * spaceWidth, i);
             drawMark(y, x - factor * spaceWidth, -i);
         }
@@ -122,7 +124,7 @@ class CanvasPainter {
     private void drawIndicator() {
         float deviation = (float) pitchDifference.deviation;
 
-        float xPos = (float) (x + (deviation * gaugeWidth / MAX_DEVIATION));
+        float xPos = x + (deviation * gaugeWidth / MAX_DEVIATION);
         String text = "|";
         canvas.drawText(text, xPos - numbersPaint.measureText(text) / 2F, y + 30,
                 numbersPaint);
