@@ -4,7 +4,6 @@ import android.Manifest;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.rule.GrantPermissionRule;
@@ -23,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static android.support.test.rule.GrantPermissionRule.grant;
-import static java.lang.String.*;
+import static java.lang.String.format;
 
 @RunWith(AndroidJUnit4.class)
 public class TunerViewTest {
@@ -101,9 +100,9 @@ public class TunerViewTest {
     @Test
     public void values_outside_of_boundaries_are_not_displayed() throws IOException {
         isDisplayedCorrectly(R.drawable.blank, "blank",
-                new PitchDifference(Note.D4, 30.5));
+                new PitchDifference(Note.D4, 60.5));
         isDisplayedCorrectly(R.drawable.blank, "blank",
-                new PitchDifference(Note.D4, -30.5));
+                new PitchDifference(Note.D4, -60.5));
     }
 
     public void isDisplayedCorrectly(int referenceId, String fileName,
