@@ -1,8 +1,10 @@
 package com.github.cythara;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -37,6 +39,16 @@ public class ListenerFragment extends Fragment {
         super.onAttach(context);
 
         taskCallbacks = (TaskCallbacks) context;
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            taskCallbacks = (TaskCallbacks) activity;
+        }
     }
 
     @Override
