@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_PERMISSION);
+        } else {
+            startRecording();
         }
 
         super.onCreate(savedInstanceState);
@@ -51,17 +53,7 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
             case RECORD_AUDIO_PERMISSION: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    FragmentManager fragmentManager = getFragmentManager();
-                    ListenerFragment listenerFragment = (ListenerFragment)
-                            fragmentManager.findFragmentByTag(TAG_LISTENER_FRAGMENT);
-
-                    if (listenerFragment == null) {
-                        listenerFragment = new ListenerFragment();
-                        fragmentManager
-                                .beginTransaction()
-                                .add(listenerFragment, TAG_LISTENER_FRAGMENT)
-                                .commit();
-                    }
+                    startRecording();
                 } else {
                     AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                     alertDialog.setTitle("Permission required");
@@ -80,6 +72,20 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
                     alertDialog.show();
                 }
             }
+        }
+    }
+
+    private void startRecording() {
+        FragmentManager fragmentManager = getFragmentManager();
+        ListenerFragment listenerFragment = (ListenerFragment)
+                fragmentManager.findFragmentByTag(TAG_LISTENER_FRAGMENT);
+
+        if (listenerFragment == null) {
+            listenerFragment = new ListenerFragment();
+            fragmentManager
+                    .beginTransaction()
+                    .add(listenerFragment, TAG_LISTENER_FRAGMENT)
+                    .commit();
         }
     }
 }
