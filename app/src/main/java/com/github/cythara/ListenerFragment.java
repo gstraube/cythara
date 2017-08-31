@@ -23,15 +23,18 @@ import static be.tarsos.dsp.pitch.PitchProcessor.PitchEstimationAlgorithm.FFT_YI
 public class ListenerFragment extends Fragment {
 
     interface TaskCallbacks {
+
         void onProgressUpdate(PitchDifference percent);
     }
 
     private static final int SAMPLE_RATE = 44100;
+
     private static final int BUFFER_SIZE = FastYin.DEFAULT_BUFFER_SIZE;
     private static final int OVERLAP = FastYin.DEFAULT_OVERLAP;
     private static final int MIN_ITEMS_COUNT = 75;
     private static List<PitchDifference> pitchDifferences = new ArrayList<>();
 
+    private PitchListener pitchListener;
     private TaskCallbacks taskCallbacks;
 
     @Override
@@ -57,17 +60,38 @@ public class ListenerFragment extends Fragment {
 
         setRetainInstance(true);
 
-        PitchListener pitchListener = new PitchListener();
+        pitchListener = new PitchListener();
         pitchListener.execute();
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
+
         taskCallbacks = null;
+        pitchListener.cancel(true);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        pitchListener.cancel(true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (pitchListener.isCancelled()) {
+            pitchListener = new PitchListener();
+            pitchListener.execute();
+        }
     }
 
     private class PitchListener extends AsyncTask<Void, PitchDifference, Void> {
+
+        private AudioDispatcher audioDispatcher;
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -75,6 +99,12 @@ public class ListenerFragment extends Fragment {
                 @Override
                 public void handlePitch(PitchDetectionResult pitchDetectionResult,
                                         AudioEvent audioEvent) {
+
+                    if (isCancelled()) {
+                        stopAudioDispatcher();
+                        return;
+                    }
+
                     float pitch = pitchDetectionResult.getPitch();
 
                     if (pitch != -1) {
@@ -98,7 +128,7 @@ public class ListenerFragment extends Fragment {
             PitchProcessor pitchProcessor = new PitchProcessor(FFT_YIN, SAMPLE_RATE,
                     BUFFER_SIZE, pitchDetectionHandler);
 
-            AudioDispatcher audioDispatcher = fromDefaultMicrophone(SAMPLE_RATE,
+            audioDispatcher = fromDefaultMicrophone(SAMPLE_RATE,
                     BUFFER_SIZE, OVERLAP);
 
             audioDispatcher.addAudioProcessor(pitchProcessor);
@@ -109,9 +139,20 @@ public class ListenerFragment extends Fragment {
         }
 
         @Override
+        protected void onCancelled(Void result) {
+            stopAudioDispatcher();
+        }
+
+        @Override
         protected void onProgressUpdate(PitchDifference... pitchDifference) {
             if (taskCallbacks != null) {
                 taskCallbacks.onProgressUpdate(pitchDifference[0]);
+            }
+        }
+
+        private void stopAudioDispatcher() {
+            if (!audioDispatcher.isStopped()) {
+                audioDispatcher.stop();
             }
         }
     }
