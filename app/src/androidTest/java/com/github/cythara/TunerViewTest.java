@@ -32,6 +32,10 @@ public class TunerViewTest {
             MainActivity.class);
 
     @Rule
+    public GrantPermissionRule recordAudioRule =
+            grant(Manifest.permission.RECORD_AUDIO);
+
+    @Rule
     public GrantPermissionRule writePermissionRule =
             grant(Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
