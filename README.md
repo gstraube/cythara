@@ -3,6 +3,10 @@
 # Cythara
 A guitar tuner for Android
 
+[<img src="https://f-droid.org/badge/get-it-on.png"
+      alt="Get it on F-Droid"
+      height="80">](https://f-droid.org/app/com.github.cythara)
+
 ## Functionality
 
 * Supports standard guitar tuning (see https://en.wikipedia.org/wiki/Guitar#Standard)
