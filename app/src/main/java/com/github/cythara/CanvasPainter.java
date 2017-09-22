@@ -8,6 +8,8 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextPaint;
 
+import static com.github.cythara.ListenerFragment.*;
+
 class CanvasPainter {
 
     private static final double TOLERANCE = 5D;
@@ -91,8 +93,13 @@ class CanvasPainter {
     }
 
     private void drawListeningIndicator() {
-        Drawable drawable = ContextCompat.getDrawable(context,
-                R.drawable.ic_line_style_icons_mic);
+        int resourceId = R.drawable.ic_line_style_icons_mic;
+
+        if (IS_RECORDING) {
+            resourceId = R.drawable.ic_line_style_icons_mic_active;
+        }
+
+        Drawable drawable = ContextCompat.getDrawable(context, resourceId);
 
         int x = (int) (canvas.getWidth() / 2F);
         int y = (int) (canvas.getHeight() - canvas.getHeight() / 3F);

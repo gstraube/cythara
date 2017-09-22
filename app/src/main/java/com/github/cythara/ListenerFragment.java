@@ -27,6 +27,8 @@ public class ListenerFragment extends Fragment {
         void onProgressUpdate(PitchDifference percent);
     }
 
+    static boolean IS_RECORDING;
+
     private static final int SAMPLE_RATE = 44100;
 
     private static final int BUFFER_SIZE = FastYin.DEFAULT_BUFFER_SIZE;
@@ -105,6 +107,11 @@ public class ListenerFragment extends Fragment {
                         return;
                     }
 
+                    if (!IS_RECORDING) {
+                        IS_RECORDING = true;
+                        publishProgress();
+                    }
+
                     float pitch = pitchDetectionResult.getPitch();
 
                     if (pitch != -1) {
@@ -146,13 +153,18 @@ public class ListenerFragment extends Fragment {
         @Override
         protected void onProgressUpdate(PitchDifference... pitchDifference) {
             if (taskCallbacks != null) {
-                taskCallbacks.onProgressUpdate(pitchDifference[0]);
+                if (pitchDifference.length > 0) {
+                    taskCallbacks.onProgressUpdate(pitchDifference[0]);
+                } else {
+                    taskCallbacks.onProgressUpdate(null);
+                }
             }
         }
 
         private void stopAudioDispatcher() {
             if (!audioDispatcher.isStopped()) {
                 audioDispatcher.stop();
+                IS_RECORDING = false;
             }
         }
     }
