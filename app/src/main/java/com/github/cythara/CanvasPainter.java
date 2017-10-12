@@ -152,7 +152,7 @@ class CanvasPainter {
         float x = canvas.getWidth() / 2F;
         float y = canvas.getHeight() - canvas.getHeight() / 4F;
 
-        String note = pitchDifference.closest.name();
+        String note = pitchDifference.closest.getName();
         float offset = textPaint.measureText(note) / 2F;
 
         canvas.drawText(note, x - offset, y, textPaint);

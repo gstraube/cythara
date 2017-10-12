@@ -7,6 +7,7 @@ class PitchDifference implements Parcelable {
 
     final Note closest;
     final double deviation;
+    private final Tuning tuning = new GuitarTuning();
 
     PitchDifference(Note closest, double deviation) {
         this.closest = closest;
@@ -14,7 +15,7 @@ class PitchDifference implements Parcelable {
     }
 
     private PitchDifference(Parcel in) {
-        closest = Note.valueOf(in.readString());
+        closest = tuning.findNote(in.readString());
         deviation = in.readDouble();
     }
 
@@ -25,7 +26,7 @@ class PitchDifference implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(closest.name());
+        dest.writeString(closest.getName());
         dest.writeDouble(deviation);
     }
 

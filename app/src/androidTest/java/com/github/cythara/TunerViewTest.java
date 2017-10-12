@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static android.support.test.rule.GrantPermissionRule.grant;
+import static com.github.cythara.GuitarString.*;
 import static java.lang.String.format;
 
 @RunWith(AndroidJUnit4.class)
@@ -45,12 +46,12 @@ public class TunerViewTest {
 
     @Test
     public void exactly_matching_pitch_is_displayed() throws IOException {
-        isDisplayedCorrectly(R.drawable.exact, "exact", new PitchDifference(Note.E1, 0));
+        isDisplayedCorrectly(R.drawable.exact, "exact", new PitchDifference(E1, 0));
     }
 
     @Test
     public void close_match_is_displayed_correctly() throws IOException {
-        isDisplayedCorrectly(R.drawable.close, "close", new PitchDifference(Note.G3, 2.4));
+        isDisplayedCorrectly(R.drawable.close, "close", new PitchDifference(G3, 2.4));
     }
 
     @Test
@@ -73,7 +74,7 @@ public class TunerViewTest {
         for (Integer deviation : deviationToReferenceId.keySet()) {
             DrawableResource drawableResource = deviationToReferenceId.get(deviation);
             isDisplayedCorrectly(drawableResource.id, drawableResource.name,
-                    new PitchDifference(Note.B2, deviation));
+                    new PitchDifference(B2, deviation));
         }
     }
 
@@ -97,16 +98,16 @@ public class TunerViewTest {
         for (Double deviation : deviationToReferenceId.keySet()) {
             DrawableResource drawableResource = deviationToReferenceId.get(deviation);
             isDisplayedCorrectly(drawableResource.id, drawableResource.name,
-                    new PitchDifference(Note.B2, deviation));
+                    new PitchDifference(B2, deviation));
         }
     }
 
     @Test
     public void values_outside_of_boundaries_are_not_displayed() throws IOException {
         isDisplayedCorrectly(R.drawable.blank, "blank",
-                new PitchDifference(Note.D4, 60.5));
+                new PitchDifference(D4, 60.5));
         isDisplayedCorrectly(R.drawable.blank, "blank",
-                new PitchDifference(Note.D4, -60.5));
+                new PitchDifference(D4, -60.5));
     }
 
     public void isDisplayedCorrectly(int referenceId, String fileName,

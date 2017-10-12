@@ -6,7 +6,9 @@ import java.util.Comparator;
 class PitchComparator {
 
     static PitchDifference retrieveNote(float pitch) {
-        Note[] notes = Note.values();
+        Tuning tuning = new GuitarTuning();
+
+        Note[] notes = tuning.getNotes();
         Arrays.sort(notes, new Comparator<Note>() {
             @Override
             public int compare(Note o1, Note o2) {
@@ -15,7 +17,7 @@ class PitchComparator {
         });
 
         double minCentDifference = Float.POSITIVE_INFINITY;
-        Note closest = Note.E1;
+        Note closest = notes[0];
         for (Note note : notes) {
             double centDifference = 1200d * log2(pitch / note.getFrequency());
 

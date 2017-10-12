@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.github.cythara.Note.*;
+import static com.github.cythara.GuitarString.*;
 import static com.github.cythara.Sampler.*;
 import static org.hamcrest.CoreMatchers.either;
 import static org.hamcrest.CoreMatchers.is;
@@ -29,7 +29,7 @@ public class SamplerTest {
         double average = (2.46D - 10.3D + 5.71D + 12.532D - 0.414D) / 5D;
 
         assertNotNull(pitchDifference);
-        assertThat(pitchDifference.closest, is(E6));
+        assertThat(pitchDifference.closest.getName(), is(E6.getName()));
         assertThat(pitchDifference.deviation, closeTo(average, 0.001));
     }
 
@@ -41,13 +41,13 @@ public class SamplerTest {
         samples.add(new PitchDifference(E6, 2D));
         samples.add(new PitchDifference(B2, 3D));
         samples.add(new PitchDifference(E6, 2D));
-        samples.add(new PitchDifference(Note.G3, 4D));
+        samples.add(new PitchDifference(G3, 4D));
         samples.add(new PitchDifference(B2, 3D));
 
         List<PitchDifference> filteredSamples = filterByNote(samples, B2);
 
         for (PitchDifference sample : filteredSamples) {
-            assertThat(sample.closest, is(B2));
+            assertThat(sample.closest.getName(), is(B2.getName()));
         }
     }
 
@@ -59,12 +59,12 @@ public class SamplerTest {
         samples.add(new PitchDifference(E6, 2D));
         samples.add(new PitchDifference(B2, 3D));
         samples.add(new PitchDifference(E6, 2D));
-        samples.add(new PitchDifference(Note.G3, 4D));
+        samples.add(new PitchDifference(G3, 4D));
         samples.add(new PitchDifference(B2, 3D));
 
         Note note = extractMostFrequentNote(samples);
 
-        assertThat(note, is(E6));
+        assertThat(note.getName(), is(E6.getName()));
     }
 
     @Test
@@ -79,6 +79,6 @@ public class SamplerTest {
 
         Note note = extractMostFrequentNote(samples);
 
-        assertThat(note, either(is(E6)).or(is(B2)));
+        assertThat(note.getName(), either(is(E6.getName())).or(is(B2.getName())));
     }
 }
