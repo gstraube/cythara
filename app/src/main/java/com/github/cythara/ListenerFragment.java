@@ -162,7 +162,7 @@ public class ListenerFragment extends Fragment {
         }
 
         private void stopAudioDispatcher() {
-            if (!audioDispatcher.isStopped()) {
+            if (audioDispatcher != null && !audioDispatcher.isStopped()) {
                 audioDispatcher.stop();
                 IS_RECORDING = false;
             }
