@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
 
     public static final int RECORD_AUDIO_PERMISSION = 0;
     private static final String TAG_LISTENER_FRAGMENT = "listener_fragment";
-    static Tuning tuning = new GuitarTuning();
+    static Tuning tuning = new StandardTuning();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

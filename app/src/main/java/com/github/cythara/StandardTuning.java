@@ -1,13 +1,15 @@
 package com.github.cythara;
 
-class UkuleleTuning implements Tuning {
+class StandardTuning implements Tuning {
 
-    private enum Pitch implements Note {
+    enum Pitch implements com.github.cythara.Note {
 
-        G4(391.995f),
-        C4(261.626f),
-        E4(329.628f),
-        A4(440f);
+        E2(82.41f),
+        A2(110f),
+        D3(146.83f),
+        G3(196f),
+        B3(246.94f),
+        E4(329.63f);
 
         private final float frequency;
 
@@ -25,12 +27,12 @@ class UkuleleTuning implements Tuning {
     }
 
     @Override
-    public Note[] getNotes() {
+    public com.github.cythara.Note[] getNotes() {
         return Pitch.values();
     }
 
     @Override
-    public Note findNote(String name) {
+    public com.github.cythara.Note findNote(String name) {
         return Pitch.valueOf(name);
     }
 }

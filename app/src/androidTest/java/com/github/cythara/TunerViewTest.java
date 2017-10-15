@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static android.support.test.rule.GrantPermissionRule.grant;
-import static com.github.cythara.GuitarString.*;
+import static com.github.cythara.StandardTuning.Pitch.*;
 import static java.lang.String.format;
 
 @RunWith(AndroidJUnit4.class)
