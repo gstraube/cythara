@@ -4,12 +4,12 @@ class StandardTuning implements Tuning {
 
     enum Pitch implements com.github.cythara.Note {
 
-        E2(82.41f),
+        E2(82.407f),
         A2(110f),
-        D3(146.83f),
-        G3(196f),
-        B3(246.94f),
-        E4(329.63f);
+        D3(146.832f),
+        G3(195.998f),
+        B3(246.942f),
+        E4(329.628f);
 
         private final float frequency;
 
