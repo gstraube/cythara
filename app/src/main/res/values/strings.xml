@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Cythara</string>
     <string-array name="tunings">
-        <item>Guitar</item>
+        <item>Guitar (standard)</item>
+        <item>Guitar (Drop D)</item>
         <item>Ukulele</item>
     </string-array>
 
