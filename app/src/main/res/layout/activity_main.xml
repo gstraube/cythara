@@ -6,12 +6,10 @@
     android:orientation="vertical"
     tools:context="com.github.cythara.MainActivity">
 
-    <Spinner
+    <com.jaredrummler.materialspinner.MaterialSpinner
         android:id="@+id/tuning"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown" />
+        android:layout_height="wrap_content" />
 
     <com.github.cythara.TunerView
         android:id="@+id/pitch"

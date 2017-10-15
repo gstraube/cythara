@@ -11,16 +11,15 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
-import static android.widget.ArrayAdapter.*;
+import com.jaredrummler.materialspinner.MaterialSpinner;
+
+import static android.widget.ArrayAdapter.createFromResource;
 import static com.github.cythara.TuningMapper.getTuningFromPosition;
 
 public class MainActivity extends AppCompatActivity implements ListenerFragment.TaskCallbacks,
-        AdapterView.OnItemSelectedListener {
+        MaterialSpinner.OnItemSelectedListener {
 
     public static final int RECORD_AUDIO_PERMISSION = 0;
     private static final String TAG_LISTENER_FRAGMENT = "listener_fragment";
@@ -41,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Spinner spinner = findViewById(R.id.tuning);
+        MaterialSpinner spinner = findViewById(R.id.tuning);
         ArrayAdapter<CharSequence> adapter = createFromResource(this,
                 R.array.tunings, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -106,12 +105,7 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+    public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
         tuning = getTuningFromPosition(position);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
     }
 }
