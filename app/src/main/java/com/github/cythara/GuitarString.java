@@ -2,12 +2,12 @@ package com.github.cythara;
 
 enum GuitarString implements Note {
 
-    E6(82.41f),
-    A5(110f),
-    D4(146.83f),
+    E2(82.41f),
+    A2(110f),
+    D3(146.83f),
     G3(196f),
-    B2(246.94f),
-    E1(329.63f);
+    B3(246.94f),
+    E4(329.63f);
 
     private final float frequency;
 

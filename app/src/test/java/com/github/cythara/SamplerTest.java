@@ -18,18 +18,18 @@ public class SamplerTest {
     public void the_average_difference_is_calculated_correctly() {
         List<PitchDifference> samples = new ArrayList<>();
 
-        samples.add(new PitchDifference(E6, 2.46D));
-        samples.add(new PitchDifference(E6, -10.3D));
-        samples.add(new PitchDifference(E6, 5.71D));
-        samples.add(new PitchDifference(E6, 12.532D));
-        samples.add(new PitchDifference(E6, -0.414D));
+        samples.add(new PitchDifference(E2, 2.46D));
+        samples.add(new PitchDifference(E2, -10.3D));
+        samples.add(new PitchDifference(E2, 5.71D));
+        samples.add(new PitchDifference(E2, 12.532D));
+        samples.add(new PitchDifference(E2, -0.414D));
 
         PitchDifference pitchDifference = calculateAverageDifference(samples);
 
         double average = (2.46D - 10.3D + 5.71D + 12.532D - 0.414D) / 5D;
 
         assertNotNull(pitchDifference);
-        assertThat(pitchDifference.closest.getName(), is(E6.getName()));
+        assertThat(pitchDifference.closest.getName(), is(E2.getName()));
         assertThat(pitchDifference.deviation, closeTo(average, 0.001));
     }
 
@@ -37,17 +37,17 @@ public class SamplerTest {
     public void samples_are_filtered_correctly() {
         List<PitchDifference> samples = new ArrayList<>();
 
-        samples.add(new PitchDifference(E6, 2D));
-        samples.add(new PitchDifference(E6, 2D));
-        samples.add(new PitchDifference(B2, 3D));
-        samples.add(new PitchDifference(E6, 2D));
+        samples.add(new PitchDifference(E2, 2D));
+        samples.add(new PitchDifference(E2, 2D));
+        samples.add(new PitchDifference(B3, 3D));
+        samples.add(new PitchDifference(E2, 2D));
         samples.add(new PitchDifference(G3, 4D));
-        samples.add(new PitchDifference(B2, 3D));
+        samples.add(new PitchDifference(B3, 3D));
 
-        List<PitchDifference> filteredSamples = filterByNote(samples, B2);
+        List<PitchDifference> filteredSamples = filterByNote(samples, B3);
 
         for (PitchDifference sample : filteredSamples) {
-            assertThat(sample.closest.getName(), is(B2.getName()));
+            assertThat(sample.closest.getName(), is(B3.getName()));
         }
     }
 
@@ -55,16 +55,16 @@ public class SamplerTest {
     public void the_most_frequent_note_is_extracted_correctly() throws Exception {
         List<PitchDifference> samples = new ArrayList<>();
 
-        samples.add(new PitchDifference(E6, 2D));
-        samples.add(new PitchDifference(E6, 2D));
-        samples.add(new PitchDifference(B2, 3D));
-        samples.add(new PitchDifference(E6, 2D));
+        samples.add(new PitchDifference(E2, 2D));
+        samples.add(new PitchDifference(E2, 2D));
+        samples.add(new PitchDifference(B3, 3D));
+        samples.add(new PitchDifference(E2, 2D));
         samples.add(new PitchDifference(G3, 4D));
-        samples.add(new PitchDifference(B2, 3D));
+        samples.add(new PitchDifference(B3, 3D));
 
         Note note = extractMostFrequentNote(samples);
 
-        assertThat(note.getName(), is(E6.getName()));
+        assertThat(note.getName(), is(E2.getName()));
     }
 
     @Test
@@ -72,13 +72,13 @@ public class SamplerTest {
         List<PitchDifference> samples = new ArrayList<>();
 
         samples.add(new PitchDifference(G3, 2D));
-        samples.add(new PitchDifference(E6, 2D));
-        samples.add(new PitchDifference(B2, 3D));
-        samples.add(new PitchDifference(E6, 2D));
-        samples.add(new PitchDifference(B2, 3D));
+        samples.add(new PitchDifference(E2, 2D));
+        samples.add(new PitchDifference(B3, 3D));
+        samples.add(new PitchDifference(E2, 2D));
+        samples.add(new PitchDifference(B3, 3D));
 
         Note note = extractMostFrequentNote(samples);
 
-        assertThat(note.getName(), either(is(E6.getName())).or(is(B2.getName())));
+        assertThat(note.getName(), either(is(E2.getName())).or(is(B3.getName())));
     }
 }

@@ -46,7 +46,7 @@ public class TunerViewTest {
 
     @Test
     public void exactly_matching_pitch_is_displayed() throws IOException {
-        isDisplayedCorrectly(R.drawable.exact, "exact", new PitchDifference(E1, 0));
+        isDisplayedCorrectly(R.drawable.exact, "exact", new PitchDifference(E4, 0));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class TunerViewTest {
         for (Integer deviation : deviationToReferenceId.keySet()) {
             DrawableResource drawableResource = deviationToReferenceId.get(deviation);
             isDisplayedCorrectly(drawableResource.id, drawableResource.name,
-                    new PitchDifference(B2, deviation));
+                    new PitchDifference(B3, deviation));
         }
     }
 
@@ -98,16 +98,16 @@ public class TunerViewTest {
         for (Double deviation : deviationToReferenceId.keySet()) {
             DrawableResource drawableResource = deviationToReferenceId.get(deviation);
             isDisplayedCorrectly(drawableResource.id, drawableResource.name,
-                    new PitchDifference(B2, deviation));
+                    new PitchDifference(B3, deviation));
         }
     }
 
     @Test
     public void values_outside_of_boundaries_are_not_displayed() throws IOException {
         isDisplayedCorrectly(R.drawable.blank, "blank",
-                new PitchDifference(D4, 60.5));
+                new PitchDifference(D3, 60.5));
         isDisplayedCorrectly(R.drawable.blank, "blank",
-                new PitchDifference(D4, -60.5));
+                new PitchDifference(D3, -60.5));
     }
 
     public void isDisplayedCorrectly(int referenceId, String fileName,

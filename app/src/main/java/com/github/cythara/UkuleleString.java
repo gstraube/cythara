@@ -2,10 +2,10 @@ package com.github.cythara;
 
 enum UkuleleString implements Note {
 
-    G(391.995f),
-    C(261.626f),
-    E(329.628f),
-    A(440f);
+    G4(391.995f),
+    C4(261.626f),
+    E4(329.628f),
+    A4(440f);
 
     private final float frequency;
 
