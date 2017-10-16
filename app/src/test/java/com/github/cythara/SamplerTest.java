@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.github.cythara.StandardTuning.Pitch.*;
+import static com.github.cythara.GuitarTuning.Pitch.*;
 import static com.github.cythara.Sampler.*;
 import static org.hamcrest.CoreMatchers.either;
 import static org.hamcrest.CoreMatchers.is;

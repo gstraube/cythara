@@ -1,10 +1,10 @@
 package com.github.cythara;
 
-class StandardTuning implements Tuning {
+class DropDGuitarTuning implements Tuning {
 
-    enum Pitch implements com.github.cythara.Note {
+    private enum Pitch implements com.github.cythara.Note {
 
-        E2(82.407f),
+        D2(73.416f),
         A2(110f),
         D3(146.832f),
         G3(195.998f),
