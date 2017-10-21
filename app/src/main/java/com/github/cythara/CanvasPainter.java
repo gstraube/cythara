@@ -16,7 +16,7 @@ class CanvasPainter {
 
     private static final double TOLERANCE = 5D;
     private static final int MAX_DEVIATION = 60;
-    private static final int NUMBER_OF_MARKS = 14;
+    private static final int NUMBER_OF_MARKS_PER_SIDE = 6;
     private final Context context;
 
     private Canvas canvas;
@@ -82,10 +82,9 @@ class CanvasPainter {
 
         canvas.drawLine(x - gaugeWidth, y, x + gaugeWidth, y, gaugePaint);
 
-        int numberOfMarksOnEachSide = (NUMBER_OF_MARKS - 1) / 2;
-        float spaceWidth = gaugeWidth / numberOfMarksOnEachSide;
+        float spaceWidth = gaugeWidth / NUMBER_OF_MARKS_PER_SIDE;
 
-        int stepWidth = MAX_DEVIATION / numberOfMarksOnEachSide;
+        int stepWidth = MAX_DEVIATION / NUMBER_OF_MARKS_PER_SIDE;
         for (int i = 0; i <= MAX_DEVIATION; i = i + stepWidth) {
             float factor = i / stepWidth;
             drawMark(y, x + factor * spaceWidth, i);
@@ -123,14 +122,13 @@ class CanvasPainter {
         int symbolsTextSize = context.getResources().getDimensionPixelSize(R.dimen.symbolsTextSize);
         symbolPaint.setTextSize(symbolsTextSize);
 
-        int numberOfMarksOnEachSide = (NUMBER_OF_MARKS - 1) / 2;
         float yPos = canvas.getHeight() / 4F;
         canvas.drawText(sharp,
-                x + numberOfMarksOnEachSide * spaceWidth - symbolPaint.measureText(sharp) / 2F,
+                x + NUMBER_OF_MARKS_PER_SIDE * spaceWidth - symbolPaint.measureText(sharp) / 2F,
                 yPos, symbolPaint);
 
         canvas.drawText(flat,
-                x - numberOfMarksOnEachSide * spaceWidth - symbolPaint.measureText(flat) / 2F,
+                x - NUMBER_OF_MARKS_PER_SIDE * spaceWidth - symbolPaint.measureText(flat) / 2F,
                 yPos,
                 symbolPaint);
     }
