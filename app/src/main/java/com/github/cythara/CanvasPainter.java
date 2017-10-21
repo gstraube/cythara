@@ -14,7 +14,7 @@ import static com.github.cythara.ListenerFragment.*;
 
 class CanvasPainter {
 
-    private static final double TOLERANCE = 5D;
+    private static final double TOLERANCE = 10D;
     private static final int MAX_DEVIATION = 60;
     private static final int NUMBER_OF_MARKS_PER_SIDE = 6;
     private final Context context;
