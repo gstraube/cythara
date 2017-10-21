@@ -6,7 +6,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.math.MathUtils;
 import android.text.TextPaint;
+import android.util.Log;
 
 import static com.github.cythara.ListenerFragment.*;
 
@@ -14,7 +16,7 @@ class CanvasPainter {
 
     private static final double TOLERANCE = 5D;
     private static final int MAX_DEVIATION = 60;
-    private static final int NUMBER_OF_MARKS = 7;
+    private static final int NUMBER_OF_MARKS = 14;
     private final Context context;
 
     private Canvas canvas;
@@ -121,11 +123,15 @@ class CanvasPainter {
         int symbolsTextSize = context.getResources().getDimensionPixelSize(R.dimen.symbolsTextSize);
         symbolPaint.setTextSize(symbolsTextSize);
 
+        int numberOfMarksOnEachSide = (NUMBER_OF_MARKS - 1) / 2;
         float yPos = canvas.getHeight() / 4F;
-        canvas.drawText(sharp, x + 3 * spaceWidth - symbolPaint.measureText(sharp) / 2F, yPos,
-                symbolPaint);
+        canvas.drawText(sharp,
+                x + numberOfMarksOnEachSide * spaceWidth - symbolPaint.measureText(sharp) / 2F,
+                yPos, symbolPaint);
 
-        canvas.drawText(flat, x - 3 * spaceWidth - symbolPaint.measureText(flat) / 2F, yPos,
+        canvas.drawText(flat,
+                x - numberOfMarksOnEachSide * spaceWidth - symbolPaint.measureText(flat) / 2F,
+                yPos,
                 symbolPaint);
     }
 
@@ -145,8 +151,16 @@ class CanvasPainter {
         }
         String text = prefix + String.valueOf(mark);
 
-        canvas.drawLine(xPos, y - 20, xPos, y + 20, gaugePaint);
-        canvas.drawText(text, xPos - numbersPaint.measureText(text) / 2F, y - 30, numbersPaint);
+        int yOffset = 5;
+        if (mark % 10 == 0) {
+            yOffset = 10;
+        }
+        if (mark % 20 == 0) {
+            canvas.drawText(text, xPos - numbersPaint.measureText(text) / 2F, y - 30, numbersPaint);
+            yOffset = 20;
+        }
+
+        canvas.drawLine(xPos, y - yOffset, xPos, y + yOffset, gaugePaint);
     }
 
     private void drawText() {
