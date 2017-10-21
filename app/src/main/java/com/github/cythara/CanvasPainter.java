@@ -80,9 +80,10 @@ class CanvasPainter {
 
         canvas.drawLine(x - gaugeWidth, y, x + gaugeWidth, y, gaugePaint);
 
-        float spaceWidth = gaugeWidth / 3F;
+        int numberOfMarksOnEachSide = (NUMBER_OF_MARKS - 1) / 2;
+        float spaceWidth = gaugeWidth / numberOfMarksOnEachSide;
 
-        int stepWidth = MAX_DEVIATION / ((NUMBER_OF_MARKS - 1) / 2);
+        int stepWidth = MAX_DEVIATION / numberOfMarksOnEachSide;
         for (int i = 0; i <= MAX_DEVIATION; i = i + stepWidth) {
             float factor = i / stepWidth;
             drawMark(y, x + factor * spaceWidth, i);
@@ -144,7 +145,7 @@ class CanvasPainter {
         }
         String text = prefix + String.valueOf(mark);
 
-        canvas.drawLine(xPos, y - 10, xPos, y + 10, gaugePaint);
+        canvas.drawLine(xPos, y - 20, xPos, y + 20, gaugePaint);
         canvas.drawText(text, xPos - numbersPaint.measureText(text) / 2F, y - 30, numbersPaint);
     }
 
