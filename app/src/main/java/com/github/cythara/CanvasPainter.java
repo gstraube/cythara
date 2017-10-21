@@ -136,7 +136,10 @@ class CanvasPainter {
     private void drawIndicator() {
         float deviation = (float) pitchDifference.deviation;
 
-        float xPos = x + (deviation * gaugeWidth / MAX_DEVIATION);
+        int rounded = Math.round(deviation);
+        int nearest = Math.round(rounded / 10f) * 10;
+
+        float xPos = x + (nearest * gaugeWidth / MAX_DEVIATION);
         String text = "|";
         canvas.drawText(text, xPos - numbersPaint.measureText(text) / 2F, y + 30,
                 numbersPaint);
