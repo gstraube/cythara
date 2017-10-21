@@ -33,7 +33,7 @@ public class ListenerFragment extends Fragment {
 
     private static final int BUFFER_SIZE = FastYin.DEFAULT_BUFFER_SIZE;
     private static final int OVERLAP = FastYin.DEFAULT_OVERLAP;
-    private static final int MIN_ITEMS_COUNT = 75;
+    private static final int MIN_ITEMS_COUNT = 15;
     private static List<PitchDifference> pitchDifferences = new ArrayList<>();
 
     private PitchListener pitchListener;
