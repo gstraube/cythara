@@ -105,9 +105,9 @@ public class TunerViewTest {
     @Test
     public void values_outside_of_boundaries_are_not_displayed() throws IOException {
         isDisplayedCorrectly(R.drawable.blank, "blank",
-                new PitchDifference(D3, 60.5));
+                new PitchDifference(D3, 65));
         isDisplayedCorrectly(R.drawable.blank, "blank",
-                new PitchDifference(D3, -60.5));
+                new PitchDifference(D3, -70));
     }
 
     public void isDisplayedCorrectly(int referenceId, String fileName,
