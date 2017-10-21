@@ -6,11 +6,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.math.MathUtils;
 import android.text.TextPaint;
-import android.util.Log;
 
-import static com.github.cythara.ListenerFragment.*;
+import static com.github.cythara.ListenerFragment.IS_RECORDING;
 
 class CanvasPainter {
 
@@ -134,12 +132,7 @@ class CanvasPainter {
     }
 
     private void drawIndicator() {
-        float deviation = (float) pitchDifference.deviation;
-
-        int rounded = Math.round(deviation);
-        int nearest = Math.round(rounded / 10f) * 10;
-
-        float xPos = x + (nearest * gaugeWidth / MAX_DEVIATION);
+        float xPos = x + (getNearestDeviation() * gaugeWidth / MAX_DEVIATION);
         String text = "|";
         canvas.drawText(text, xPos - numbersPaint.measureText(text) / 2F, y + 30,
                 numbersPaint);
@@ -185,5 +178,12 @@ class CanvasPainter {
         background.setAlpha(70);
 
         canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), background);
+    }
+
+    private int getNearestDeviation() {
+        float deviation = (float) pitchDifference.deviation;
+        int rounded = Math.round(deviation);
+
+        return Math.round(rounded / 10f) * 10;
     }
 }
