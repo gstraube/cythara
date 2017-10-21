@@ -58,7 +58,7 @@ class CanvasPainter {
 
         drawGauge();
 
-        if (pitchDifference != null && Math.abs(pitchDifference.deviation) <= MAX_DEVIATION) {
+        if (pitchDifference != null && Math.abs(getNearestDeviation()) <= MAX_DEVIATION) {
             setBackground();
 
             drawIndicator();
@@ -169,7 +169,7 @@ class CanvasPainter {
 
     private void setBackground() {
         int color = Color.RED;
-        if (Math.abs(pitchDifference.deviation) <= TOLERANCE) {
+        if (Math.abs(getNearestDeviation()) <= TOLERANCE) {
             color = Color.GREEN;
         }
         background.setColor(color);
