@@ -3,7 +3,12 @@
     <string-array name="tunings">
         <item>Guitar (standard)</item>
         <item>Guitar (Drop D)</item>
-        <item>Ukulele</item>
+        <item>Guitar (Drop C)</item>
+        <item>Guitar (Drop C#)</item>
+        <item>Guitar (Open G)</item>
+        <item>Bass (standard)</item>
+        <item>Ukulele (standard)</item>
+        <item>Ukulele (D tuning)</item>
     </string-array>
 
 </resources>
