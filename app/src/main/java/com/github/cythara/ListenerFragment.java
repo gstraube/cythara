@@ -12,7 +12,6 @@ import java.util.List;
 
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.AudioEvent;
-import be.tarsos.dsp.pitch.FastYin;
 import be.tarsos.dsp.pitch.PitchDetectionHandler;
 import be.tarsos.dsp.pitch.PitchDetectionResult;
 import be.tarsos.dsp.pitch.PitchProcessor;
@@ -31,8 +30,8 @@ public class ListenerFragment extends Fragment {
 
     private static final int SAMPLE_RATE = 44100;
 
-    private static final int BUFFER_SIZE = FastYin.DEFAULT_BUFFER_SIZE;
-    private static final int OVERLAP = FastYin.DEFAULT_OVERLAP;
+    private static final int BUFFER_SIZE = 1024 * 4;
+    private static final int OVERLAP = 768 * 4;
     private static final int MIN_ITEMS_COUNT = 15;
     private static List<PitchDifference> pitchDifferences = new ArrayList<>();
 
