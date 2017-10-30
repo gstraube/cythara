@@ -1,6 +1,6 @@
 package com.github.cythara;
 
-interface Note {
+public interface Note {
 
     String getName();
     float getFrequency();

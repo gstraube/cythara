@@ -1,6 +1,6 @@
 package com.github.cythara;
 
-interface Tuning {
+public interface Tuning {
 
     Note[] getNotes();
 

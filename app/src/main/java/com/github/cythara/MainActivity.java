@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 
+import com.github.cythara.tuning.GuitarTuning;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import static android.widget.ArrayAdapter.createFromResource;

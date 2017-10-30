@@ -1,4 +1,7 @@
-package com.github.cythara;
+package com.github.cythara.tuning;
+
+import com.github.cythara.Note;
+import com.github.cythara.Tuning;
 
 public class UkuleleDTuning implements Tuning {
 

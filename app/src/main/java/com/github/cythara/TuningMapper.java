@@ -2,6 +2,15 @@ package com.github.cythara;
 
 import android.util.Log;
 
+import com.github.cythara.tuning.BassTuning;
+import com.github.cythara.tuning.DropCGuitarTuning;
+import com.github.cythara.tuning.DropCSharpGuitarTuning;
+import com.github.cythara.tuning.DropDGuitarTuning;
+import com.github.cythara.tuning.GuitarTuning;
+import com.github.cythara.tuning.OpenGGuitarTuning;
+import com.github.cythara.tuning.UkuleleDTuning;
+import com.github.cythara.tuning.UkuleleTuning;
+
 class TuningMapper {
 
     private static final int GUITAR_TUNING_POSITION = 0;

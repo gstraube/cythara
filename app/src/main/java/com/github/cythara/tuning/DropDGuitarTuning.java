@@ -1,15 +1,17 @@
-package com.github.cythara;
+package com.github.cythara.tuning;
 
-public class DropCGuitarTuning implements Tuning {
+import com.github.cythara.Tuning;
+
+public class DropDGuitarTuning implements Tuning {
 
     private enum Pitch implements com.github.cythara.Note {
 
-        C2(65.406f),
-        G2(97.999f),
-        C3(130.813f),
-        F3(174.614f),
-        A3(220f),
-        D4(293.665f);
+        D2(73.416f),
+        A2(110f),
+        D3(146.832f),
+        G3(195.998f),
+        B3(246.942f),
+        E4(329.628f);
 
         private final float frequency;
 

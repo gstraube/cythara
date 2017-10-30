@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.github.cythara.GuitarTuning.Pitch.*;
+import static com.github.cythara.tuning.GuitarTuning.Pitch.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.closeTo;
 

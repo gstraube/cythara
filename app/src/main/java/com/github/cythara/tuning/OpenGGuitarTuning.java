@@ -1,4 +1,6 @@
-package com.github.cythara;
+package com.github.cythara.tuning;
+
+import com.github.cythara.Tuning;
 
 public class OpenGGuitarTuning implements Tuning {
 

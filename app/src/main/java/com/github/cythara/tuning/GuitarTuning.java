@@ -1,8 +1,10 @@
-package com.github.cythara;
+package com.github.cythara.tuning;
 
-class GuitarTuning implements Tuning {
+import com.github.cythara.Tuning;
 
-    enum Pitch implements com.github.cythara.Note {
+public class GuitarTuning implements Tuning {
+
+    public enum Pitch implements com.github.cythara.Note {
 
         E2(82.407f),
         A2(110f),

@@ -1,6 +1,9 @@
-package com.github.cythara;
+package com.github.cythara.tuning;
 
-class UkuleleTuning implements Tuning {
+import com.github.cythara.Note;
+import com.github.cythara.Tuning;
+
+public class UkuleleTuning implements Tuning {
 
     private enum Pitch implements Note {
 
