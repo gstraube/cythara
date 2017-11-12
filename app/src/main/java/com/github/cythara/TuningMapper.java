@@ -3,6 +3,7 @@ package com.github.cythara;
 import android.util.Log;
 
 import com.github.cythara.tuning.BassTuning;
+import com.github.cythara.tuning.ChromaticTuning;
 import com.github.cythara.tuning.DropCGuitarTuning;
 import com.github.cythara.tuning.DropCSharpGuitarTuning;
 import com.github.cythara.tuning.DropDGuitarTuning;
@@ -21,6 +22,7 @@ class TuningMapper {
     private static final int BASS_TUNING_POSITION = 5;
     private static final int UKULELE_TUNING_POSITION = 6;
     private static final int D_TUNING_POSITION = 7;
+    private static final int CHROMATIC_TUNING_POSITION = 8;
 
     static Tuning getTuningFromPosition(int position) {
         switch (position) {
@@ -40,6 +42,8 @@ class TuningMapper {
                 return new UkuleleTuning();
             case D_TUNING_POSITION:
                 return new UkuleleDTuning();
+            case CHROMATIC_TUNING_POSITION:
+                return new ChromaticTuning();
             default:
                 Log.w("com.github.cythara", "Unknown position for tuning dropdown list");
                 return new GuitarTuning();
