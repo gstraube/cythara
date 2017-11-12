@@ -4,7 +4,7 @@ import com.github.cythara.Tuning;
 
 public class BassTuning implements Tuning {
 
-    enum Pitch implements com.github.cythara.Note {
+    private enum Pitch implements com.github.cythara.Note {
 
         E1(41.204f),
         A1(55f),

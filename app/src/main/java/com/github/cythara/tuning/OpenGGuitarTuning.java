@@ -4,7 +4,7 @@ import com.github.cythara.Tuning;
 
 public class OpenGGuitarTuning implements Tuning {
 
-    enum Pitch implements com.github.cythara.Note {
+    private enum Pitch implements com.github.cythara.Note {
 
         D2(73.416f),
         G2(97.999f),
