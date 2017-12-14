@@ -150,7 +150,8 @@ class CanvasPainter {
             yOffset = 10;
         }
         if (mark % 20 == 0) {
-            canvas.drawText(text, xPos - numbersPaint.measureText(text) / 2F, y - 30, numbersPaint);
+            canvas.drawText(text, xPos - numbersPaint.measureText(text) / 2F, y - 30,
+                    numbersPaint);
             yOffset = 20;
         }
 
@@ -161,8 +162,20 @@ class CanvasPainter {
         float x = canvas.getWidth() / 2F;
         float y = canvas.getHeight() - canvas.getHeight() / 4F;
 
-        String note = pitchDifference.closest.getName();
+        Note closest = pitchDifference.closest;
+        String note = closest.getName();
         float offset = textPaint.measureText(note) / 2F;
+
+        String sign = closest.getSign();
+        String octave = closest.getOctave();
+
+        TextPaint paint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
+        paint.setColor(Color.BLACK);
+        int textSize = (int) (textPaint.getTextSize() / 2);
+        paint.setTextSize(textSize);
+
+        canvas.drawText(sign, x + offset * 1.25f, y - offset * 1.5f, paint);
+        canvas.drawText(octave, x + offset * 1.25f, y + offset * 0.5f, paint);
 
         canvas.drawText(note, x - offset, y, textPaint);
     }
