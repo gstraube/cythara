@@ -3,7 +3,9 @@ package com.github.cythara;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextPaint;
@@ -133,9 +135,22 @@ class CanvasPainter {
 
     private void drawIndicator() {
         float xPos = x + (getNearestDeviation() * gaugeWidth / MAX_DEVIATION);
-        String text = "|";
-        canvas.drawText(text, xPos - numbersPaint.measureText(text) / 2F, y + 30,
-                numbersPaint);
+        float yPosition = y * 1.15f;
+
+        Matrix matrix = new Matrix();
+        float scalingFactor = numbersPaint.getTextSize() / 3;
+        matrix.setScale(scalingFactor, scalingFactor);
+
+        Path indicator = new Path();
+        indicator.moveTo(0, -2);
+        indicator.lineTo(1, 0);
+        indicator.lineTo(-1, 0);
+        indicator.close();
+
+        indicator.transform(matrix);
+
+        indicator.offset(xPos, yPosition);
+        canvas.drawPath(indicator, gaugePaint);
     }
 
     private void drawMark(float y, float xPos, int mark) {
