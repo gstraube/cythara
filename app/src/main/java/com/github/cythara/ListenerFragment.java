@@ -36,7 +36,7 @@ public class ListenerFragment extends Fragment {
     private static List<PitchDifference> pitchDifferences = new ArrayList<>();
 
     private PitchListener pitchListener;
-    private TaskCallbacks taskCallbacks;
+    private static TaskCallbacks taskCallbacks;
 
     @Override
     public void onAttach(Context context) {
@@ -90,7 +90,7 @@ public class ListenerFragment extends Fragment {
         }
     }
 
-    private class PitchListener extends AsyncTask<Void, PitchDifference, Void> {
+    private static class PitchListener extends AsyncTask<Void, PitchDifference, Void> {
 
         private AudioDispatcher audioDispatcher;
 
