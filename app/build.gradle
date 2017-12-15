@@ -34,7 +34,7 @@ dependencies {
     androidTestCompile('com.android.support.test:rules:1.0.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.0.1'
+    compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.jaredrummler:material-spinner:1.2.1'
     testCompile 'junit:junit:4.12'
     testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
