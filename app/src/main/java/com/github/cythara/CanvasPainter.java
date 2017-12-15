@@ -160,14 +160,14 @@ class CanvasPainter {
         }
         String text = prefix + String.valueOf(mark);
 
-        int yOffset = 5;
+        int yOffset = (int) (numbersPaint.getTextSize() / 6);
         if (mark % 10 == 0) {
-            yOffset = 10;
+            yOffset *= 2;
         }
         if (mark % 20 == 0) {
-            canvas.drawText(text, xPos - numbersPaint.measureText(text) / 2F, y - 30,
-                    numbersPaint);
-            yOffset = 20;
+            canvas.drawText(text, xPos - numbersPaint.measureText(text) / 2F,
+                    y - numbersPaint.getTextSize(), numbersPaint);
+            yOffset *= 2;
         }
 
         canvas.drawLine(xPos, y - yOffset, xPos, y + yOffset, gaugePaint);
