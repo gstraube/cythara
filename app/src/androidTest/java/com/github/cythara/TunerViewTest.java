@@ -82,18 +82,18 @@ public class TunerViewTest {
     public void non_exact_deviations_are_displayed_correctly() throws IOException {
         Map<Double, DrawableResource> deviationToReferenceId = new HashMap<>();
 
-        deviationToReferenceId.put(-6.4, new DrawableResource(R.drawable.negative_6_4_cents,
-                "negative_6_4_cents"));
-        deviationToReferenceId.put(15.41, new DrawableResource(R.drawable.positive_15_41_cents,
-                "positive_15_41_cents"));
-        deviationToReferenceId.put(5.1, new DrawableResource(R.drawable.positive_5_1_cents,
-                "positive_5_1_cents"));
-        deviationToReferenceId.put(-27.32, new DrawableResource(R.drawable.negative_27_32_cents,
-                "negative_27_32_cents"));
-        deviationToReferenceId.put(4.7, new DrawableResource(R.drawable.positive_4_7_cents,
-                "positive_4_7_cents"));
-        deviationToReferenceId.put(29.5, new DrawableResource(R.drawable.positive_29_5_cents,
-                "positive_29_5_cents"));
+        deviationToReferenceId.put(-6.4, new DrawableResource(R.drawable.negative_10_cents,
+                "negative_10_cents"));
+        deviationToReferenceId.put(15.41, new DrawableResource(R.drawable.positive_20_cents,
+                "positive_20_cents"));
+        deviationToReferenceId.put(5.1, new DrawableResource(R.drawable.positive_10_cents,
+                "positive_10_cents"));
+        deviationToReferenceId.put(-27.32, new DrawableResource(R.drawable.negative_30_cents,
+                "negative_30_cents"));
+        deviationToReferenceId.put(4.7, new DrawableResource(R.drawable.positive_10_cents,
+                "positive_10_cents"));
+        deviationToReferenceId.put(29.5, new DrawableResource(R.drawable.positive_30_cents,
+                "positive_30_cents"));
 
         for (Double deviation : deviationToReferenceId.keySet()) {
             DrawableResource drawableResource = deviationToReferenceId.get(deviation);
