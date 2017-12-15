@@ -175,7 +175,7 @@ class CanvasPainter {
 
     private void drawText() {
         float x = canvas.getWidth() / 2F;
-        float y = canvas.getHeight() - canvas.getHeight() / 4F;
+        float y = canvas.getHeight() * 0.75f;
 
         Note closest = pitchDifference.closest;
         String note = closest.getName();
