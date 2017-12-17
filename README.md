@@ -26,3 +26,11 @@ The Tarsos DSP library (https://github.com/JorenSix/TarsosDSP) is used for pitch
 ## License
 
 Cythara is licensed under the GPL, version 3. A copy of the license is included in LICENSE.txt.
+
+## Screenshots
+
+![Listening to input](/fastlane/metadata/android/en-US/phoneScreenshots/listening.png?raw=true)
+
+![Providing feedback](/fastlane/metadata/android/en-US/phoneScreenshots/feedback.png?raw=true)
+
+![Listing tunings](/fastlane/metadata/android/en-US/phoneScreenshots/tunings.png?raw=true)
