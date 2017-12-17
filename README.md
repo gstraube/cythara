@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/gstraube/cythara.svg?branch=master)](https://travis-ci.org/gstraube/cythara)
 
 # Cythara
-A tuner for Android
+A musical instrument tuner for Android
 
 [<img src="https://f-droid.org/badge/get-it-on.png"
       alt="Get it on F-Droid"
@@ -9,9 +9,9 @@ A tuner for Android
 
 ## Functionality
 
-* Supports standard guitar and ukulele tuning as well as Drop D guitar tuning
-* Changes background color from red to green to indicate that the string is in tune (with a tolerance of 10 cents)
-* Displays deviations between -60 and 60 cents
+* Provides tunings for various instruments and supports chromatic tuning.
+* Changes background color from red to green to indicate that the pitch is in tune (with a tolerance of 10 cents).
+* Displays deviations between -60 and 60 cents.
 
 ## Tests
 
