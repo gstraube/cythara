@@ -6,10 +6,10 @@ public class ViolinTuning implements Tuning {
 
     private enum Pitch implements com.github.cythara.Note {
 
-        G3("G", "3", 196.000f),
-        D4("D", "4", 293.660f),
-        A4("A", "4", 440.000f),
-        E5("E", "5", 659.260f);
+        G3("G", "3", 196f),
+        D4("D", "4", 293.66f),
+        A4("A", "4", 440f),
+        E5("E", "5", 659.26f);
 
         private String name;
         private final String sign;
