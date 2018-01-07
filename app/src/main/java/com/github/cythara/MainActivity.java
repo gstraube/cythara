@@ -122,6 +122,29 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
 
                 break;
             }
+            case R.id.set_notation: {
+                final SharedPreferences preferences = getSharedPreferences(PREFS_FILE, MODE_PRIVATE);
+                final boolean useStandardNotation = preferences.getBoolean(USE_STANDARD_NOTATION, true);
+
+                int checkedItem = useStandardNotation ? 0 : 1;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Choose notation");
+                builder.setSingleChoiceItems(R.array.notations, checkedItem,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putBoolean(USE_STANDARD_NOTATION, which == 0);
+                                editor.apply();
+
+                                dialog.dismiss();
+                            }
+                        });
+                builder.show();
+
+                break;
+            }
         }
 
         return false;

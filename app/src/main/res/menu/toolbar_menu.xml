@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/set_notation"
+        android:title="@string/set_notation"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/show_privacy_policy"
         android:title="@string/privacy_policy"
         app:showAsAction="never" />

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Cythara</string>
     <string name="privacy_policy">Show privacy policy</string>
+    <string name="set_notation">Set notation</string>
     <string-array name="tunings">
         <item>Guitar (standard)</item>
         <item>Guitar (Drop D)</item>
@@ -13,12 +14,8 @@
         <item>Violin (standard)</item>
         <item>Chromatic</item>
     </string-array>
-
-    <string name="C">C</string>
-    <string name="D">D</string>
-    <string name="E">D</string>
-    <string name="F">F</string>
-    <string name="G">G</string>
-    <string name="A">A</string>
-    <string name="B">B</string>
+    <string-array name="notations">
+        <item name="standard">Standard</item>
+        <item name="sol">Solfège</item>
+    </string-array>
 </resources>
