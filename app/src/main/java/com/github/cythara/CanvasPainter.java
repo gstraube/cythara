@@ -1,6 +1,7 @@
 package com.github.cythara;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -10,7 +11,9 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextPaint;
 
+import static android.content.Context.*;
 import static com.github.cythara.ListenerFragment.IS_RECORDING;
+import static com.github.cythara.MainActivity.*;
 
 class CanvasPainter {
 
@@ -178,7 +181,7 @@ class CanvasPainter {
         float y = canvas.getHeight() * 0.75f;
 
         Note closest = pitchDifference.closest;
-        String note = closest.getName();
+        String note = getNote(closest.getName());
         float offset = textPaint.measureText(note) / 2F;
 
         String sign = closest.getSign();
@@ -193,6 +196,18 @@ class CanvasPainter {
         canvas.drawText(octave, x + offset * 1.25f, y + offset * 0.5f, paint);
 
         canvas.drawText(note, x - offset, y, textPaint);
+    }
+
+    private String getNote(NoteName name) {
+        SharedPreferences preferences = context.getSharedPreferences(PREFS_FILE, MODE_PRIVATE);
+
+        boolean useStandardNotation = preferences.getBoolean(USE_STANDARD_NOTATION, true);
+
+        if (useStandardNotation) {
+            return name.getStandard();
+        }
+
+        return name.getSol();
     }
 
     private void setBackground() {

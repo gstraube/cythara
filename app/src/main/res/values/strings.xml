@@ -14,4 +14,11 @@
         <item>Chromatic</item>
     </string-array>
 
+    <string name="C">C</string>
+    <string name="D">D</string>
+    <string name="E">D</string>
+    <string name="F">F</string>
+    <string name="G">G</string>
+    <string name="A">A</string>
+    <string name="B">B</string>
 </resources>

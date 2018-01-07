@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -22,6 +23,8 @@ import android.widget.ArrayAdapter;
 import com.github.cythara.tuning.GuitarTuning;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
+import java.util.Locale;
+
 import static android.widget.ArrayAdapter.createFromResource;
 import static com.github.cythara.TuningMapper.getTuningFromPosition;
 
@@ -29,7 +32,9 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
         MaterialSpinner.OnItemSelectedListener {
 
     public static final int RECORD_AUDIO_PERMISSION = 0;
+    public static final String PREFS_FILE = "prefs_file";
     private static final String TAG_LISTENER_FRAGMENT = "listener_fragment";
+    public static final String USE_STANDARD_NOTATION = "useStandardNotation";
     static Tuning tuning = new GuitarTuning();
 
     @Override
@@ -43,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
         } else {
             startRecording();
         }
+
+        setNotation();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -60,6 +67,43 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
         myToolbar.setTitle(R.string.app_name);
         myToolbar.showOverflowMenu();
         setSupportActionBar(myToolbar);
+    }
+
+    private void setNotation() {
+        if (!useStandardNotation()) {
+            SharedPreferences preferences = getSharedPreferences(PREFS_FILE, MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(USE_STANDARD_NOTATION, false);
+
+            editor.apply();
+        }
+    }
+
+    private boolean useStandardNotation() {
+        Locale locale = Locale.getDefault();
+
+        Locale[] locales = {Locale.FRENCH, Locale.CANADA_FRENCH, Locale.FRANCE,
+                Locale.ITALIAN, Locale.ITALY};
+
+        if (locale != null) {
+            for (Locale predefinedLocale : locales) {
+                if (locale == predefinedLocale) {
+                    return false;
+                }
+            }
+        }
+
+        if (locale != null && locale.getLanguage() != null) {
+            String deviceLanguage = locale.getLanguage();
+
+            for (Language language : Language.values()) {
+                if (language.getCode().equals(deviceLanguage)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     @Override

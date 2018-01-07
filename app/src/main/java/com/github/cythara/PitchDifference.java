@@ -26,7 +26,7 @@ class PitchDifference implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(closest.getName());
+        dest.writeString(closest.getName().name());
         dest.writeDouble(deviation);
     }
 
