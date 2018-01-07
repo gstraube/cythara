@@ -33,8 +33,9 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
 
     public static final int RECORD_AUDIO_PERMISSION = 0;
     public static final String PREFS_FILE = "prefs_file";
-    private static final String TAG_LISTENER_FRAGMENT = "listener_fragment";
     public static final String USE_STANDARD_NOTATION = "useStandardNotation";
+    private static final String TAG_LISTENER_FRAGMENT = "listener_fragment";
+    private static final String NOTATION_MANUALLY_CHOSEN = "notationManuallyChosen";
     static Tuning tuning = new GuitarTuning();
 
     @Override
@@ -70,8 +71,11 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
     }
 
     private void setNotation() {
-        if (!useStandardNotation()) {
-            SharedPreferences preferences = getSharedPreferences(PREFS_FILE, MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(PREFS_FILE, MODE_PRIVATE);
+
+        boolean notationManuallyChosen = preferences.getBoolean(NOTATION_MANUALLY_CHOSEN, false);
+
+        if (!notationManuallyChosen && !useStandardNotation()) {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(USE_STANDARD_NOTATION, false);
 
@@ -138,7 +142,9 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
                             public void onClick(DialogInterface dialog, int which) {
                                 SharedPreferences.Editor editor = preferences.edit();
                                 editor.putBoolean(USE_STANDARD_NOTATION, which == 0);
+                                editor.putBoolean(NOTATION_MANUALLY_CHOSEN, true);
                                 editor.apply();
+
 
                                 dialog.dismiss();
                             }
