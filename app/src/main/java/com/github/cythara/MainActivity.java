@@ -123,8 +123,10 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
                 break;
             }
             case R.id.set_notation: {
-                final SharedPreferences preferences = getSharedPreferences(PREFS_FILE, MODE_PRIVATE);
-                final boolean useStandardNotation = preferences.getBoolean(USE_STANDARD_NOTATION, true);
+                final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
+                        MODE_PRIVATE);
+                final boolean useStandardNotation = preferences.getBoolean(USE_STANDARD_NOTATION,
+                        true);
 
                 int checkedItem = useStandardNotation ? 0 : 1;
 
