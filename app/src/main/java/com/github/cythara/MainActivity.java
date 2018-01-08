@@ -23,8 +23,6 @@ import android.widget.ArrayAdapter;
 import com.github.cythara.tuning.GuitarTuning;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
-import java.util.Locale;
-
 import static android.widget.ArrayAdapter.createFromResource;
 import static com.github.cythara.TuningMapper.getTuningFromPosition;
 
@@ -35,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
     public static final String PREFS_FILE = "prefs_file";
     public static final String USE_STANDARD_NOTATION = "useStandardNotation";
     private static final String TAG_LISTENER_FRAGMENT = "listener_fragment";
-    private static final String NOTATION_MANUALLY_CHOSEN = "notationManuallyChosen";
     static Tuning tuning = new GuitarTuning();
 
     @Override
@@ -49,8 +46,6 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
         } else {
             startRecording();
         }
-
-        setNotation();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -68,46 +63,6 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
         myToolbar.setTitle(R.string.app_name);
         myToolbar.showOverflowMenu();
         setSupportActionBar(myToolbar);
-    }
-
-    private void setNotation() {
-        SharedPreferences preferences = getSharedPreferences(PREFS_FILE, MODE_PRIVATE);
-
-        boolean notationManuallyChosen = preferences.getBoolean(NOTATION_MANUALLY_CHOSEN, false);
-
-        if (!notationManuallyChosen && !useStandardNotation()) {
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean(USE_STANDARD_NOTATION, false);
-
-            editor.apply();
-        }
-    }
-
-    private boolean useStandardNotation() {
-        Locale locale = Locale.getDefault();
-
-        Locale[] locales = {Locale.FRENCH, Locale.CANADA_FRENCH, Locale.FRANCE,
-                Locale.ITALIAN, Locale.ITALY};
-
-        if (locale != null) {
-            for (Locale predefinedLocale : locales) {
-                if (locale == predefinedLocale) {
-                    return false;
-                }
-            }
-        }
-
-        if (locale != null && locale.getLanguage() != null) {
-            String deviceLanguage = locale.getLanguage();
-
-            for (Language language : Language.values()) {
-                if (language.getCode().equals(deviceLanguage)) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
     }
 
     @Override
@@ -142,9 +97,7 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
                             public void onClick(DialogInterface dialog, int which) {
                                 SharedPreferences.Editor editor = preferences.edit();
                                 editor.putBoolean(USE_STANDARD_NOTATION, which == 0);
-                                editor.putBoolean(NOTATION_MANUALLY_CHOSEN, true);
                                 editor.apply();
-
 
                                 dialog.dismiss();
                             }
