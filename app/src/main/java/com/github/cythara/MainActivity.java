@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
                 int checkedItem = useStandardNotation ? 0 : 1;
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Choose notation");
+                builder.setTitle(R.string.choose_notation);
                 builder.setSingleChoiceItems(R.array.notations, checkedItem,
                         new DialogInterface.OnClickListener() {
                             @Override
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
                     startRecording();
                 } else {
                     AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-                    alertDialog.setTitle("Permission required");
+                    alertDialog.setTitle(R.string.permission_required);
                     alertDialog.setMessage("Microphone permission is required. App will be closed");
                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                             new DialogInterface.OnClickListener() {
