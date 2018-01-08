@@ -208,7 +208,7 @@ class CanvasPainter {
         }
 
         /*
-            The octave number in the (the French notation) of Solfège is one less than the
+            The octave number in the (French notation) of Solfège is one less than the
             corresponding octave number in the scientific pitch notation.
             There is also no octave with the number zero
             (see https://fr.wikipedia.org/wiki/Octave_(musique)#Solf%C3%A8ge).
