@@ -35,6 +35,7 @@ class CanvasPainter {
     private float gaugeWidth;
     private float x;
     private float y;
+    private boolean useScientificNotation;
 
     static CanvasPainter with(Context context) {
         return new CanvasPainter(context);
@@ -51,6 +52,9 @@ class CanvasPainter {
     }
 
     void on(Canvas canvas) {
+        SharedPreferences preferences = context.getSharedPreferences(PREFS_FILE, MODE_PRIVATE);
+        useScientificNotation = preferences.getBoolean(USE_SCIENTIFIC_NOTATION, true);
+
         this.canvas = canvas;
 
         gaugeWidth = 0.45F * canvas.getWidth();
@@ -192,17 +196,18 @@ class CanvasPainter {
         int textSize = (int) (textPaint.getTextSize() / 2);
         paint.setTextSize(textSize);
 
-        canvas.drawText(sign, x + offset * 1.25f, y - offset * 1.5f, paint);
+        float factor = 0.75f;
+        if (useScientificNotation) {
+            factor = 1.5f;
+        }
+
+        canvas.drawText(sign, x + offset * 1.25f, y - offset * factor, paint);
         canvas.drawText(octave, x + offset * 1.25f, y + offset * 0.5f, paint);
 
         canvas.drawText(note, x - offset, y, textPaint);
     }
 
     private int getOctave(int octave) {
-        SharedPreferences preferences = context.getSharedPreferences(PREFS_FILE, MODE_PRIVATE);
-
-        boolean useScientificNotation = preferences.getBoolean(USE_SCIENTIFIC_NOTATION, true);
-
         if (useScientificNotation) {
             return octave;
         }
@@ -221,10 +226,6 @@ class CanvasPainter {
     }
 
     private String getNote(NoteName name) {
-        SharedPreferences preferences = context.getSharedPreferences(PREFS_FILE, MODE_PRIVATE);
-
-        boolean useScientificNotation = preferences.getBoolean(USE_SCIENTIFIC_NOTATION, true);
-
         if (useScientificNotation) {
             return name.getScientific();
         }
