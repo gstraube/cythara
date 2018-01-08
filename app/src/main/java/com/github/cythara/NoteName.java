@@ -10,16 +10,16 @@ public enum NoteName {
     A("A", "La"),
     B("B", "Si");
 
-    private final String standard;
+    private final String scientific;
     private final String sol;
 
-    NoteName(String standard, String sol) {
-        this.standard = standard;
+    NoteName(String scientific, String sol) {
+        this.scientific = scientific;
         this.sol = sol;
     }
 
-    public String getStandard() {
-        return standard;
+    public String getScientific() {
+        return scientific;
     }
 
     public String getSol() {

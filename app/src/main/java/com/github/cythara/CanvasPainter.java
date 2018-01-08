@@ -201,10 +201,10 @@ class CanvasPainter {
     private String getNote(NoteName name) {
         SharedPreferences preferences = context.getSharedPreferences(PREFS_FILE, MODE_PRIVATE);
 
-        boolean useStandardNotation = preferences.getBoolean(USE_STANDARD_NOTATION, true);
+        boolean useScientificNotation = preferences.getBoolean(USE_SCIENTIFIC_NOTATION, true);
 
-        if (useStandardNotation) {
-            return name.getStandard();
+        if (useScientificNotation) {
+            return name.getScientific();
         }
 
         return name.getSol();
