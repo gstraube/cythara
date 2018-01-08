@@ -10,24 +10,24 @@ public class UkuleleDTuning implements Tuning {
 
     private enum Pitch implements com.github.cythara.Note {
 
-        A4(A, "4", 440f),
-        D4(D, "4", 293.665f),
-        F3_SHARP(F, "3", "#", 369.99f),
-        B4(B, "4", 493.88f);
+        A4(A, 4, 440f),
+        D4(D, 4, 293.665f),
+        F3_SHARP(F, 3, "#", 369.99f),
+        B4(B, 4, 493.88f);
 
         private NoteName name;
         private final String sign;
-        private final String octave;
+        private final int octave;
         private final float frequency;
 
-        Pitch(NoteName name, String octave, String sign, float frequency) {
+        Pitch(NoteName name, int octave, String sign, float frequency) {
             this.name = name;
             this.octave = octave;
             this.sign = sign;
             this.frequency = frequency;
         }
 
-        Pitch(NoteName name, String octave, float frequency) {
+        Pitch(NoteName name, int octave, float frequency) {
             this.name = name;
             this.octave = octave;
             this.sign = "";
@@ -43,7 +43,7 @@ public class UkuleleDTuning implements Tuning {
         }
 
         @Override
-        public String getOctave() {
+        public int getOctave() {
             return octave;
         }
 

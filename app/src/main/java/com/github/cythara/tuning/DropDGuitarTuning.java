@@ -9,19 +9,19 @@ public class DropDGuitarTuning implements Tuning {
 
     private enum Pitch implements com.github.cythara.Note {
 
-        D2(D, "2", 73.416f),
-        A2(A, "2", 110f),
-        D3(D, "3", 146.832f),
-        G3(G, "3", 195.998f),
-        B3(B, "3", 246.942f),
-        E4(E, "4", 329.628f);
+        D2(D, 2, 73.416f),
+        A2(A, 2, 110f),
+        D3(D, 3, 146.832f),
+        G3(G, 3, 195.998f),
+        B3(B, 3, 246.942f),
+        E4(E, 4, 329.628f);
 
         private NoteName name;
         private final String sign;
-        private final String octave;
+        private final int octave;
         private final float frequency;
 
-        Pitch(NoteName name, String octave, float frequency) {
+        Pitch(NoteName name, int octave, float frequency) {
             this.name = name;
             this.octave = octave;
             this.sign = "";
@@ -37,7 +37,7 @@ public class DropDGuitarTuning implements Tuning {
         }
 
         @Override
-        public String getOctave() {
+        public int getOctave() {
             return octave;
         }
 

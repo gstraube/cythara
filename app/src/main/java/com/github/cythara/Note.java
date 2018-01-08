@@ -3,7 +3,7 @@ package com.github.cythara;
 public interface Note {
 
     NoteName getName();
-    String getOctave();
+    int getOctave();
     String getSign();
     float getFrequency();
 }

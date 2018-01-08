@@ -9,17 +9,17 @@ public class ViolinTuning implements Tuning {
 
     private enum Pitch implements com.github.cythara.Note {
 
-        G3(G, "3", 196f),
-        D4(D, "4", 293.66f),
-        A4(A, "4", 440f),
-        E5(E, "5", 659.26f);
+        G3(G, 3, 196f),
+        D4(D, 4, 293.66f),
+        A4(A, 4, 440f),
+        E5(E, 5, 659.26f);
 
         private NoteName name;
         private final String sign;
-        private final String octave;
+        private final int octave;
         private final float frequency;
 
-        Pitch(NoteName name, String octave, float frequency) {
+        Pitch(NoteName name, int octave, float frequency) {
             this.name = name;
             this.octave = octave;
             this.sign = "";
@@ -35,7 +35,7 @@ public class ViolinTuning implements Tuning {
         }
 
         @Override
-        public String getOctave() {
+        public int getOctave() {
             return octave;
         }
 

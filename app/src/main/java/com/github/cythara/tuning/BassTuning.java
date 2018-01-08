@@ -9,17 +9,17 @@ public class BassTuning implements Tuning {
 
     private enum Pitch implements com.github.cythara.Note {
 
-        E1(E, "1", 41.204f),
-        A1(A, "1", 55f),
-        D2(D, "2", 73.416f),
-        G2(G, "2", 97.999f);
+        E1(E, 1, 41.204f),
+        A1(A, 1, 55f),
+        D2(D, 2, 73.416f),
+        G2(G, 2, 97.999f);
 
         private NoteName name;
         private final String sign;
-        private final String octave;
+        private final int octave;
         private final float frequency;
 
-        Pitch(NoteName name, String octave, float frequency) {
+        Pitch(NoteName name, int octave, float frequency) {
             this.name = name;
             this.octave = octave;
             this.sign = "";
@@ -35,7 +35,7 @@ public class BassTuning implements Tuning {
         }
 
         @Override
-        public String getOctave() {
+        public int getOctave() {
             return octave;
         }
 

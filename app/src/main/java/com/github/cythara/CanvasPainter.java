@@ -185,7 +185,7 @@ class CanvasPainter {
         float offset = textPaint.measureText(note) / 2F;
 
         String sign = closest.getSign();
-        String octave = closest.getOctave();
+        String octave = String.valueOf(closest.getOctave());
 
         TextPaint paint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
         paint.setColor(Color.BLACK);
