@@ -185,7 +185,7 @@ class CanvasPainter {
         float offset = textPaint.measureText(note) / 2F;
 
         String sign = closest.getSign();
-        String octave = String.valueOf(closest.getOctave());
+        String octave = String.valueOf(getOctave(closest.getOctave()));
 
         TextPaint paint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
         paint.setColor(Color.BLACK);
@@ -196,6 +196,28 @@ class CanvasPainter {
         canvas.drawText(octave, x + offset * 1.25f, y + offset * 0.5f, paint);
 
         canvas.drawText(note, x - offset, y, textPaint);
+    }
+
+    private int getOctave(int octave) {
+        SharedPreferences preferences = context.getSharedPreferences(PREFS_FILE, MODE_PRIVATE);
+
+        boolean useScientificNotation = preferences.getBoolean(USE_SCIENTIFIC_NOTATION, true);
+
+        if (useScientificNotation) {
+            return octave;
+        }
+
+        /*
+            The octave number in the (the French notation) of Solfège is one less than the
+            corresponding octave number in the scientific pitch notation.
+            There is also no octave with the number zero
+            (see https://fr.wikipedia.org/wiki/Octave_(musique)#Solf%C3%A8ge).
+         */
+        if (octave <= 1) {
+            return octave - 2;
+        }
+
+        return octave - 1;
     }
 
     private String getNote(NoteName name) {
