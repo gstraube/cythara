@@ -9,8 +9,8 @@ android {
         applicationId "com.github.cythara"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 13
-        versionName "2.2"
+        versionCode 14
+        versionName "2.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
