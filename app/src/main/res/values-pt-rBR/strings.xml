@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Cythara</string>
+    <string name="privacy_policy">Exibir políticas de privacidade</string>
+    <string name="set_notation">Definir notação</string>
+    <string name="choose_notation">Escolher notação</string>
+    <string name="permission_required">Permissão necessária</string>
+    <string-array name="tunings">
+        <item>Violão (padrão)</item>
+        <item>Violão (Drop D)</item>
+        <item>Violão (Drop C)</item>
+        <item>Violão (Drop C#)</item>
+        <item>Violão (Open G)</item>
+        <item>Bass (padrão)</item>
+        <item>Ukulele (padrão)</item>
+        <item>Ukulele (D tuning)</item>
+        <item>Violino (padrão)</item>
+        <item>Cromático</item>
+    </string-array>
+    <string-array name="notations">
+        <item name="scientific">Notação de pitch científico</item>
+        <item name="sol">Solfège</item>
+    </string-array>
+</resources>
