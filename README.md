@@ -15,7 +15,7 @@ A musical instrument tuner for Android
 * Provides tunings for various instruments and supports chromatic tuning.
 * Changes background color from red to green to indicate that the pitch is in tune (with a tolerance of 10 cents).
 * Displays deviations between -60 and 60 cents.
-* Supports scientific pitch notation and Solfège
+* Supports scientific pitch notation and Solfège.
 
 ## Tests
 
