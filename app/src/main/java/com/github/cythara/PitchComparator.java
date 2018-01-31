@@ -6,7 +6,7 @@ import java.util.Comparator;
 class PitchComparator {
 
     static PitchDifference retrieveNote(float pitch) {
-        Tuning tuning = MainActivity.tuning;
+        Tuning tuning = MainActivity.getCurrentTuning();
 
         Note[] notes = tuning.getNotes();
         Arrays.sort(notes, new Comparator<Note>() {

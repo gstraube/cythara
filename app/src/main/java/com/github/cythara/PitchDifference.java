@@ -14,7 +14,7 @@ class PitchDifference implements Parcelable {
     }
 
     private PitchDifference(Parcel in) {
-        Tuning tuning = MainActivity.tuning;
+        Tuning tuning = MainActivity.getCurrentTuning();
         closest = tuning.findNote(in.readString());
         deviation = in.readDouble();
     }

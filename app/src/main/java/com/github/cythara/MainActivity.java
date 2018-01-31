@@ -20,7 +20,6 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 
-import com.github.cythara.tuning.GuitarTuning;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import static android.widget.ArrayAdapter.createFromResource;
@@ -32,8 +31,13 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
     public static final int RECORD_AUDIO_PERMISSION = 0;
     public static final String PREFS_FILE = "prefs_file";
     public static final String USE_SCIENTIFIC_NOTATION = "use_scientific_notation";
+    public static final String CURRENT_TUNING = "current_tuning";
     private static final String TAG_LISTENER_FRAGMENT = "listener_fragment";
-    static Tuning tuning = new GuitarTuning();
+    private static int tuningPosition = 0;
+
+    public static Tuning getCurrentTuning() {
+        return getTuningFromPosition(tuningPosition);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +54,7 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MaterialSpinner spinner = findViewById(R.id.tuning);
-        ArrayAdapter<CharSequence> adapter = createFromResource(this,
-                R.array.tunings, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
+        setTuning();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -84,8 +83,8 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
             case R.id.set_notation: {
                 final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
                         MODE_PRIVATE);
-                final boolean useScientificNotation = preferences.getBoolean(USE_SCIENTIFIC_NOTATION,
-                        true);
+                final boolean useScientificNotation =
+                        preferences.getBoolean(USE_SCIENTIFIC_NOTATION, true);
 
                 int checkedItem = useScientificNotation ? 0 : 1;
 
@@ -153,6 +152,18 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
         }
     }
 
+    @Override
+    public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+        final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
+                MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(CURRENT_TUNING, position);
+        editor.apply();
+
+        tuningPosition = position;
+    }
+
     private void startRecording() {
         FragmentManager fragmentManager = getFragmentManager();
         ListenerFragment listenerFragment = (ListenerFragment)
@@ -167,8 +178,17 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
         }
     }
 
-    @Override
-    public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-        tuning = getTuningFromPosition(position);
+    private void setTuning() {
+        final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
+                MODE_PRIVATE);
+        tuningPosition = preferences.getInt(CURRENT_TUNING, 0);
+
+        MaterialSpinner spinner = findViewById(R.id.tuning);
+        ArrayAdapter<CharSequence> adapter = createFromResource(this,
+                R.array.tunings, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+        spinner.setSelectedIndex(tuningPosition);
     }
 }
