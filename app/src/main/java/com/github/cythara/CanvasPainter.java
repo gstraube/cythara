@@ -29,7 +29,9 @@ class CanvasPainter {
     private TextPaint numbersPaint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
     private Paint gaugePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint symbolPaint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
-    private Paint background = new Paint();
+
+    private int redBackground;
+    private int greenBackground;
 
     private PitchDifference pitchDifference;
 
@@ -58,9 +60,14 @@ class CanvasPainter {
 
         this.canvas = canvas;
 
+        redBackground = R.color.red_light;
+        greenBackground = R.color.green_light;
         if (MainActivity.isNightModeEnabled()) {
             int color = context.getResources().getColor(R.color.colorPrimaryDark);
             this.canvas.drawColor(color);
+
+            redBackground = R.color.red_dark;
+            greenBackground = R.color.green_dark;
         }
 
         gaugeWidth = 0.45F * canvas.getWidth();
@@ -75,6 +82,8 @@ class CanvasPainter {
 
         if (pitchDifference != null && Math.abs(getNearestDeviation()) <= MAX_DEVIATION) {
             setBackground();
+
+            drawGauge();
 
             drawIndicator();
 
@@ -240,16 +249,12 @@ class CanvasPainter {
     }
 
     private void setBackground() {
-        int color = Color.RED;
+        int color = redBackground;
         if (Math.abs(getNearestDeviation()) <= TOLERANCE) {
-            color = Color.GREEN;
+            color = greenBackground;
         }
-        background.setColor(color);
 
-        background.setStyle(Paint.Style.FILL);
-        background.setAlpha(70);
-
-        canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), background);
+        canvas.drawColor(context.getResources().getColor(color));
     }
 
     private int getNearestDeviation() {
