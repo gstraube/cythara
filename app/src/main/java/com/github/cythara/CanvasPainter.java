@@ -11,9 +11,10 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextPaint;
 
-import static android.content.Context.*;
+import static android.content.Context.MODE_PRIVATE;
 import static com.github.cythara.ListenerFragment.IS_RECORDING;
-import static com.github.cythara.MainActivity.*;
+import static com.github.cythara.MainActivity.PREFS_FILE;
+import static com.github.cythara.MainActivity.USE_SCIENTIFIC_NOTATION;
 
 class CanvasPainter {
 
@@ -56,6 +57,11 @@ class CanvasPainter {
         useScientificNotation = preferences.getBoolean(USE_SCIENTIFIC_NOTATION, true);
 
         this.canvas = canvas;
+
+        if (MainActivity.isNightModeEnabled()) {
+            int color = context.getResources().getColor(R.color.colorPrimaryDark);
+            this.canvas.drawColor(color);
+        }
 
         gaugeWidth = 0.45F * canvas.getWidth();
         x = canvas.getWidth() / 2F;

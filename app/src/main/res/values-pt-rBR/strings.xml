@@ -20,4 +20,5 @@
         <item name="scientific">Notação de pitch científico</item>
         <item name="sol">Solfège</item>
     </string-array>
+    <string name="toggle_night_mode">Alternar modo noturno</string>
 </resources>

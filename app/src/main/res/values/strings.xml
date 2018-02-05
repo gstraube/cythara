@@ -2,6 +2,7 @@
     <string name="app_name">Cythara</string>
     <string name="privacy_policy">Show privacy policy</string>
     <string name="set_notation">Set notation</string>
+    <string name="toggle_night_mode">Toggle night mode</string>
     <string name="choose_notation">Choose notation</string>
     <string name="permission_required">Permission required</string>
     <string-array name="tunings">

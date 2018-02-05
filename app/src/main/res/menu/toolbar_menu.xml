@@ -11,4 +11,9 @@
         android:id="@+id/show_privacy_policy"
         android:title="@string/privacy_policy"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/toggle_night_mode"
+        android:title="@string/toggle_night_mode"
+        app:showAsAction="never" />
 </menu>

@@ -14,15 +14,18 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
+import com.jaredrummler.materialspinner.MaterialSpinnerAdapter;
 
-import static android.widget.ArrayAdapter.createFromResource;
+import java.util.Arrays;
+
 import static com.github.cythara.TuningMapper.getTuningFromPosition;
 
 public class MainActivity extends AppCompatActivity implements ListenerFragment.TaskCallbacks,
@@ -33,10 +36,16 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
     public static final String USE_SCIENTIFIC_NOTATION = "use_scientific_notation";
     public static final String CURRENT_TUNING = "current_tuning";
     private static final String TAG_LISTENER_FRAGMENT = "listener_fragment";
+    private static final String USE_NIGHT_MODE = "use_night_mode";
     private static int tuningPosition = 0;
+    private static boolean isNightModeEnabled;
 
     public static Tuning getCurrentTuning() {
         return getTuningFromPosition(tuningPosition);
+    }
+
+    public static boolean isNightModeEnabled() {
+        return isNightModeEnabled;
     }
 
     @Override
@@ -50,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
         } else {
             startRecording();
         }
+
+        enableTheme();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -88,7 +99,8 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
 
                 int checkedItem = useScientificNotation ? 0 : 1;
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this,
+                        R.style.AppTheme));
                 builder.setTitle(R.string.choose_notation);
                 builder.setSingleChoiceItems(R.array.notations, checkedItem,
                         new DialogInterface.OnClickListener() {
@@ -104,6 +116,17 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
                 builder.show();
 
                 break;
+            }
+            case R.id.toggle_night_mode: {
+                final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
+                        MODE_PRIVATE);
+                boolean currentlyUsingNightMode = preferences.getBoolean(USE_NIGHT_MODE, false);
+
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(USE_NIGHT_MODE, !currentlyUsingNightMode);
+                editor.apply();
+
+                recreate();
             }
         }
 
@@ -183,12 +206,34 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
                 MODE_PRIVATE);
         tuningPosition = preferences.getInt(CURRENT_TUNING, 0);
 
+        int textColorDark = getResources().getColor(R.color.colorTextDark);
+
         MaterialSpinner spinner = findViewById(R.id.tuning);
-        ArrayAdapter<CharSequence> adapter = createFromResource(this,
-                R.array.tunings, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        MaterialSpinnerAdapter<String> adapter = new MaterialSpinnerAdapter<>(this,
+                Arrays.asList(getResources().getStringArray(R.array.tunings)));
+
+        if (isNightModeEnabled) {
+            spinner.setTextColor(textColorDark);
+            spinner.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            spinner.setTextColor(textColorDark);
+            spinner.setArrowColor(textColorDark);
+        }
+
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
         spinner.setSelectedIndex(tuningPosition);
+    }
+
+    private void enableTheme() {
+        final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
+                MODE_PRIVATE);
+        isNightModeEnabled = preferences.getBoolean(USE_NIGHT_MODE, false);
+
+        int mode = AppCompatDelegate.MODE_NIGHT_NO;
+        if (isNightModeEnabled) {
+            mode = AppCompatDelegate.MODE_NIGHT_YES;
+        }
+
+        AppCompatDelegate.setDefaultNightMode(mode);
     }
 }
