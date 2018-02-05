@@ -36,16 +36,16 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
     public static final String USE_SCIENTIFIC_NOTATION = "use_scientific_notation";
     public static final String CURRENT_TUNING = "current_tuning";
     private static final String TAG_LISTENER_FRAGMENT = "listener_fragment";
-    private static final String USE_NIGHT_MODE = "use_night_mode";
+    private static final String USE_DARK_MODE = "use_dark_mode";
     private static int tuningPosition = 0;
-    private static boolean isNightModeEnabled;
+    private static boolean isDarkModeEnabled;
 
     public static Tuning getCurrentTuning() {
         return getTuningFromPosition(tuningPosition);
     }
 
-    public static boolean isNightModeEnabled() {
-        return isNightModeEnabled;
+    public static boolean isDarkModeEnabled() {
+        return isDarkModeEnabled;
     }
 
     @Override
@@ -117,13 +117,13 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
 
                 break;
             }
-            case R.id.toggle_night_mode: {
+            case R.id.toggle_dark_mode: {
                 final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
                         MODE_PRIVATE);
-                boolean currentlyUsingNightMode = preferences.getBoolean(USE_NIGHT_MODE, false);
+                boolean currentlyUsingDarkMode = preferences.getBoolean(USE_DARK_MODE, false);
 
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean(USE_NIGHT_MODE, !currentlyUsingNightMode);
+                editor.putBoolean(USE_DARK_MODE, !currentlyUsingDarkMode);
                 editor.apply();
 
                 recreate();
@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
         MaterialSpinnerAdapter<String> adapter = new MaterialSpinnerAdapter<>(this,
                 Arrays.asList(getResources().getStringArray(R.array.tunings)));
 
-        if (isNightModeEnabled) {
+        if (isDarkModeEnabled) {
             spinner.setTextColor(textColorDark);
             spinner.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
             spinner.setTextColor(textColorDark);
@@ -227,10 +227,10 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
     private void enableTheme() {
         final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
                 MODE_PRIVATE);
-        isNightModeEnabled = preferences.getBoolean(USE_NIGHT_MODE, false);
+        isDarkModeEnabled = preferences.getBoolean(USE_DARK_MODE, false);
 
         int mode = AppCompatDelegate.MODE_NIGHT_NO;
-        if (isNightModeEnabled) {
+        if (isDarkModeEnabled) {
             mode = AppCompatDelegate.MODE_NIGHT_YES;
         }
 

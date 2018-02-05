@@ -13,7 +13,7 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/toggle_night_mode"
-        android:title="@string/toggle_night_mode"
+        android:id="@+id/toggle_dark_mode"
+        android:title="@string/toggle_dark_mode"
         app:showAsAction="never" />
 </menu>

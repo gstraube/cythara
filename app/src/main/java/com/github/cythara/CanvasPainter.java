@@ -62,7 +62,7 @@ class CanvasPainter {
 
         redBackground = R.color.red_light;
         greenBackground = R.color.green_light;
-        if (MainActivity.isNightModeEnabled()) {
+        if (MainActivity.isDarkModeEnabled()) {
             int color = context.getResources().getColor(R.color.colorPrimaryDark);
             this.canvas.drawColor(color);
 
