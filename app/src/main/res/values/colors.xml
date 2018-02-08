@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimaryDark">#FF212121</color>
     <color name="colorTextDark">#DDFFFFFF</color>
+    <color name="colorTextDarkCanvas">#ff9412</color>
     <color name="red_light">#46e10000</color>
     <color name="green_light">#4600ff00</color>
     <color name="red_dark">#20e10000</color>

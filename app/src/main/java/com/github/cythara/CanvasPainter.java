@@ -32,6 +32,7 @@ class CanvasPainter {
 
     private int redBackground;
     private int greenBackground;
+    private int textColor;
 
     private PitchDifference pitchDifference;
 
@@ -62,19 +63,21 @@ class CanvasPainter {
 
         redBackground = R.color.red_light;
         greenBackground = R.color.green_light;
+        textColor = Color.BLACK;
         if (MainActivity.isDarkModeEnabled()) {
             int color = context.getResources().getColor(R.color.colorPrimaryDark);
             this.canvas.drawColor(color);
 
             redBackground = R.color.red_dark;
             greenBackground = R.color.green_dark;
+            textColor = context.getResources().getColor(R.color.colorTextDarkCanvas);
         }
 
         gaugeWidth = 0.45F * canvas.getWidth();
         x = canvas.getWidth() / 2F;
         y = canvas.getHeight() / 2F;
 
-        textPaint.setColor(Color.BLACK);
+        textPaint.setColor(textColor);
         int textSize = context.getResources().getDimensionPixelSize(R.dimen.noteTextSize);
         textPaint.setTextSize(textSize);
 
@@ -94,13 +97,14 @@ class CanvasPainter {
     }
 
     private void drawGauge() {
-        gaugePaint.setColor(Color.BLACK);
+        gaugePaint.setColor(textColor);
 
         int gaugeSize = context.getResources().getDimensionPixelSize(R.dimen.gaugeSize);
         gaugePaint.setStrokeWidth(gaugeSize);
 
         int textSize = context.getResources().getDimensionPixelSize(R.dimen.numbersTextSize);
         numbersPaint.setTextSize(textSize);
+        numbersPaint.setColor(textColor);
 
         canvas.drawLine(x - gaugeWidth, y, x + gaugeWidth, y, gaugePaint);
 
@@ -143,6 +147,7 @@ class CanvasPainter {
 
         int symbolsTextSize = context.getResources().getDimensionPixelSize(R.dimen.symbolsTextSize);
         symbolPaint.setTextSize(symbolsTextSize);
+        symbolPaint.setColor(textColor);
 
         float yPos = canvas.getHeight() / 4F;
         canvas.drawText(sharp,
@@ -207,7 +212,7 @@ class CanvasPainter {
         String octave = String.valueOf(getOctave(closest.getOctave()));
 
         TextPaint paint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.BLACK);
+        paint.setColor(textColor);
         int textSize = (int) (textPaint.getTextSize() / 2);
         paint.setTextSize(textSize);
 
