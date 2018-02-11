@@ -20,6 +20,7 @@ import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.NumberPicker;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.jaredrummler.materialspinner.MaterialSpinnerAdapter;
@@ -29,7 +30,7 @@ import java.util.Arrays;
 import static com.github.cythara.TuningMapper.getTuningFromPosition;
 
 public class MainActivity extends AppCompatActivity implements ListenerFragment.TaskCallbacks,
-        MaterialSpinner.OnItemSelectedListener {
+        MaterialSpinner.OnItemSelectedListener, NumberPicker.OnValueChangeListener {
 
     public static final int RECORD_AUDIO_PERMISSION = 0;
     public static final String PREFS_FILE = "prefs_file";
@@ -37,8 +38,10 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
     public static final String CURRENT_TUNING = "current_tuning";
     private static final String TAG_LISTENER_FRAGMENT = "listener_fragment";
     private static final String USE_DARK_MODE = "use_dark_mode";
+    private static final String REFERENCE_PITCH = "reference_pitch";
     private static int tuningPosition = 0;
     private static boolean isDarkModeEnabled;
+    private static PitchAdjuster pitchAdjuster;
 
     public static Tuning getCurrentTuning() {
         return getTuningFromPosition(tuningPosition);
@@ -46,6 +49,10 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
 
     public static boolean isDarkModeEnabled() {
         return isDarkModeEnabled;
+    }
+
+    public static float adjustPitch(float pitch) {
+        return pitchAdjuster.adjustPitch(pitch);
     }
 
     @Override
@@ -66,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
         setContentView(R.layout.activity_main);
 
         setTuning();
+        setPitchAdjuster();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -127,6 +135,24 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
                 editor.apply();
 
                 recreate();
+
+                break;
+            }
+            case R.id.set_reference_pitch: {
+                final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
+                        MODE_PRIVATE);
+                int referencePitch = preferences.getInt(REFERENCE_PITCH, 440);
+
+                NumberPickerDialog dialog = new NumberPickerDialog();
+
+                Bundle bundle = new Bundle();
+                bundle.putInt("current_value", referencePitch);
+                dialog.setArguments(bundle);
+
+                dialog.setValueChangeListener(this);
+                dialog.show(getFragmentManager(), "number_picker");
+
+                break;
             }
         }
 
@@ -187,6 +213,18 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
         tuningPosition = position;
     }
 
+    @Override
+    public void onValueChange(NumberPicker picker, int oldValue, int newValue) {
+        final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
+                MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(REFERENCE_PITCH, newValue);
+        editor.apply();
+
+        setPitchAdjuster();
+    }
+
     private void startRecording() {
         FragmentManager fragmentManager = getFragmentManager();
         ListenerFragment listenerFragment = (ListenerFragment)
@@ -235,5 +273,13 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
         }
 
         AppCompatDelegate.setDefaultNightMode(mode);
+    }
+
+    private void setPitchAdjuster() {
+        final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
+                MODE_PRIVATE);
+        int referencePitch = preferences.getInt(REFERENCE_PITCH, 440);
+
+        pitchAdjuster = new PitchAdjuster(referencePitch);
     }
 }

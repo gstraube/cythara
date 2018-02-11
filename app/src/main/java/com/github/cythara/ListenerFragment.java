@@ -18,6 +18,7 @@ import be.tarsos.dsp.pitch.PitchProcessor;
 
 import static be.tarsos.dsp.io.android.AudioDispatcherFactory.fromDefaultMicrophone;
 import static be.tarsos.dsp.pitch.PitchProcessor.PitchEstimationAlgorithm.FFT_YIN;
+import static com.github.cythara.PitchComparator.*;
 
 public class ListenerFragment extends Fragment {
 
@@ -114,8 +115,8 @@ public class ListenerFragment extends Fragment {
                     float pitch = pitchDetectionResult.getPitch();
 
                     if (pitch != -1) {
-                        PitchDifference pitchDifference = PitchComparator.retrieveNote(pitch);
-
+                        float adjustedPitch = MainActivity.adjustPitch(pitch);
+                        PitchDifference pitchDifference = retrieveNote(adjustedPitch);
 
                         pitchDifferences.add(pitchDifference);
 

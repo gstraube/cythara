@@ -5,6 +5,7 @@
     <string name="toggle_dark_mode">Toggle dark mode</string>
     <string name="choose_notation">Choose notation</string>
     <string name="permission_required">Permission required</string>
+    <string name="set_reference_pitch">Set reference pitch</string>
     <string-array name="tunings">
         <item>Guitar (standard)</item>
         <item>Guitar (Drop D)</item>
