@@ -36,9 +36,9 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
     public static final String PREFS_FILE = "prefs_file";
     public static final String USE_SCIENTIFIC_NOTATION = "use_scientific_notation";
     public static final String CURRENT_TUNING = "current_tuning";
+    protected static final String REFERENCE_PITCH = "reference_pitch";
     private static final String TAG_LISTENER_FRAGMENT = "listener_fragment";
     private static final String USE_DARK_MODE = "use_dark_mode";
-    private static final String REFERENCE_PITCH = "reference_pitch";
     private static int tuningPosition = 0;
     private static boolean isDarkModeEnabled;
     private static PitchAdjuster pitchAdjuster;
@@ -223,6 +223,9 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
         editor.apply();
 
         setPitchAdjuster();
+
+        TunerView tunerView = this.findViewById(R.id.pitch);
+        tunerView.invalidate();
     }
 
     private void startRecording() {

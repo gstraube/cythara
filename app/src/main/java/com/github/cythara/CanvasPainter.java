@@ -1,5 +1,6 @@
 package com.github.cythara;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
@@ -11,8 +12,11 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextPaint;
 
+import java.util.Locale;
+
 import static android.content.Context.MODE_PRIVATE;
 import static com.github.cythara.ListenerFragment.IS_RECORDING;
+import static com.github.cythara.MainActivity.REFERENCE_PITCH;
 import static com.github.cythara.MainActivity.PREFS_FILE;
 import static com.github.cythara.MainActivity.USE_SCIENTIFIC_NOTATION;
 
@@ -40,6 +44,7 @@ class CanvasPainter {
     private float x;
     private float y;
     private boolean useScientificNotation;
+    private int referencePitch;
 
     static CanvasPainter with(Context context) {
         return new CanvasPainter(context);
@@ -58,6 +63,7 @@ class CanvasPainter {
     void on(Canvas canvas) {
         SharedPreferences preferences = context.getSharedPreferences(PREFS_FILE, MODE_PRIVATE);
         useScientificNotation = preferences.getBoolean(USE_SCIENTIFIC_NOTATION, true);
+        referencePitch = preferences.getInt(REFERENCE_PITCH, 440);
 
         this.canvas = canvas;
 
@@ -118,6 +124,10 @@ class CanvasPainter {
         }
 
         drawSymbols(spaceWidth);
+
+        float y = canvas.getHeight() * 0.9f;
+        canvas.drawText(String.format(Locale.ENGLISH, "A = %d Hz", referencePitch), x - gaugeWidth,
+                y, numbersPaint);
     }
 
     private void drawListeningIndicator() {
