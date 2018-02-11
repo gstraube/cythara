@@ -34,7 +34,7 @@ public class NumberPickerDialog extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(),
                 R.style.AppTheme));
-        builder.setMessage("Choose a frequency:");
+        builder.setMessage(R.string.choose_a_frequency);
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override

@@ -22,4 +22,5 @@
     </string-array>
     <string name="toggle_dark_mode">Alternar modo escuro</string>
     <string name="set_reference_pitch">Definir o passo de referência</string>
+    <string name="choose_a_frequency">Escolha uma frequência:</string>
 </resources>
