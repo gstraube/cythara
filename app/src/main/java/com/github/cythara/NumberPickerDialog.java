@@ -6,7 +6,9 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.widget.NumberPicker;
+import android.view.ContextThemeWrapper;
+
+import com.shawnlin.numberpicker.NumberPicker;
 
 public class NumberPickerDialog extends DialogFragment {
 
@@ -23,7 +25,15 @@ public class NumberPickerDialog extends DialogFragment {
         numberPicker.setMaxValue(500);
         numberPicker.setValue(currentValue);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        if (MainActivity.isDarkModeEnabled()) {
+            int color = getResources().getColor(R.color.colorTextDark);
+            numberPicker.setTextColor(color);
+            numberPicker.setDividerColor(color);
+            numberPicker.setSelectedTextColor(color);
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(),
+                R.style.AppTheme));
         builder.setTitle("Set reference pitch");
         builder.setMessage("Choose a frequency:");
 

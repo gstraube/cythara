@@ -36,6 +36,7 @@ dependencies {
     })
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.jaredrummler:material-spinner:1.2.1'
+    implementation 'com.shawnlin:number-picker:2.4.5'
     testImplementation 'junit:junit:4.12'
     testImplementation group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
     testImplementation group: 'org.robolectric', name: 'robolectric', version: '3.3.2'

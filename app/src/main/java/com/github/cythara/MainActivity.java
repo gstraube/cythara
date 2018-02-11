@@ -20,10 +20,10 @@ import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.widget.NumberPicker;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.jaredrummler.materialspinner.MaterialSpinnerAdapter;
+import com.shawnlin.numberpicker.NumberPicker;
 
 import java.util.Arrays;
 
