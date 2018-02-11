@@ -1,6 +1,5 @@
 package com.github.cythara;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
@@ -16,9 +15,11 @@ import java.util.Locale;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.github.cythara.ListenerFragment.IS_RECORDING;
-import static com.github.cythara.MainActivity.REFERENCE_PITCH;
 import static com.github.cythara.MainActivity.PREFS_FILE;
+import static com.github.cythara.MainActivity.REFERENCE_PITCH;
 import static com.github.cythara.MainActivity.USE_SCIENTIFIC_NOTATION;
+import static com.github.cythara.NoteName.A;
+import static java.lang.String.valueOf;
 
 class CanvasPainter {
 
@@ -96,7 +97,10 @@ class CanvasPainter {
 
             drawIndicator();
 
-            drawText();
+            float x = canvas.getWidth() / 2F;
+            float y = canvas.getHeight() * 0.75f;
+
+            drawText(x, y, pitchDifference.closest, textPaint);
         } else {
             drawListeningIndicator();
         }
@@ -125,9 +129,44 @@ class CanvasPainter {
 
         drawSymbols(spaceWidth);
 
+        displayReferencePitch();
+    }
+
+    private void displayReferencePitch() {
         float y = canvas.getHeight() * 0.9f;
-        canvas.drawText(String.format(Locale.ENGLISH, "A = %d Hz", referencePitch), x - gaugeWidth,
-                y, numbersPaint);
+
+        Note note = new Note() {
+            @Override
+            public NoteName getName() {
+                return A;
+            }
+
+            @Override
+            public int getOctave() {
+                return 4;
+            }
+
+            @Override
+            public String getSign() {
+                return "";
+            }
+
+            @Override
+            public float getFrequency() {
+                return referencePitch;
+            }
+        };
+
+        TextPaint paint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
+        paint.setColor(textColor);
+        int size = (int) (textPaint.getTextSize() / 2);
+        paint.setTextSize(size);
+
+        float offset = paint.measureText(getNote(note.getName()) + valueOf(getOctave(4))) * 0.75f;
+
+        drawText(x - gaugeWidth, y, note, paint);
+        canvas.drawText(String.format(Locale.ENGLISH, "= %d Hz", referencePitch),
+                x - gaugeWidth + offset, y, paint);
     }
 
     private void drawListeningIndicator() {
@@ -195,7 +234,7 @@ class CanvasPainter {
         if (mark > 0) {
             prefix = "+";
         }
-        String text = prefix + String.valueOf(mark);
+        String text = prefix + valueOf(mark);
 
         int yOffset = (int) (numbersPaint.getTextSize() / 6);
         if (mark % 10 == 0) {
@@ -210,16 +249,12 @@ class CanvasPainter {
         canvas.drawLine(xPos, y - yOffset, xPos, y + yOffset, gaugePaint);
     }
 
-    private void drawText() {
-        float x = canvas.getWidth() / 2F;
-        float y = canvas.getHeight() * 0.75f;
+    private void drawText(float x, float y, Note note, Paint textPaint) {
+        String noteText = getNote(note.getName());
+        float offset = textPaint.measureText(noteText) / 2F;
 
-        Note closest = pitchDifference.closest;
-        String note = getNote(closest.getName());
-        float offset = textPaint.measureText(note) / 2F;
-
-        String sign = closest.getSign();
-        String octave = String.valueOf(getOctave(closest.getOctave()));
+        String sign = note.getSign();
+        String octave = valueOf(getOctave(note.getOctave()));
 
         TextPaint paint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
         paint.setColor(textColor);
@@ -234,7 +269,7 @@ class CanvasPainter {
         canvas.drawText(sign, x + offset * 1.25f, y - offset * factor, paint);
         canvas.drawText(octave, x + offset * 1.25f, y + offset * 0.5f, paint);
 
-        canvas.drawText(note, x - offset, y, textPaint);
+        canvas.drawText(noteText, x - offset, y, textPaint);
     }
 
     private int getOctave(int octave) {
