@@ -34,7 +34,6 @@ public class NumberPickerDialog extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(),
                 R.style.AppTheme));
-        builder.setTitle("Set reference pitch");
         builder.setMessage("Choose a frequency:");
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
