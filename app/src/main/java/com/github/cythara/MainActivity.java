@@ -119,6 +119,9 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
                                 editor.apply();
 
                                 dialog.dismiss();
+
+                                TunerView tunerView = findViewById(R.id.pitch);
+                                tunerView.invalidate();
                             }
                         });
                 builder.show();
