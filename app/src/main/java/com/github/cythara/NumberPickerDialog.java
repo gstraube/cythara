@@ -54,6 +54,13 @@ public class NumberPickerDialog extends DialogFragment {
         return builder.create();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        this.dismiss();
+    }
+
     public void setValueChangeListener(NumberPicker.OnValueChangeListener valueChangeListener) {
         this.valueChangeListener = valueChangeListener;
     }
