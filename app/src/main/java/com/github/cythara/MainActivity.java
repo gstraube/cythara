@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
             case R.id.toggle_dark_mode: {
                 final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
                         MODE_PRIVATE);
-                boolean currentlyUsingDarkMode = preferences.getBoolean(USE_DARK_MODE, false);
+                boolean currentlyUsingDarkMode = preferences.getBoolean(USE_DARK_MODE, true);
 
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean(USE_DARK_MODE, !currentlyUsingDarkMode);
@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
     private void enableTheme() {
         final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
                 MODE_PRIVATE);
-        isDarkModeEnabled = preferences.getBoolean(USE_DARK_MODE, false);
+        isDarkModeEnabled = preferences.getBoolean(USE_DARK_MODE, true);
 
         int mode = AppCompatDelegate.MODE_NIGHT_NO;
         if (isDarkModeEnabled) {
