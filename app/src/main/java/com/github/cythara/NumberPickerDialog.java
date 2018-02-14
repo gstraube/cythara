@@ -21,7 +21,7 @@ public class NumberPickerDialog extends DialogFragment {
         Bundle arguments = getArguments();
         int currentValue = arguments.getInt("current_value", 440);
 
-        numberPicker.setMinValue(300);
+        numberPicker.setMinValue(400);
         numberPicker.setMaxValue(500);
         numberPicker.setValue(currentValue);
 
