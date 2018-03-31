@@ -44,3 +44,7 @@ Cythara is licensed under the GPL, version 3. A copy of the license is included 
 ![Providing feedback](/fastlane/metadata/android/en-US/phoneScreenshots/feedback.png?raw=true)
 
 ![Listing tunings](/fastlane/metadata/android/en-US/phoneScreenshots/tunings.png?raw=true)
+
+![Listing frequencies](/fastlane/metadata/android/en-US/phoneScreenshots/choose_frequency.png?raw=true)
+
+![Listing notations](/fastlane/metadata/android/en-US/phoneScreenshots/choose_notation.png?raw=true)
