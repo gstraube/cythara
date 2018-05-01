@@ -1,0 +1,25 @@
+<resources>
+    <string name="privacy_policy">Datenschutzrichtlinie anzeigen</string>
+    <string name="set_notation">Notation wählen</string>
+    <string name="toggle_dark_mode">Dunkelmodus umschalten</string>
+    <string name="choose_notation">Wähle die Notation</string>
+    <string name="permission_required">Berechtigungen erforderlich</string>
+    <string name="set_reference_pitch">Referenztonhöhe einstellen</string>
+    <string name="choose_a_frequency">Wähle eine Frequenz:</string>
+    <string-array name="tunings">
+        <item>Gitarre (Standard)</item>
+        <item>Gitarre (Drop D)</item>
+        <item>Gitarre (Drop C)</item>
+        <item>Gitarre (Drop C#)</item>
+        <item>Gitarre (Open G)</item>
+        <item>Bass (Standard)</item>
+        <item>Ukulele (Standard)</item>
+        <item>Ukulele (D tuning)</item>
+        <item>Geige (Standard)</item>
+        <item>Chromatisch</item>
+    </string-array>
+    <string-array name="notations">
+        <item name="scientific">Wissenschaftlich</item>
+        <item name="sol">Solfège</item>
+    </string-array>
+</resources>
