@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">Cythara</string>
     <string name="privacy_policy">Datenschutzrichtlinie anzeigen</string>
     <string name="set_notation">Notation wählen</string>
     <string name="toggle_dark_mode">Dunkelmodus umschalten</string>
