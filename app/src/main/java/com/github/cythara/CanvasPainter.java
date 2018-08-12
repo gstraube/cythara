@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextPaint;
 
 import java.util.Locale;
+import java.util.Objects;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.github.cythara.ListenerFragment.IS_RECORDING;
@@ -181,7 +182,7 @@ class CanvasPainter {
         int x = (int) (canvas.getWidth() / 2F);
         int y = (int) (canvas.getHeight() - canvas.getHeight() / 3F);
 
-        int width = drawable.getIntrinsicWidth() * 2;
+        int width = Objects.requireNonNull(drawable).getIntrinsicWidth() * 2;
         int height = drawable.getIntrinsicHeight() * 2;
         drawable.setBounds(x - width / 2, y,
                 x + width / 2, y + height);

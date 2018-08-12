@@ -1,7 +1,6 @@
 package com.github.cythara;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 class PitchComparator {
 
@@ -9,12 +8,7 @@ class PitchComparator {
         Tuning tuning = MainActivity.getCurrentTuning();
 
         Note[] notes = tuning.getNotes();
-        Arrays.sort(notes, new Comparator<Note>() {
-            @Override
-            public int compare(Note o1, Note o2) {
-                return Float.compare(o1.getFrequency(), o2.getFrequency());
-            }
-        });
+        Arrays.sort(notes, (o1, o2) -> Float.compare(o1.getFrequency(), o2.getFrequency()));
 
         double minCentDifference = Float.POSITIVE_INFINITY;
         Note closest = notes[0];

@@ -152,7 +152,7 @@ public class AudioResourceUtils {
 	 * @return The contents of the file.
 	 */
 	public static String readTextFromUrl(URL url) {
-		StringBuffer fubber = new StringBuffer();
+		StringBuilder fubber = new StringBuilder();
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(
 					url.openStream()));
@@ -166,5 +166,4 @@ public class AudioResourceUtils {
 		}
 		return fubber.toString();
 	}
-
 }

@@ -3,7 +3,6 @@ package com.github.cythara;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -111,18 +110,15 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
                         R.style.AppTheme));
                 builder.setTitle(R.string.choose_notation);
                 builder.setSingleChoiceItems(R.array.notations, checkedItem,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                SharedPreferences.Editor editor = preferences.edit();
-                                editor.putBoolean(USE_SCIENTIFIC_NOTATION, which == 0);
-                                editor.apply();
+                        (dialog, which) -> {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean(USE_SCIENTIFIC_NOTATION, which == 0);
+                            editor.apply();
 
-                                dialog.dismiss();
+                            dialog.dismiss();
 
-                                TunerView tunerView = findViewById(R.id.pitch);
-                                tunerView.invalidate();
-                            }
+                            TunerView tunerView = findViewById(R.id.pitch);
+                            tunerView.invalidate();
                         });
                 builder.show();
 
@@ -188,14 +184,12 @@ public class MainActivity extends AppCompatActivity implements ListenerFragment.
                     alertDialog.setTitle(R.string.permission_required);
                     alertDialog.setMessage("Microphone permission is required. App will be closed");
                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                                        finishAffinity();
-                                    } else {
-                                        finish();
-                                    }
+                            (dialog, which) -> {
+                                dialog.dismiss();
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                    finishAffinity();
+                                } else {
+                                    finish();
                                 }
                             });
                     alertDialog.show();

@@ -53,11 +53,11 @@ public class AgentList {
 	/** Flag for choice between sum and average beat salience values for Agent scores.
 	 *  The use of summed saliences favours faster tempi or lower metrical levels. */
 	public static boolean useAverageSalience = false;
-	
-	/** Flag for printing debugging output. */
+
+    /** Flag for printing debugging output. */
 	public static boolean debug = false;
-	
-	/** For the purpose of removing duplicate agents, the default JND of IBI */
+
+    /** For the purpose of removing duplicate agents, the default JND of IBI */
 	public static final double DEFAULT_BI = 0.02;
 	
 	/** For the purpose of removing duplicate agents, the default JND of phase */

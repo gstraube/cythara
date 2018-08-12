@@ -47,9 +47,9 @@ public class BeatRootOnsetEventHandler implements OnsetHandler {
 		e.salience = salience;
 		onsetList.add(e);		
 	}
-	
-	
-	/**
+
+
+    /**
 	 * Creates a new Event object representing an onset or beat.
 	 * 
 	 * @param time
@@ -70,7 +70,7 @@ public class BeatRootOnsetEventHandler implements OnsetHandler {
 	 *            the beat is not calculated: -1 is returned.
 	 */
 	public void trackBeats(OnsetHandler beatHandler){
-		AgentList agents = null;		
+        AgentList agents = null;
 		// tempo not given; use tempo induction
 		agents = Induction.beatInduction(onsetList);
 		agents.beatTrack(onsetList, -1);
