@@ -4,7 +4,6 @@ package com.github.cythara;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.ContextThemeWrapper;
 
@@ -36,17 +35,10 @@ public class NumberPickerDialog extends DialogFragment {
                 R.style.AppTheme));
         builder.setMessage(R.string.choose_a_frequency);
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                valueChangeListener.onValueChange(numberPicker,
-                        numberPicker.getValue(), numberPicker.getValue());
-            }
-        });
+        builder.setPositiveButton("OK", (dialog, which) -> valueChangeListener.onValueChange(numberPicker,
+                numberPicker.getValue(), numberPicker.getValue()));
 
-        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) { }
+        builder.setNegativeButton("CANCEL", (dialog, which) -> {
         });
 
         builder.setView(numberPicker);

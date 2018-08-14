@@ -99,8 +99,8 @@ public class AudioGenerator implements Runnable {
 	}
 	
 	public AudioGenerator(final int audioBufferSize, final int bufferOverlap,final int samplerate){
-		
-		audioProcessors = new CopyOnWriteArrayList<AudioProcessor>();
+
+		audioProcessors = new CopyOnWriteArrayList<>();
 		
 
 		format = getTargetAudioFormat(samplerate);
@@ -126,12 +126,12 @@ public class AudioGenerator implements Runnable {
 	 * @return The audio format after conversion.
 	 */
 	private TarsosDSPAudioFormat getTargetAudioFormat(int targetSampleRate) {
-		TarsosDSPAudioFormat audioFormat = new TarsosDSPAudioFormat(TarsosDSPAudioFormat.Encoding.PCM_SIGNED, 
-	        		targetSampleRate, 
-	        		2 * 8, 
-	        		1, 
-	        		2 * 1, 
-	        		targetSampleRate, 
+		TarsosDSPAudioFormat audioFormat = new TarsosDSPAudioFormat(TarsosDSPAudioFormat.Encoding.PCM_SIGNED,
+				targetSampleRate,
+				2 * 8,
+				1,
+				2,
+				targetSampleRate,
 	                ByteOrder.BIG_ENDIAN.equals(ByteOrder.nativeOrder()));
 		 return audioFormat;
 	}

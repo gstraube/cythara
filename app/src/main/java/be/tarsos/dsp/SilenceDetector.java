@@ -124,13 +124,9 @@ public class SilenceDetector implements AudioProcessor {
 	public boolean process(AudioEvent audioEvent) {
 		boolean isSilence = isSilence(audioEvent.getFloatBuffer());
 		//break processing chain on silence?
-		if(breakProcessingQueueOnSilence){
-			//break if silent
-			return !isSilence;
-		}else{
-			//never break the chain
-			return true;
-		}
+		//break if silent
+		return !breakProcessingQueueOnSilence || !isSilence;
+//never break the chain
 	}
 
 

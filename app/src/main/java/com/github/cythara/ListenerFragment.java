@@ -11,14 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import be.tarsos.dsp.AudioDispatcher;
-import be.tarsos.dsp.AudioEvent;
 import be.tarsos.dsp.pitch.PitchDetectionHandler;
-import be.tarsos.dsp.pitch.PitchDetectionResult;
 import be.tarsos.dsp.pitch.PitchProcessor;
 
 import static be.tarsos.dsp.io.android.AudioDispatcherFactory.fromDefaultMicrophone;
 import static be.tarsos.dsp.pitch.PitchProcessor.PitchEstimationAlgorithm.FFT_YIN;
-import static com.github.cythara.PitchComparator.*;
+import static com.github.cythara.PitchComparator.retrieveNote;
 
 public class ListenerFragment extends Fragment {
 
@@ -97,37 +95,33 @@ public class ListenerFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            PitchDetectionHandler pitchDetectionHandler = new PitchDetectionHandler() {
-                @Override
-                public void handlePitch(PitchDetectionResult pitchDetectionResult,
-                                        AudioEvent audioEvent) {
+            PitchDetectionHandler pitchDetectionHandler = (pitchDetectionResult, audioEvent) -> {
 
-                    if (isCancelled()) {
-                        stopAudioDispatcher();
-                        return;
-                    }
+                if (isCancelled()) {
+                    stopAudioDispatcher();
+                    return;
+                }
 
-                    if (!IS_RECORDING) {
-                        IS_RECORDING = true;
-                        publishProgress();
-                    }
+                if (!IS_RECORDING) {
+                    IS_RECORDING = true;
+                    publishProgress();
+                }
 
-                    float pitch = pitchDetectionResult.getPitch();
+                float pitch = pitchDetectionResult.getPitch();
 
-                    if (pitch != -1) {
-                        float adjustedPitch = MainActivity.adjustPitch(pitch);
-                        PitchDifference pitchDifference = retrieveNote(adjustedPitch);
+                if (pitch != -1) {
+                    float adjustedPitch = MainActivity.adjustPitch(pitch);
+                    PitchDifference pitchDifference = retrieveNote(adjustedPitch);
 
-                        pitchDifferences.add(pitchDifference);
+                    pitchDifferences.add(pitchDifference);
 
-                        if (pitchDifferences.size() >= MIN_ITEMS_COUNT) {
-                            PitchDifference average =
-                                    Sampler.calculateAverageDifference(pitchDifferences);
+                    if (pitchDifferences.size() >= MIN_ITEMS_COUNT) {
+                        PitchDifference average =
+                                Sampler.calculateAverageDifference(pitchDifferences);
 
-                            publishProgress(average);
+                        publishProgress(average);
 
-                            pitchDifferences.clear();
-                        }
+                        pitchDifferences.clear();
                     }
                 }
             };

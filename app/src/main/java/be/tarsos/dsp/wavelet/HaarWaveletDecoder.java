@@ -43,7 +43,5 @@ public class HaarWaveletDecoder implements AudioProcessor{
 
 	@Override
 	public void processingFinished() {
-		
 	}
-	
 }
