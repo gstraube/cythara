@@ -33,10 +33,14 @@ Cythara is licensed under the GPL, version 3. A copy of the license is included 
 
 # Contributors
 
+In chronological order:
 * [mtbu](https://github.com/mtbu) added the violing tuning
 * [afmachado](https://github.com/afmachado) provided the translation to Brazilian Portuguese
 * [tebriz159](https://github.com/tebriz159) created the logo
 * [toXel](https://github.com/toXel) provided the translation to German
+* [TacoTheDank](https://github.com/TacoTheDank) enabled the installation on external storage, upgraded the language level and updated dependencies
+
+Thank you all!
 
 ## Screenshots
 
