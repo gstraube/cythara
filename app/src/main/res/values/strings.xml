@@ -17,6 +17,7 @@
         <item>Ukulele (standard)</item>
         <item>Ukulele (D tuning)</item>
         <item>Violin (standard)</item>
+        <item>Cello (standard)</item>
         <item>Chromatic</item>
     </string-array>
     <string-array name="notations">
