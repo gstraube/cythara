@@ -17,8 +17,8 @@
         <item>Cromático</item>
     </string-array>
     <string-array name="notations">
-        <item name="scientific">Notação de pitch científico</item>
-        <item name="sol">Solfège</item>
+        <item name="scientific">Notação científica</item>
+        <item name="sol">Solfejo</item>
     </string-array>
     <string name="toggle_dark_mode">Alternar modo escuro</string>
     <string name="set_reference_pitch">Definir o passo de referência</string>
