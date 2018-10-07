@@ -39,6 +39,7 @@ In chronological order:
 * [tebriz159](https://github.com/tebriz159) created the logo
 * [toXel](https://github.com/toXel) provided the translation to German
 * [TacoTheDank](https://github.com/TacoTheDank) enabled the installation on external storage, upgraded the language level and updated dependencies
+* [thim](https://github.com/thim) added the cello tuning, fixed issues and updated library versions
 
 Thank you all!
 
