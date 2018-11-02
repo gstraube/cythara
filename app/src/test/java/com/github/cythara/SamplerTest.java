@@ -54,7 +54,7 @@ public class SamplerTest {
     }
 
     @Test
-    public void the_most_frequent_note_is_extracted_correctly() throws Exception {
+    public void the_most_frequent_note_is_extracted_correctly() {
         List<PitchDifference> samples = new ArrayList<>();
 
         samples.add(new PitchDifference(E2, 2D));
