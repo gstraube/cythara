@@ -54,7 +54,7 @@ class TuningMapper {
                 return new CelloTuning();
             default:
                 Log.w("com.github.cythara", "Unknown position for tuning dropdown list");
-                return new GuitarTuning();
+                return new ChromaticTuning();
         }
     }
 }
