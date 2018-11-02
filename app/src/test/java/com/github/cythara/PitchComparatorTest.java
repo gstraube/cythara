@@ -1,19 +1,35 @@
 package com.github.cythara;
 
-import org.junit.Assert;
+import com.github.cythara.tuning.GuitarTuning;
+
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.github.cythara.tuning.GuitarTuning.Pitch.*;
+import static com.github.cythara.tuning.GuitarTuning.Pitch.D3;
+import static com.github.cythara.tuning.GuitarTuning.Pitch.E2;
+import static com.github.cythara.tuning.GuitarTuning.Pitch.E4;
+import static com.github.cythara.tuning.GuitarTuning.Pitch.G3;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.closeTo;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(MainActivity.class)
 public class PitchComparatorTest {
 
     @Test
-    public void retrieveNote() throws Exception {
+    public void retrieveNote() {
+        PowerMockito.mockStatic(MainActivity.class);
+        Mockito.when(MainActivity.getCurrentTuning()).thenReturn(new GuitarTuning());
+
         Map<Float, PitchDifference> expectations = new HashMap<>();
         expectations.put(20f, new PitchDifference(E2, -2451.3202694972874));
         expectations.put(500f, new PitchDifference(E4, 721.3071582323822));
@@ -24,8 +40,9 @@ public class PitchComparatorTest {
             PitchDifference actual = PitchComparator.retrieveNote(pitch);
             PitchDifference expected = expectations.get(pitch);
 
-            Assert.assertThat(actual.closest, is(expected.closest));
-            Assert.assertThat(actual.deviation, closeTo(expected.deviation, 0.001));
+            assertNotNull(expected);
+            assertThat(actual.closest, is(expected.closest));
+            assertThat(actual.deviation, closeTo(expected.deviation, 0.001));
         }
     }
 }
