@@ -5,6 +5,7 @@
     <string name="choose_notation">Escolher notação</string>
     <string name="permission_required">Permissão necessária</string>
     <string-array name="tunings">
+        <item>Cromático</item>
         <item>Violão (padrão)</item>
         <item>Violão (Drop D)</item>
         <item>Violão (Drop C)</item>
@@ -15,7 +16,6 @@
         <item>Ukulele (D tuning)</item>
         <item>Violino (padrão)</item>
         <item>Cello (padrão)</item>
-        <item>Cromático</item>
     </string-array>
     <string-array name="notations">
         <item name="scientific">Notação científica</item>

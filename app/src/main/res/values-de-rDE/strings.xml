@@ -8,6 +8,7 @@
     <string name="set_reference_pitch">Referenztonhöhe einstellen</string>
     <string name="choose_a_frequency">Wähle eine Frequenz:</string>
     <string-array name="tunings">
+        <item>Chromatisch</item>
         <item>Gitarre (Standard)</item>
         <item>Gitarre (Drop D)</item>
         <item>Gitarre (Drop C)</item>
@@ -18,7 +19,6 @@
         <item>Ukulele (D tuning)</item>
         <item>Geige (Standard)</item>
         <item>Cello (Standard)</item>
-        <item>Chromatisch</item>
     </string-array>
     <string-array name="notations">
         <item name="scientific">Wissenschaftlich</item>

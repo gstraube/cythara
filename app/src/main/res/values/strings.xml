@@ -8,6 +8,7 @@
     <string name="set_reference_pitch">Set reference pitch</string>
     <string name="choose_a_frequency">Choose a frequency:</string>
     <string-array name="tunings">
+        <item>Chromatic</item>
         <item>Guitar (standard)</item>
         <item>Guitar (Drop D)</item>
         <item>Guitar (Drop C)</item>
@@ -18,7 +19,6 @@
         <item>Ukulele (D tuning)</item>
         <item>Violin (standard)</item>
         <item>Cello (standard)</item>
-        <item>Chromatic</item>
     </string-array>
     <string-array name="notations">
         <item name="scientific">Scientific pitch notation</item>
