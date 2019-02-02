@@ -5,9 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.os.Environment;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.rule.GrantPermissionRule;
-import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Assert;
 import org.junit.Rule;
@@ -21,7 +18,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static android.support.test.rule.GrantPermissionRule.grant;
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.rule.GrantPermissionRule;
+import androidx.test.runner.AndroidJUnit4;
+
+import static androidx.test.rule.GrantPermissionRule.grant;
 import static com.github.cythara.tuning.GuitarTuning.Pitch.*;
 import static java.lang.String.format;
 

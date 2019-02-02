@@ -5,11 +5,11 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.fragment.app.Fragment;
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.io.android.AudioDispatcherFactory;
 import be.tarsos.dsp.pitch.PitchDetectionHandler;

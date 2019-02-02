@@ -8,11 +8,12 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.text.TextPaint;
 
 import java.util.Locale;
 import java.util.Objects;
+
+import androidx.core.content.ContextCompat;
 
 import static android.graphics.Paint.ANTI_ALIAS_FLAG;
 

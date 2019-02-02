@@ -3,11 +3,12 @@ package com.github.cythara;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AlertDialog.Builder;
 import android.view.ContextThemeWrapper;
 
 import com.shawnlin.numberpicker.NumberPicker;
+
+import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.fragment.app.FragmentManager;
 
 public class NumberPickerDialog extends DialogFragment {
 
