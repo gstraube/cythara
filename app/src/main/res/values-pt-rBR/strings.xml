@@ -1,9 +1,18 @@
 <resources>
     <string name="app_name">Cythara</string>
+
     <string name="privacy_policy">Exibir políticas de privacidade</string>
     <string name="set_notation">Definir notação</string>
     <string name="choose_notation">Escolher notação</string>
+    <string name="toggle_dark_mode">Alternar modo escuro</string>
+    <string name="set_reference_pitch">Definir o passo de referência</string>
+    <string name="choose_a_frequency">Escolha uma frequência:</string>
     <string name="permission_required">Permissão necessária</string>
+    <string name="microphone_permission_required">
+        A permissão do microfone é necessária. App será fechado.
+    </string>
+    <string name="ok">OK</string>
+
     <string-array name="tunings">
         <item>Cromático</item>
         <item>Violão (padrão)</item>
@@ -21,7 +30,4 @@
         <item name="scientific">Notação científica</item>
         <item name="sol">Solfejo</item>
     </string-array>
-    <string name="toggle_dark_mode">Alternar modo escuro</string>
-    <string name="set_reference_pitch">Definir o passo de referência</string>
-    <string name="choose_a_frequency">Escolha uma frequência:</string>
 </resources>
