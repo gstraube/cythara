@@ -99,8 +99,8 @@ public class PeakPicker {
 	 * @return True if a peak is detected, false otherwise.
 	 **/
 	public boolean pickPeak(float onset) {
-		float mean;
-		float median;
+		float mean = 0.f;
+		float median = 0.f;
 		
 		int length = win_post + win_pre + 1;
 		
@@ -116,7 +116,7 @@ public class PeakPicker {
 		onset_proc[length-1] = onset;
 		
 		/* filter onset_proc */
-		/* \bug filtfilt calculated post+pre times, should be only once !? */
+		/** \bug filtfilt calculated post+pre times, should be only once !? */
 		biquad.doFiltering(onset_proc,scratch);
 
 		/* calculate mean and median for onset_proc */
@@ -129,14 +129,16 @@ public class PeakPicker {
 		}
 		Arrays.sort(scratch);
 		median = scratch[scratch.length/2];
-		mean = sum / (float) length;
+		mean = sum/Float.valueOf(length);
 				
 		/* shift peek array */
-		System.arraycopy(onset_peek, 1, onset_peek, 0, 3 - 1);
+		for (int j=0;j<3-1;j++){
+			onset_peek[j] = onset_peek[j+1];
+		}
 		/* calculate new peek value */
 		onset_peek[2] = (float) (onset_proc[win_post] - median - mean * threshold);
-
-		boolean isPeak = isPeak();
+		
+		boolean isPeak = isPeak(1);
 		lastPeekValue = onset;
 	
 		return isPeak;
@@ -153,11 +155,13 @@ public class PeakPicker {
 	/**
 	 * Returns true if the onset is a peak.
 	 * 
+	 * @param index
+	 *            the index in onset_peak to check.
 	 * @return True if the onset is a peak, false otherwise.
 	 */
-	private boolean isPeak() {
-		return (onset_peek[1] > onset_peek[0] &&
-				onset_peek[1] > onset_peek[1 + 1] &&
-				onset_peek[1] > 0.);
+	private boolean isPeak(int index) {
+		return (	onset_peek[index] > onset_peek[index - 1] &&
+					onset_peek[index] > onset_peek[index + 1] && 
+					onset_peek[index] > 0.);
 	}
 }

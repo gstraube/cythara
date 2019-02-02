@@ -5,6 +5,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
+ * this source code is copied from : https://android.googlesource.com/platform/frameworks/base.git/+/android-4.3_r2/core/java/android/speech/srec/WaveHeader.java
+ */
+/**
  * This class represents the header of a WAVE format audio file, which usually
  * have a .wav suffix.  The following integer valued fields are contained:
  * <ul>
@@ -237,14 +240,14 @@ public class WaveHeader {
     }
 
     private static void writeInt(OutputStream out, int val) throws IOException {
-        out.write(val);
+        out.write(val >> 0);
         out.write(val >> 8);
         out.write(val >> 16);
         out.write(val >> 24);
     }
 
     private static void writeShort(OutputStream out, short val) throws IOException {
-        out.write(val);
+        out.write(val >> 0);
         out.write(val >> 8);
     }
 

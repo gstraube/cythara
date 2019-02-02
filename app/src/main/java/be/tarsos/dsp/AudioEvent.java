@@ -184,10 +184,10 @@ public class AudioEvent {
 	 */
 	public static double calculateRMS(float[] floatBuffer){
 		double rms = 0.0;
-		for (float aFloatBuffer : floatBuffer) {
-			rms += aFloatBuffer * aFloatBuffer;
+		for (int i = 0; i < floatBuffer.length; i++) {
+			rms += floatBuffer[i] * floatBuffer[i];
 		}
-		rms = rms / (double) floatBuffer.length;
+		rms = rms / Double.valueOf(floatBuffer.length);
 		rms = Math.sqrt(rms);
 		return rms;
 	}
