@@ -134,16 +134,10 @@ public class TunerViewTest {
 
     private void writeToFile(Bitmap bitmap, String name) throws IOException {
         File sdCard = Environment.getExternalStorageDirectory();
-        FileOutputStream out = null;
-        try {
-            out = new FileOutputStream(sdCard.getAbsolutePath() + "/" + name);
+        try (FileOutputStream out = new FileOutputStream(sdCard.getAbsolutePath() + "/" + name)) {
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            if (out != null) {
-                out.close();
-            }
         }
     }
 
