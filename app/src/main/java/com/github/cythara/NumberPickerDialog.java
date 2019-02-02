@@ -1,9 +1,10 @@
 package com.github.cythara;
 
-import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog.Builder;
 import android.view.ContextThemeWrapper;
 
 import com.shawnlin.numberpicker.NumberPicker;
@@ -53,5 +54,8 @@ public class NumberPickerDialog extends DialogFragment {
 
     public void setValueChangeListener(NumberPicker.OnValueChangeListener valueChangeListener) {
         this.valueChangeListener = valueChangeListener;
+    }
+
+    public void show(FragmentManager supportFragmentManager, String number_picker) {
     }
 }

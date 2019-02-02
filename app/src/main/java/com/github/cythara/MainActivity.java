@@ -1,9 +1,6 @@
 package com.github.cythara;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -12,7 +9,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
                 dialog.setArguments(bundle);
 
                 dialog.setValueChangeListener(this);
-                dialog.show(getFragmentManager(), "number_picker");
+                dialog.show(getSupportFragmentManager(), "number_picker");
 
                 break;
             }
@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
     }
 
     private void startRecording() {
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         ListenerFragment listenerFragment = (ListenerFragment)
                 fragmentManager.findFragmentByTag(TAG_LISTENER_FRAGMENT);
 
