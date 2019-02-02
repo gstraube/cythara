@@ -1,7 +1,6 @@
 package com.github.cythara;
 
-
-import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -31,7 +30,7 @@ public class NumberPickerDialog extends DialogFragment {
             numberPicker.setSelectedTextColor(color);
         }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(),
+        Builder builder = new Builder(new ContextThemeWrapper(getActivity(),
                 R.style.AppTheme));
         builder.setMessage(R.string.choose_a_frequency);
 

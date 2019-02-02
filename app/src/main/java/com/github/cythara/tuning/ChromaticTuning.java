@@ -8,6 +8,16 @@ import static com.github.cythara.NoteName.*;
 
 public class ChromaticTuning implements Tuning {
 
+    @Override
+    public Note[] getNotes() {
+        return Pitch.values();
+    }
+
+    @Override
+    public Note findNote(String name) {
+        return Pitch.valueOf(name);
+    }
+
     private enum Pitch implements Note {
 
         C_MINUS_1(C, -1, 8.176f),
@@ -149,10 +159,10 @@ public class ChromaticTuning implements Tuning {
         F9_SHARP(F, 9, "#", 11839.8f),
         G9(G, 9, 12543.9f);
 
-        private NoteName name;
         private final String sign;
         private final int octave;
         private final float frequency;
+        private NoteName name;
 
         Pitch(NoteName name, int octave, String sign, float frequency) {
             this.name = name;
@@ -185,15 +195,5 @@ public class ChromaticTuning implements Tuning {
         public String getSign() {
             return sign;
         }
-    }
-
-    @Override
-    public Note[] getNotes() {
-        return Pitch.values();
-    }
-
-    @Override
-    public Note findNote(String name) {
-        return Pitch.valueOf(name);
     }
 }

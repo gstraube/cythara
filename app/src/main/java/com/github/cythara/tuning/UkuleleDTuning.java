@@ -8,17 +8,27 @@ import static com.github.cythara.NoteName.*;
 
 public class UkuleleDTuning implements Tuning {
 
-    private enum Pitch implements com.github.cythara.Note {
+    @Override
+    public Note[] getNotes() {
+        return Pitch.values();
+    }
+
+    @Override
+    public Note findNote(String name) {
+        return Pitch.valueOf(name);
+    }
+
+    private enum Pitch implements Note {
 
         A4(A, 4, 440f),
         D4(D, 4, 293.665f),
         F3_SHARP(F, 3, "#", 369.99f),
         B4(B, 4, 493.88f);
 
-        private NoteName name;
         private final String sign;
         private final int octave;
         private final float frequency;
+        private NoteName name;
 
         Pitch(NoteName name, int octave, String sign, float frequency) {
             this.name = name;
@@ -51,15 +61,5 @@ public class UkuleleDTuning implements Tuning {
         public String getSign() {
             return sign;
         }
-    }
-
-    @Override
-    public Note[] getNotes() {
-        return Pitch.values();
-    }
-
-    @Override
-    public Note findNote(String name) {
-        return Pitch.valueOf(name);
     }
 }

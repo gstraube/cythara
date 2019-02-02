@@ -14,8 +14,8 @@ class Sampler {
         double deviationSum = 0;
         int sameNoteCount = 0;
         for (PitchDifference pitchDifference : filteredSamples) {
-                deviationSum += pitchDifference.deviation;
-                sameNoteCount++;
+            deviationSum += pitchDifference.deviation;
+            sameNoteCount++;
         }
 
         if (sameNoteCount > 0) {

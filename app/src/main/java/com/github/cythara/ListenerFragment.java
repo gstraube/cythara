@@ -11,31 +11,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import be.tarsos.dsp.AudioDispatcher;
+import be.tarsos.dsp.io.android.AudioDispatcherFactory;
 import be.tarsos.dsp.pitch.PitchDetectionHandler;
 import be.tarsos.dsp.pitch.PitchProcessor;
-
-import static be.tarsos.dsp.io.android.AudioDispatcherFactory.fromDefaultMicrophone;
-import static be.tarsos.dsp.pitch.PitchProcessor.PitchEstimationAlgorithm.FFT_YIN;
-import static com.github.cythara.PitchComparator.retrieveNote;
+import be.tarsos.dsp.pitch.PitchProcessor.PitchEstimationAlgorithm;
 
 public class ListenerFragment extends Fragment {
 
-    interface TaskCallbacks {
-
-        void onProgressUpdate(PitchDifference percent);
-    }
-
-    static boolean IS_RECORDING;
-
     private static final int SAMPLE_RATE = 44100;
-
     private static final int BUFFER_SIZE = 1024 * 4;
     private static final int OVERLAP = 768 * 4;
     private static final int MIN_ITEMS_COUNT = 15;
+    static boolean IS_RECORDING;
     private static List<PitchDifference> pitchDifferences = new ArrayList<>();
-
-    private PitchListener pitchListener;
     private static TaskCallbacks taskCallbacks;
+    private PitchListener pitchListener;
 
     @Override
     public void onAttach(Context context) {
@@ -89,6 +79,11 @@ public class ListenerFragment extends Fragment {
         }
     }
 
+    interface TaskCallbacks {
+
+        void onProgressUpdate(PitchDifference percent);
+    }
+
     private static class PitchListener extends AsyncTask<Void, PitchDifference, Void> {
 
         private AudioDispatcher audioDispatcher;
@@ -111,7 +106,7 @@ public class ListenerFragment extends Fragment {
 
                 if (pitch != -1) {
                     float adjustedPitch = MainActivity.adjustPitch(pitch);
-                    PitchDifference pitchDifference = retrieveNote(adjustedPitch);
+                    PitchDifference pitchDifference = PitchComparator.retrieveNote(adjustedPitch);
 
                     pitchDifferences.add(pitchDifference);
 
@@ -126,10 +121,10 @@ public class ListenerFragment extends Fragment {
                 }
             };
 
-            PitchProcessor pitchProcessor = new PitchProcessor(FFT_YIN, SAMPLE_RATE,
+            PitchProcessor pitchProcessor = new PitchProcessor(PitchEstimationAlgorithm.FFT_YIN, SAMPLE_RATE,
                     BUFFER_SIZE, pitchDetectionHandler);
 
-            audioDispatcher = fromDefaultMicrophone(SAMPLE_RATE,
+            audioDispatcher = AudioDispatcherFactory.fromDefaultMicrophone(SAMPLE_RATE,
                     BUFFER_SIZE, OVERLAP);
 
             audioDispatcher.addAudioProcessor(pitchProcessor);
