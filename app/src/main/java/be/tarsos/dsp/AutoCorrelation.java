@@ -36,8 +36,8 @@ public class AutoCorrelation implements AudioProcessor {
         
         result = 0;
 
-        for (float anAudioFloatbuffer : audioFloatbuffer) {
-            result += Math.abs(anAudioFloatbuffer) / (float) audioFloatbuffer.length;
+        for (int i=0; i<audioFloatbuffer.length; i++){
+        	result += ((float)Math.abs(audioFloatbuffer[i]))/(float)audioFloatbuffer.length;
         }
         return true;
     }

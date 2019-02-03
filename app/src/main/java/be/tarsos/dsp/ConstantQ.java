@@ -214,8 +214,8 @@ public class ConstantQ implements AudioProcessor {
 		    	int len = (int)Math.min(Math.ceil( q * sampleRate / frequencies[i]), fftLength);
 		    	
 		    	for (int j = 0; j < len; j++) {
-
-					double window = -.5 * Math.cos(2. * Math.PI * (double) j / (double) len) + .5;// Hanning Window
+		    		
+		    		double window = -.5*Math.cos(2.*Math.PI*(double)j/(double)len)+.5;; // Hanning Window
 		    		// double window = -.46*Math.cos(2.*Math.PI*(double)j/(double)len)+.54; // Hamming Window
 
 		    		window /= len;
@@ -252,8 +252,10 @@ public class ConstantQ implements AudioProcessor {
 			sKernel = new float[k * 2];
 			int[] indexes = new int[k];
 
-				System.arraycopy(cKernel, 0, sKernel, 0, k * 2);
-				System.arraycopy(cindexes, 0, indexes, 0, k);
+			for (int j = 0; j < k * 2; j++)
+				sKernel[j] = cKernel[j];
+			for (int j = 0; j < k; j++)
+				indexes[j] = cindexes[j];
 
 			// Normalize fft output
 			for (int j = 0; j < sKernel.length; j++)

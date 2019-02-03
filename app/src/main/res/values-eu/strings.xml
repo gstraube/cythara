@@ -2,9 +2,11 @@
     <string name="app_name">Cythara</string>
     <string name="privacy_policy">Erakutsi pribatutasun politika</string>
     <string name="set_notation">Ezarri notazioa</string>
-    <string name="toggle_dark_mode">(Des)aktibatu modu iluna</string>
     <string name="choose_notation">Hautatu notazioa</string>
-    <string name="permission_required">Baimena behar da</string>
+    <string name="toggle_dark_mode">(Des)aktibatu modu iluna</string>
     <string name="set_reference_pitch">Ezarri erreferentzia-tonua</string>
     <string name="choose_a_frequency">Maiztasun bat hautatu:</string>
+    <string name="permission_required">Baimena behar da</string>
+    <string name="microphone_permission_required">Mikrofonoa baimena behar da. Aplikazioa itxi egingo da.</string>
+    <string name="ok">Ados</string>
 </resources>

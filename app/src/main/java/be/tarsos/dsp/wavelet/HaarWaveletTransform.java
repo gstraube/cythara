@@ -111,7 +111,10 @@ public class HaarWaveletTransform {
 		if (number <= 0) {
 			throw new IllegalArgumentException("number: " + number);
 		}
-		return (number & -number) == number;
+		if ((number & -number) == number) {
+			return true;
+		}
+		return false;
 	}
 
 	/**

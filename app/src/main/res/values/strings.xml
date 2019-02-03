@@ -1,12 +1,20 @@
 <resources>
     <string name="app_name">Cythara</string>
+
     <string name="privacy_policy">Show privacy policy</string>
+    <string name="privacy_policy_link" translatable="false">
+        https://gstraube.github.io/privacy_policy.html
+    </string>
+
     <string name="set_notation">Set notation</string>
-    <string name="toggle_dark_mode">Toggle dark mode</string>
     <string name="choose_notation">Choose notation</string>
-    <string name="permission_required">Permission required</string>
+    <string name="toggle_dark_mode">Toggle dark mode</string>
     <string name="set_reference_pitch">Set reference pitch</string>
     <string name="choose_a_frequency">Choose a frequency:</string>
+    <string name="permission_required">Permission required</string>
+    <string name="microphone_permission_required">Microphone permission is required. App will close.</string>
+    <string name="ok">OK</string>
+
     <string-array name="tunings">
         <item>Chromatic</item>
         <item>Guitar (standard)</item>

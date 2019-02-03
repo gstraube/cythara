@@ -1,5 +1,9 @@
 package be.tarsos.dsp;
 
+import be.tarsos.dsp.AudioEvent;
+import be.tarsos.dsp.AudioProcessor;
+import be.tarsos.dsp.GainProcessor;
+
 public class FadeOut implements AudioProcessor
 {
 	// VARIABLES
@@ -27,7 +31,7 @@ public class FadeOut implements AudioProcessor
 	public boolean process(AudioEvent audioEvent)
 	{
 		// Don't do anything before the beginning of Fade Out
-		if (isFadeOut)
+		if(isFadeOut==true)
 		{
 			if(firstTime==-1)
 				firstTime=audioEvent.getTimeStamp();

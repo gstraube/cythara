@@ -57,8 +57,6 @@
  * ***** END LICENSE BLOCK ***** */
 package be.tarsos.dsp.util;
 
-import android.support.annotation.NonNull;
-
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -97,15 +95,21 @@ public class ConcurrencyUtils {
 
     }
 
-    /**
-     * Checks if x is a power-of-two number.
-     *
-     * @param x
-     * @return true if x is a power-of-two number
-     */
-    public static boolean isPowerOf2(int x) {
-        return x > 0 && (x & (x - 1)) == 0;
-    }
+    private static class CustomThreadFactory implements ThreadFactory {
+        private static final ThreadFactory defaultFactory = Executors.defaultThreadFactory();
+
+        private final Thread.UncaughtExceptionHandler handler;
+
+        CustomThreadFactory(Thread.UncaughtExceptionHandler handler) {
+            this.handler = handler;
+        }
+
+        public Thread newThread(Runnable r) {
+            Thread t = defaultFactory.newThread(r);
+            t.setUncaughtExceptionHandler(handler);
+            return t;
+        }
+    };
 
     /**
      * Returns the number of available processors.
@@ -269,20 +273,17 @@ public class ConcurrencyUtils {
         return (int) Math.pow(2, Math.floor(Math.log(x) / Math.log(2)));
     }
 
-    private static class CustomThreadFactory implements ThreadFactory {
-        private static final ThreadFactory defaultFactory = Executors.defaultThreadFactory();
-
-        private final Thread.UncaughtExceptionHandler handler;
-
-        CustomThreadFactory(Thread.UncaughtExceptionHandler handler) {
-            this.handler = handler;
-        }
-
-        public Thread newThread(@NonNull Runnable r) {
-            Thread t = defaultFactory.newThread(r);
-            t.setUncaughtExceptionHandler(handler);
-            return t;
-        }
+    /**
+     * Checks if x is a power-of-two number.
+     * 
+     * @param x
+     * @return true if x is a power-of-two number
+     */
+    public static boolean isPowerOf2(int x) {
+        if (x <= 0)
+            return false;
+        else
+            return (x & (x - 1)) == 0;
     }
 
     /**

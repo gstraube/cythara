@@ -124,11 +124,11 @@ public class SpectralPeakProcessor implements AudioProcessor {
 		frequencyEstimates = new float[bufferSize / 2];
 
 		dt = (bufferSize - overlap) / (double) sampleRate;
-        cbin = dt * sampleRate / (double) bufferSize;
+		cbin = (double) (dt * sampleRate / (double) bufferSize);
 
-        inv_2pi = 1.0 / (2.0 * Math.PI);
-        inv_deltat = 1.0 / dt;
-        inv_2pideltat = inv_deltat * inv_2pi;
+		inv_2pi = (double) (1.0 / (2.0 * Math.PI));
+		inv_deltat = (double) (1.0 / dt);
+		inv_2pideltat = (double) (inv_deltat * inv_2pi);
 
 		this.sampleRate = sampleRate;
 		
@@ -140,49 +140,18 @@ public class SpectralPeakProcessor implements AudioProcessor {
 		// Extract the power and phase data
 		fft.powerPhaseFFT(fftData, magnitudes, currentPhaseOffsets);
 	}
-
-    /**
-     * Calculate a noise floor for an array of magnitudes.
-     *
-     * @param magnitudes         The magnitudes of the current frame.
-     * @param medianFilterLength The length of the median filter used to determine the noise floor.
-     * @param noiseFloorFactor   The noise floor is multiplied with this factor to determine if the
-     *                           information is either noise or an interesting spectral peak.
-     * @return a float array representing the noise floor.
-     */
-    public static float[] calculateNoiseFloor(float[] magnitudes, int medianFilterLength, float noiseFloorFactor) {
-        double[] noiseFloorBuffer;
-        float[] noisefloor = new float[magnitudes.length];
-
-        float median = (float) median(magnitudes.clone());
-
-        // Naive median filter implementation.
-        // For each element take a median of surrounding values (noiseFloorBuffer)
-        // Store the median as the noise floor.
-        for (int i = 0; i < magnitudes.length; i++) {
-            noiseFloorBuffer = new double[medianFilterLength];
-            int index = 0;
-            for (int j = i - medianFilterLength / 2; j <= i + medianFilterLength / 2 && index < noiseFloorBuffer.length; j++) {
-                if (j >= 0 && j < magnitudes.length) {
-                    noiseFloorBuffer[index] = magnitudes[j];
-                } else {
-                    noiseFloorBuffer[index] = median;
-                }
-                index++;
-            }
-            // calculate the noise floor value.
-            noisefloor[i] = median(noiseFloorBuffer) * (noiseFloorFactor);
-        }
-
-        float rampLength = 12.0f;
-        for (int i = 0; i <= rampLength; i++) {
-            //ramp
-            float ramp = 1.0f;
-            ramp = (float) (-1 * (Math.log(i / rampLength))) + 1.0f;
-            noisefloor[i] = ramp * noisefloor[i];
-        }
-
-        return noisefloor;
+	
+	private void normalizeMagintudes(){
+		float maxMagnitude = (float) -1e6;
+		for(int i = 0;i<magnitudes.length;i++){
+			maxMagnitude = Math.max(maxMagnitude, magnitudes[i]);
+		}
+		
+		//log10 of the normalized value
+		//adding 75 makes sure the value is above zero, a bit ugly though...
+		for(int i = 1;i<magnitudes.length;i++){
+			magnitudes[i] = (float) (10 * Math.log10(magnitudes[i]/maxMagnitude)) + 75;
+		}
 	}
 
 	@Override
@@ -254,21 +223,51 @@ public class SpectralPeakProcessor implements AudioProcessor {
 			frequencyInHertz = (float) (inv_2pideltat * phaseDelta  + inv_deltat * k);
 		} else {
 			frequencyInHertz = (float) fft.binToHz(binIndex, sampleRate);
-        }
-        return frequencyInHertz;
-    }
-
-    private void normalizeMagintudes() {
-        float maxMagnitude = (float) -1e6;
-        for (float magnitude : magnitudes) {
-            maxMagnitude = Math.max(maxMagnitude, magnitude);
-        }
-
-        //log10 of the normalized value
-        //adding 75 makes sure the value is above zero, a bit ugly though...
-        for (int i = 1; i < magnitudes.length; i++) {
-            magnitudes[i] = (float) (10 * Math.log10(magnitudes[i]/maxMagnitude)) + 75;
 		}
+		return frequencyInHertz;
+	}
+	
+	/**
+	 * Calculate a noise floor for an array of magnitudes.
+	 * @param magnitudes The magnitudes of the current frame.
+	 * @param medianFilterLength The length of the median filter used to determine the noise floor.
+	 * @param noiseFloorFactor The noise floor is multiplied with this factor to determine if the
+	 * information is either noise or an interesting spectral peak.
+	 * @return a float array representing the noise floor.
+	 */
+	public static float[] calculateNoiseFloor(float[] magnitudes, int medianFilterLength, float noiseFloorFactor) {
+		double[] noiseFloorBuffer;
+		float[] noisefloor = new float[magnitudes.length];
+		
+		float median = (float) median(magnitudes.clone());
+		
+		// Naive median filter implementation.
+		// For each element take a median of surrounding values (noiseFloorBuffer) 
+		// Store the median as the noise floor.
+		for (int i = 0; i < magnitudes.length; i++) {
+			noiseFloorBuffer = new double[medianFilterLength];
+			int index = 0;
+			for (int j = i - medianFilterLength/2; j <= i + medianFilterLength/2 && index < noiseFloorBuffer.length; j++) {
+			  if(j >= 0 && j < magnitudes.length){
+				noiseFloorBuffer[index] = magnitudes[j];
+			  } else{
+				noiseFloorBuffer[index] = median;
+			  } 
+			  index++;
+			}		
+			// calculate the noise floor value.
+			noisefloor[i] = (float) (median(noiseFloorBuffer) * (noiseFloorFactor)) ;
+		}
+		
+		float rampLength = 12.0f;
+		for(int i = 0 ; i <= rampLength ; i++){
+			//ramp
+			float ramp = 1.0f;
+			ramp = (float) (-1 * (Math.log(i/rampLength))) + 1.0f;
+			noisefloor[i] = ramp * noisefloor[i];
+		}
+		
+		return noisefloor;
 	}
 	
 	/**
@@ -420,7 +419,8 @@ public class SpectralPeakProcessor implements AudioProcessor {
 	        return (m[middle-1] + m[middle]) / 2.0;
 	    }
 	}
-
+	
+	
 	public static class SpectralPeak{
 		private final float frequencyInHertz;
 		private final float magnitude;
@@ -473,4 +473,6 @@ public class SpectralPeakProcessor implements AudioProcessor {
 			return bin;
 		}
 	}
+
+
 }
