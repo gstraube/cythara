@@ -8,14 +8,19 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.text.TextPaint;
 
 import java.util.Locale;
 import java.util.Objects;
 
-import androidx.core.content.ContextCompat;
-
-import static android.graphics.Paint.ANTI_ALIAS_FLAG;
+import static android.content.Context.MODE_PRIVATE;
+import static com.github.cythara.ListenerFragment.IS_RECORDING;
+import static com.github.cythara.MainActivity.PREFS_FILE;
+import static com.github.cythara.MainActivity.REFERENCE_PITCH;
+import static com.github.cythara.MainActivity.USE_SCIENTIFIC_NOTATION;
+import static com.github.cythara.NoteName.A;
+import static java.lang.String.valueOf;
 
 class CanvasPainter {
 
@@ -26,10 +31,10 @@ class CanvasPainter {
 
     private Canvas canvas;
 
-    private TextPaint textPaint = new TextPaint(ANTI_ALIAS_FLAG);
-    private TextPaint numbersPaint = new TextPaint(ANTI_ALIAS_FLAG);
-    private Paint gaugePaint = new Paint(ANTI_ALIAS_FLAG);
-    private Paint symbolPaint = new TextPaint(ANTI_ALIAS_FLAG);
+    private TextPaint textPaint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
+    private TextPaint numbersPaint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
+    private Paint gaugePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint symbolPaint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
 
     private int redBackground;
     private int greenBackground;
@@ -43,12 +48,12 @@ class CanvasPainter {
     private boolean useScientificNotation;
     private int referencePitch;
 
-    private CanvasPainter(Context context) {
-        this.context = context;
-    }
-
     static CanvasPainter with(Context context) {
         return new CanvasPainter(context);
+    }
+
+    private CanvasPainter(Context context) {
+        this.context = context;
     }
 
     CanvasPainter paint(PitchDifference pitchDifference) {
@@ -58,14 +63,9 @@ class CanvasPainter {
     }
 
     void on(Canvas canvas) {
-        SharedPreferences preferences = context.getSharedPreferences(
-                MainActivity.PREFS_FILE, Context.MODE_PRIVATE);
-
-        useScientificNotation = preferences.getBoolean(
-                MainActivity.USE_SCIENTIFIC_NOTATION, true);
-
-        referencePitch = preferences.getInt(
-                MainActivity.REFERENCE_PITCH, 440);
+        SharedPreferences preferences = context.getSharedPreferences(PREFS_FILE, MODE_PRIVATE);
+        useScientificNotation = preferences.getBoolean(USE_SCIENTIFIC_NOTATION, true);
+        referencePitch = preferences.getInt(REFERENCE_PITCH, 440);
 
         this.canvas = canvas;
 
@@ -139,7 +139,7 @@ class CanvasPainter {
         Note note = new Note() {
             @Override
             public NoteName getName() {
-                return NoteName.A;
+                return A;
             }
 
             @Override
@@ -158,12 +158,12 @@ class CanvasPainter {
             }
         };
 
-        TextPaint paint = new TextPaint(ANTI_ALIAS_FLAG);
+        TextPaint paint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
         paint.setColor(textColor);
         int size = (int) (textPaint.getTextSize() / 2);
         paint.setTextSize(size);
 
-        float offset = paint.measureText(getNote(note.getName()) + String.valueOf(getOctave(4))) * 0.75f;
+        float offset = paint.measureText(getNote(note.getName()) + valueOf(getOctave(4))) * 0.75f;
 
         drawText(x - gaugeWidth, y, note, paint);
         canvas.drawText(String.format(Locale.ENGLISH, "= %d Hz", referencePitch),
@@ -173,7 +173,7 @@ class CanvasPainter {
     private void drawListeningIndicator() {
         int resourceId = R.drawable.ic_line_style_icons_mic;
 
-        if (ListenerFragment.IS_RECORDING) {
+        if (IS_RECORDING) {
             resourceId = R.drawable.ic_line_style_icons_mic_active;
         }
 
@@ -184,10 +184,8 @@ class CanvasPainter {
 
         int width = Objects.requireNonNull(drawable).getIntrinsicWidth() * 2;
         int height = drawable.getIntrinsicHeight() * 2;
-        drawable.setBounds(
-                x - width / 2, y,
-                x + width / 2,
-                y + height);
+        drawable.setBounds(x - width / 2, y,
+                x + width / 2, y + height);
 
 
         drawable.draw(canvas);
@@ -237,7 +235,7 @@ class CanvasPainter {
         if (mark > 0) {
             prefix = "+";
         }
-        String text = prefix + String.valueOf(mark);
+        String text = prefix + valueOf(mark);
 
         int yOffset = (int) (numbersPaint.getTextSize() / 6);
         if (mark % 10 == 0) {
@@ -257,9 +255,9 @@ class CanvasPainter {
         float offset = textPaint.measureText(noteText) / 2F;
 
         String sign = note.getSign();
-        String octave = String.valueOf(getOctave(note.getOctave()));
+        String octave = valueOf(getOctave(note.getOctave()));
 
-        TextPaint paint = new TextPaint(ANTI_ALIAS_FLAG);
+        TextPaint paint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
         paint.setColor(textColor);
         int textSize = (int) (textPaint.getTextSize() / 2);
         paint.setTextSize(textSize);

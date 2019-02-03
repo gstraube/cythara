@@ -1,6 +1,5 @@
 package com.github.cythara.tuning;
 
-import com.github.cythara.Note;
 import com.github.cythara.NoteName;
 import com.github.cythara.Tuning;
 
@@ -8,17 +7,7 @@ import static com.github.cythara.NoteName.*;
 
 public class DropCGuitarTuning implements Tuning {
 
-    @Override
-    public Note[] getNotes() {
-        return Pitch.values();
-    }
-
-    @Override
-    public Note findNote(String name) {
-        return Pitch.valueOf(name);
-    }
-
-    private enum Pitch implements Note {
+    private enum Pitch implements com.github.cythara.Note {
 
         C2(C, 2, 65.406f),
         G2(G, 2, 97.999f),
@@ -27,10 +16,10 @@ public class DropCGuitarTuning implements Tuning {
         A3(A, 3, 220f),
         D4(D, 4, 293.665f);
 
+        private NoteName name;
         private final String sign;
         private final int octave;
         private final float frequency;
-        private NoteName name;
 
         Pitch(NoteName name, int octave, float frequency) {
             this.name = name;
@@ -56,5 +45,15 @@ public class DropCGuitarTuning implements Tuning {
         public String getSign() {
             return sign;
         }
+    }
+
+    @Override
+    public com.github.cythara.Note[] getNotes() {
+        return Pitch.values();
+    }
+
+    @Override
+    public com.github.cythara.Note findNote(String name) {
+        return Pitch.valueOf(name);
     }
 }

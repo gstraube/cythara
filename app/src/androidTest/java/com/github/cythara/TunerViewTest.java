@@ -5,6 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.os.Environment;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.rule.GrantPermissionRule;
+import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Assert;
 import org.junit.Rule;
@@ -18,11 +21,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import androidx.test.rule.ActivityTestRule;
-import androidx.test.rule.GrantPermissionRule;
-import androidx.test.runner.AndroidJUnit4;
-
-import static androidx.test.rule.GrantPermissionRule.grant;
+import static android.support.test.rule.GrantPermissionRule.grant;
 import static com.github.cythara.tuning.GuitarTuning.Pitch.*;
 import static java.lang.String.format;
 
@@ -135,10 +134,16 @@ public class TunerViewTest {
 
     private void writeToFile(Bitmap bitmap, String name) throws IOException {
         File sdCard = Environment.getExternalStorageDirectory();
-        try (FileOutputStream out = new FileOutputStream(sdCard.getAbsolutePath() + "/" + name)) {
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(sdCard.getAbsolutePath() + "/" + name);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } finally {
+            if (out != null) {
+                out.close();
+            }
         }
     }
 

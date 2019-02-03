@@ -210,8 +210,7 @@ public class PipeDecoder {
 	public double getDuration(final String resource) {
 		double duration = -1;
 		try {
-			//use " for windows compatibility!
-			String command = "ffmpeg -i \"%resource%\"";
+			String command = "ffmpeg -i '%resource%'";
 			
 			command = command.replace("%resource%", resource);
 					

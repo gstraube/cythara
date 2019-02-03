@@ -136,10 +136,10 @@ public class WaveformSimilarityBasedOverlapAdd implements AudioProcessor {
 	 * @param output The output buffer.
 	 * @param input The input buffer.
 	 */
-	private void overlap(final float[] output, int outputOffset, float[] input,int inputOffset){
+	private void overlap(final float[] output, float[] input, int inputOffset) {
 		for(int i = 0 ; i < overlapLength ; i++){
 			int itemp = overlapLength - i;
-			output[i + outputOffset] = (input[i + inputOffset] * i + pMidBuffer[i] * itemp ) / overlapLength;  
+			output[i + 0] = (input[i + inputOffset] * i + pMidBuffer[i] * itemp) / overlapLength;
 		}
 	}
 	
@@ -152,10 +152,9 @@ public class WaveformSimilarityBasedOverlapAdd implements AudioProcessor {
 	 * cross-correlation value over the overlapping period
 	 * 
 	 * @param inputBuffer The input buffer
-	 * @param postion The position where to start the seek operation, in the input buffer. 
 	 * @return The best position.
 	 */
-	private int seekBestOverlapPosition(float[] inputBuffer, int postion) {
+	private int seekBestOverlapPosition(float[] inputBuffer) {
 		int bestOffset;
 		double bestCorrelation, currentCorrelation;
 		int tempOffset;
@@ -173,12 +172,12 @@ public class WaveformSimilarityBasedOverlapAdd implements AudioProcessor {
 		// over the permitted range.
 		for (tempOffset = 0; tempOffset < seekLength; tempOffset++) {
 
-			comparePosition = postion + tempOffset;
+			comparePosition = tempOffset;
 
 			// Calculates correlation value for the mixing position
 			// corresponding
 			// to 'tempOffset'
-			currentCorrelation = (double) calcCrossCorr(pRefMidBuffer, inputBuffer,comparePosition);
+			currentCorrelation = calcCrossCorr(pRefMidBuffer, inputBuffer, comparePosition);
 			// heuristic rule to slightly favor values close to mid of the
 			// range
 			double tmp = (double) (2 * tempOffset - seekLength) / seekLength;
@@ -229,13 +228,13 @@ public class WaveformSimilarityBasedOverlapAdd implements AudioProcessor {
 		assert audioFloatBuffer.length == getInputBufferSize();
 		
 		//Search for the best overlapping position.
-		int offset =  seekBestOverlapPosition(audioFloatBuffer,0);
+		int offset = seekBestOverlapPosition(audioFloatBuffer);
 		
 		// Mix the samples in the 'inputBuffer' at position of 'offset' with the 
         // samples in 'midBuffer' using sliding overlapping
         // ... first partially overlap with the end of the previous sequence
         // (that's in 'midBuffer')
-		overlap(outputFloatBuffer,0,audioFloatBuffer,offset);
+		overlap(outputFloatBuffer, audioFloatBuffer, offset);
 			
 		//copy sequence samples from input to output			
 		int sequenceLength = seekWindowLength - 2 * overlapLength;

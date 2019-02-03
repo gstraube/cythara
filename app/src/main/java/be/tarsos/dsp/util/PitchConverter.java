@@ -109,10 +109,10 @@ public final class PitchConverter {
 		return absoluteCentValue % 1200.0;
 	}
 
-	/**
-	 * This method is not really practical. Maybe I will need it someday.
-	 * 
-	 * @param relativeCent
+	/*
+	  This method is not really practical. Maybe I will need it someday.
+
+	  @param relativeCent
 	 * @return public static double relativeCentToHertz(double relativeCent){ if
 	 *         (relativeCent < 0 || relativeCent >= 1200) throw new
 	 *         IllegalArgumentException

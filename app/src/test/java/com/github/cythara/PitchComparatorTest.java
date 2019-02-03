@@ -12,10 +12,14 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.github.cythara.tuning.GuitarTuning.Pitch.*;
+import static com.github.cythara.tuning.GuitarTuning.Pitch.D3;
+import static com.github.cythara.tuning.GuitarTuning.Pitch.E2;
+import static com.github.cythara.tuning.GuitarTuning.Pitch.E4;
+import static com.github.cythara.tuning.GuitarTuning.Pitch.G3;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.closeTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(MainActivity.class)

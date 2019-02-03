@@ -69,9 +69,9 @@ package be.tarsos.dsp.util;
 public class CubicSplineFast{
 
     	private int nPoints = 0;                            // no. of tabulated points
-    	private double[] y = null;                          // y=f(x) tabulated function
-    	private double[] x = null;                          // x in tabulated function f(x)
-    	private double[] d2ydx2 = null;                     // second derivatives of y
+    private double[] y;                          // y=f(x) tabulated function
+    private double[] x;                          // x in tabulated function f(x)
+    private double[] d2ydx2;                     // second derivatives of y
 
     	// Constructors
     	// Constructor with data arrays initialised to arrays x and y
@@ -110,8 +110,7 @@ public class CubicSplineFast{
     	// Primarily for use in BiCubicSplineFast
     	public static CubicSplineFast zero(int n){
         	if(n<3)throw new IllegalArgumentException("A minimum of three data points is needed");
-        	CubicSplineFast aa = new CubicSplineFast(n);
-        	return aa;
+            return new CubicSplineFast(n);
     	}
 
     	// Create a one dimensional array of cubic spline objects of length n each of array length m
@@ -129,7 +128,7 @@ public class CubicSplineFast{
     	//  for use by the cubic spline interpolation method (.interpolate)
     	//  This method follows the procedure in Numerical Methods C language procedure for calculating second derivatives
     	public void calcDeriv(){
-	    	double	p=0.0D,qn=0.0D,sig=0.0D,un=0.0D;
+            double p, qn, sig, un;
 	    	double[] u = new double[nPoints];
 
 	        d2ydx2[0]=u[0]=0.0;
@@ -155,8 +154,8 @@ public class CubicSplineFast{
     	//  then stored for use on all subsequent calls
     	public double interpolate(double xx){
 
-            double h=0.0D,b=0.0D,a=0.0D, yy=0.0D;
-	    	int k=0;
+            double h, b, a, yy;
+            int k;
 	    	int klo=0;
 	    	int khi=this.nPoints-1;
 	    	while (khi-klo > 1){

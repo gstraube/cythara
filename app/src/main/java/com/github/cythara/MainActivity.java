@@ -1,38 +1,35 @@
 package com.github.cythara;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.Toolbar;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager.LayoutParams;
+import android.view.WindowManager;
 
-import com.github.cythara.ListenerFragment.TaskCallbacks;
 import com.jaredrummler.materialspinner.MaterialSpinner;
-import com.jaredrummler.materialspinner.MaterialSpinner.OnItemSelectedListener;
 import com.jaredrummler.materialspinner.MaterialSpinnerAdapter;
 import com.shawnlin.numberpicker.NumberPicker;
-import com.shawnlin.numberpicker.NumberPicker.OnValueChangeListener;
 
 import java.util.Arrays;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AlertDialog.Builder;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
+import static com.github.cythara.TuningMapper.getTuningFromPosition;
 
-public class MainActivity extends AppCompatActivity implements TaskCallbacks,
-        OnItemSelectedListener, OnValueChangeListener {
+public class MainActivity extends AppCompatActivity implements ListenerFragment.TaskCallbacks,
+        MaterialSpinner.OnItemSelectedListener, NumberPicker.OnValueChangeListener {
 
     public static final int RECORD_AUDIO_PERMISSION = 0;
     public static final String PREFS_FILE = "prefs_file";
@@ -46,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
     private static PitchAdjuster pitchAdjuster;
 
     public static Tuning getCurrentTuning() {
-        return TuningMapper.getTuningFromPosition(tuningPosition);
+        return getTuningFromPosition(tuningPosition);
     }
 
     public static boolean isDarkModeEnabled() {
@@ -77,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
         setTuning();
         setPitchAdjuster();
 
-        getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         myToolbar.setTitle(R.string.app_name);
@@ -96,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
         switch (item.getItemId()) {
             case R.id.show_privacy_policy: {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse(getString(R.string.privacy_policy_link)));
+                        Uri.parse("https://gstraube.github.io/privacy_policy.html"));
                 startActivity(browserIntent);
 
                 break;
@@ -109,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
 
                 int checkedItem = useScientificNotation ? 0 : 1;
 
-                Builder builder = new Builder(new ContextThemeWrapper(this,
+                AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this,
                         R.style.AppTheme));
                 builder.setTitle(R.string.choose_notation);
                 builder.setSingleChoiceItems(R.array.notations, checkedItem,
@@ -152,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
                 dialog.setArguments(bundle);
 
                 dialog.setValueChangeListener(this);
-                dialog.show(getSupportFragmentManager(), "number_picker");
+                dialog.show(getFragmentManager(), "number_picker");
 
                 break;
             }
@@ -183,10 +180,10 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startRecording();
                 } else {
-                    AlertDialog alertDialog = new Builder(MainActivity.this).create();
+                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                     alertDialog.setTitle(R.string.permission_required);
-                    alertDialog.setMessage(getString(R.string.microphone_permission_required));
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                    alertDialog.setMessage("Microphone permission is required. App will be closed");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                             (dialog, which) -> {
                                 dialog.dismiss();
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -229,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
     }
 
     private void startRecording() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getFragmentManager();
         ListenerFragment listenerFragment = (ListenerFragment)
                 fragmentManager.findFragmentByTag(TAG_LISTENER_FRAGMENT);
 

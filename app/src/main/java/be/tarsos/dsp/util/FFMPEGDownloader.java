@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class FFMPEGDownloader {
 	
-	private static String url = "https://0110.be/releases/TarsosDSP/TarsosDSP-static-ffmpeg/";
+	private static String url = "http://0110.be/releases/TarsosDSP/TarsosDSP-static-ffmpeg/";
 	
 	private final String ffmpegBinary;
 	
@@ -84,9 +84,9 @@ public class FFMPEGDownloader {
 		String operatingSystem = System.getProperty("os.name").toLowerCase();
 		if(operatingSystem.indexOf("indows") > 0 ){
 			name = "windows";
-		}else if(operatingSystem.indexOf("nux") >= 0){
+		} else if (operatingSystem.contains("nux")) {
 			name="linux";
-		}else if(operatingSystem.indexOf("mac") >= 0){
+		} else if (operatingSystem.contains("mac")) {
 			name="mac_os_x";
 		}else{
 			name = null;
@@ -95,11 +95,11 @@ public class FFMPEGDownloader {
 	}
 	
 	private String processorArchitecture(){
-		boolean is64bit = false;
+		boolean is64bit;
 		if (System.getProperty("os.name").contains("Windows")) {
 		    is64bit = (System.getenv("ProgramFiles(x86)") != null);
 		} else {
-		    is64bit = (System.getProperty("os.arch").indexOf("64") != -1);
+			is64bit = (System.getProperty("os.arch").contains("64"));
 		}
 		if(is64bit){
 			return "64_bits";

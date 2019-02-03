@@ -32,7 +32,7 @@ package be.tarsos.dsp.util.fft;
  * 
  * @author Joren Six
  */
-public class FFT {
+public final class FFT {
 
 	/**
 	 * Forward FFT.

@@ -1,24 +1,26 @@
 package com.github.cythara.tuning;
 
-import com.github.cythara.Note;
 import com.github.cythara.NoteName;
 import com.github.cythara.Tuning;
 
-import static com.github.cythara.NoteName.*;
+import static com.github.cythara.NoteName.A;
+import static com.github.cythara.NoteName.C;
+import static com.github.cythara.NoteName.D;
+import static com.github.cythara.NoteName.G;
 
 public class CelloTuning implements Tuning {
 
     @Override
-    public Note[] getNotes() {
+    public com.github.cythara.Note[] getNotes() {
         return Pitch.values();
     }
 
     @Override
-    public Note findNote(String name) {
+    public com.github.cythara.Note findNote(String name) {
         return Pitch.valueOf(name);
     }
 
-    private enum Pitch implements Note {
+    private enum Pitch implements com.github.cythara.Note {
 
         C2(C, 2, 65.4f),
         G2(G, 2, 98f),
