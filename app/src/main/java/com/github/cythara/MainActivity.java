@@ -59,6 +59,9 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+
         int permissionCheck = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.RECORD_AUDIO);
 
@@ -71,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
 
         enableTheme();
 
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         setTuning();
