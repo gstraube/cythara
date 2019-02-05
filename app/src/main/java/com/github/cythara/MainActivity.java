@@ -66,8 +66,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
                 Manifest.permission.RECORD_AUDIO);
 
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_PERMISSION);
+            requestRecordAudioPermission();
         } else {
             startRecording();
         }
@@ -181,23 +180,24 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
             case RECORD_AUDIO_PERMISSION: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startRecording();
-                } else {
-                    AlertDialog alertDialog = new Builder(MainActivity.this).create();
-                    alertDialog.setTitle(R.string.permission_required);
-                    alertDialog.setMessage(getString(R.string.microphone_permission_required));
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
-                            (dialog, which) -> {
-                                dialog.dismiss();
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                                    finishAffinity();
-                                } else {
-                                    finish();
-                                }
-                            });
-                    alertDialog.show();
+                if (grantResults.length > 0) {
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        startRecording();
+                    } else {
+                        AlertDialog alertDialog = new Builder(MainActivity.this).create();
+                        alertDialog.setTitle(R.string.permission_required);
+                        alertDialog.setMessage(getString(R.string.microphone_permission_required));
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                                (dialog, which) -> {
+                                    dialog.dismiss();
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                        finishAffinity();
+                                    } else {
+                                        finish();
+                                    }
+                                });
+                        alertDialog.show();
+                    }
                 }
             }
         }
@@ -286,5 +286,10 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
         int referencePitch = preferences.getInt(REFERENCE_PITCH, 440);
 
         pitchAdjuster = new PitchAdjuster(referencePitch);
+    }
+
+    private void requestRecordAudioPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO},
+                RECORD_AUDIO_PERMISSION);
     }
 }
