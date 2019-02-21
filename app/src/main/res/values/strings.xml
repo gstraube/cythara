@@ -27,6 +27,7 @@
         <item>Ukulele (D tuning)</item>
         <item>Violin (standard)</item>
         <item>Cello (standard)</item>
+        <item>Viola (standard)</item>
     </string-array>
     <string-array name="notations">
         <item name="scientific">Scientific pitch notation</item>
