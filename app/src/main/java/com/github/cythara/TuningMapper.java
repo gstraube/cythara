@@ -13,6 +13,7 @@ import com.github.cythara.tuning.OpenGGuitarTuning;
 import com.github.cythara.tuning.UkuleleDTuning;
 import com.github.cythara.tuning.UkuleleTuning;
 import com.github.cythara.tuning.ViolinTuning;
+import com.github.cythara.tuning.ViolaTuning;
 
 class TuningMapper {
 
@@ -27,6 +28,7 @@ class TuningMapper {
     private static final int D_TUNING_POSITION = 8;
     private static final int VIOLIN_TUNING_POSITION = 9;
     private static final int CELLO_TUNING_POSITION = 10;
+    private static final int VIOLA_TUNING_POSITION = 11;
 
     static Tuning getTuningFromPosition(int position) {
         switch (position) {
@@ -52,6 +54,8 @@ class TuningMapper {
                 return new ViolinTuning();
             case CELLO_TUNING_POSITION:
                 return new CelloTuning();
+            case VIOLA_TUNING_POSITION:
+                return new ViolaTuning();
             default:
                 Log.w("com.github.cythara", "Unknown position for tuning dropdown list");
                 return new ChromaticTuning();
