@@ -25,6 +25,7 @@
         <item>Ukulele (D tuning)</item>
         <item>Geige (Standard)</item>
         <item>Cello (Standard)</item>
+        <item>Viola (Standard)</item>
     </string-array>
     <string-array name="notations">
         <item name="scientific">Wissenschaftlich</item>
