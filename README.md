@@ -43,6 +43,7 @@ In chronological order:
 * [TacoTheDank](https://github.com/TacoTheDank) enabled the installation on external storage, upgraded the language level, and updated dependencies
 * [thim](https://github.com/thim) added the cello tuning, fixed issues, and updated library versions
 * [obibon](https://github.com/obibon) provided the translation to Basque
+* [Daveed9](https://github.com/Daveed9) added the viola tuning
 
 Thank you all!
 
