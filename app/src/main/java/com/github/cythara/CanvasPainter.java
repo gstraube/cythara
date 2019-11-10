@@ -303,11 +303,17 @@ class CanvasPainter {
 
     private void setBackground() {
         int color = redBackground;
+        String text = "✗";
         if (Math.abs(getNearestDeviation()) <= TOLERANCE) {
             color = greenBackground;
+            text = "✓";
         }
 
         canvas.drawColor(context.getResources().getColor(color));
+
+        canvas.drawText(text,
+                x + gaugeWidth - symbolPaint.measureText(text),
+                canvas.getHeight() * 0.9f, symbolPaint);
     }
 
     private int getNearestDeviation() {
