@@ -163,7 +163,7 @@ class CanvasPainter {
         int size = (int) (textPaint.getTextSize() / 2);
         paint.setTextSize(size);
 
-        float offset = paint.measureText(getNote(note.getName()) + String.valueOf(getOctave(4))) * 0.75f;
+        float offset = paint.measureText(getNote(note.getName()) + getOctave(4)) * 0.75f;
 
         drawText(x - gaugeWidth, y, note, paint);
         canvas.drawText(String.format(Locale.ENGLISH, "= %d Hz", referencePitch),
@@ -237,7 +237,7 @@ class CanvasPainter {
         if (mark > 0) {
             prefix = "+";
         }
-        String text = prefix + String.valueOf(mark);
+        String text = prefix + mark;
 
         int yOffset = (int) (numbersPaint.getTextSize() / 6);
         if (mark % 10 == 0) {
