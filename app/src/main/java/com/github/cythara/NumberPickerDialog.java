@@ -1,13 +1,13 @@
 package com.github.cythara;
 
-
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.ContextThemeWrapper;
 
 import com.shawnlin.numberpicker.NumberPicker;
+
+import androidx.appcompat.app.AlertDialog.Builder;
+import androidx.fragment.app.DialogFragment;
 
 public class NumberPickerDialog extends DialogFragment {
 
@@ -31,12 +31,13 @@ public class NumberPickerDialog extends DialogFragment {
             numberPicker.setSelectedTextColor(color);
         }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(),
+        Builder builder = new Builder(new ContextThemeWrapper(getActivity(),
                 R.style.AppTheme));
         builder.setMessage(R.string.choose_a_frequency);
 
-        builder.setPositiveButton("OK", (dialog, which) -> valueChangeListener.onValueChange(numberPicker,
-                numberPicker.getValue(), numberPicker.getValue()));
+        builder.setPositiveButton("OK",
+                (dialog, which) -> valueChangeListener.onValueChange(numberPicker,
+                        numberPicker.getValue(), numberPicker.getValue()));
 
         builder.setNegativeButton("CANCEL", (dialog, which) -> {
         });
@@ -52,7 +53,7 @@ public class NumberPickerDialog extends DialogFragment {
         this.dismiss();
     }
 
-    public void setValueChangeListener(NumberPicker.OnValueChangeListener valueChangeListener) {
+    void setValueChangeListener(NumberPicker.OnValueChangeListener valueChangeListener) {
         this.valueChangeListener = valueChangeListener;
     }
 }

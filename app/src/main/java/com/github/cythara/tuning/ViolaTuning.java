@@ -6,7 +6,7 @@ import com.github.cythara.Tuning;
 
 import static com.github.cythara.NoteName.*;
 
-public class DropDGuitarTuning implements Tuning {
+public class ViolaTuning implements Tuning {
 
     @Override
     public Note[] getNotes() {
@@ -20,12 +20,10 @@ public class DropDGuitarTuning implements Tuning {
 
     private enum Pitch implements Note {
 
-        D2(D, 2, 73.416f),
-        A2(A, 2, 110f),
-        D3(D, 3, 146.832f),
-        G3(G, 3, 195.998f),
-        B3(B, 3, 246.942f),
-        E4(E, 4, 329.628f);
+        C3(C, 3, 130.81f),
+        G3(G, 3, 196.00f),
+        D4(D, 4, 293.66f),
+        A4(A, 4, 440.00f);
 
         private final String sign;
         private final int octave;

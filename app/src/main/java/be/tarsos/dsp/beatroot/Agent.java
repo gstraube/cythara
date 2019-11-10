@@ -61,18 +61,18 @@ public class Agent {
 	/** The maximum amount by which a beat can be earlier than the predicted beat time,
 	 *  expressed as a fraction of the beat period. */
 	public static double PRE_MARGIN_FACTOR = 0.15;
-
-    /** The default value of innerMargin, which is the maximum time (in seconds) that a
+	
+	/** The default value of innerMargin, which is the maximum time (in seconds) that a
 	 * 	beat can deviate from the predicted beat time without a fork occurring. */
 	public static final double INNER_MARGIN = 0.040;
-
-    /** The maximum allowed deviation from the initial tempo, expressed as a fraction of the initial beat period. */
+	
+	/** The maximum allowed deviation from the initial tempo, expressed as a fraction of the initial beat period. */
 	public static double MAX_CHANGE = 0.2;
-
-    /** The slope of the penalty function for onsets which do not coincide precisely with predicted beat times. */
+		
+	/** The slope of the penalty function for onsets which do not coincide precisely with predicted beat times. */
 	public static double CONF_FACTOR = 0.5;
-
-    /** The reactiveness/inertia balance, i.e. degree of change in the tempo, is controlled by the correctionFactor
+	
+	/** The reactiveness/inertia balance, i.e. degree of change in the tempo, is controlled by the correctionFactor
 	 *  variable.  This constant defines its default value, which currently is not subsequently changed. The
 	 *  beat period is updated by the reciprocal of the correctionFactor multiplied by the difference between the
 	 *  predicted beat time and matching onset. */

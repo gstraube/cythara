@@ -1,12 +1,18 @@
 <resources>
     <string name="app_name">Cythara</string>
+
     <string name="privacy_policy">Datenschutzrichtlinie anzeigen</string>
     <string name="set_notation">Notation wählen</string>
-    <string name="toggle_dark_mode">Dunkelmodus umschalten</string>
     <string name="choose_notation">Wähle die Notation</string>
-    <string name="permission_required">Berechtigungen erforderlich</string>
+    <string name="toggle_dark_mode">Dunkelmodus umschalten</string>
     <string name="set_reference_pitch">Referenztonhöhe einstellen</string>
     <string name="choose_a_frequency">Wähle eine Frequenz:</string>
+    <string name="permission_required">Berechtigungen erforderlich</string>
+    <string name="microphone_permission_required">
+        Eine Mikrofongenehmigung ist erforderlich. App wird geschlossen.
+    </string>
+    <string name="ok">OK</string>
+
     <string-array name="tunings">
         <item>Chromatisch</item>
         <item>Gitarre (Standard)</item>
@@ -19,6 +25,7 @@
         <item>Ukulele (D tuning)</item>
         <item>Geige (Standard)</item>
         <item>Cello (Standard)</item>
+        <item>Viola (Standard)</item>
     </string-array>
     <string-array name="notations">
         <item name="scientific">Wissenschaftlich</item>

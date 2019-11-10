@@ -5,6 +5,16 @@ import android.os.Parcelable;
 
 class PitchDifference implements Parcelable {
 
+    public static final Creator<PitchDifference> CREATOR = new Creator<PitchDifference>() {
+        public PitchDifference createFromParcel(Parcel in) {
+            return new PitchDifference(in);
+        }
+
+        public PitchDifference[] newArray(int size) {
+            return new PitchDifference[size];
+        }
+    };
+
     final Note closest;
     final double deviation;
 
@@ -29,15 +39,4 @@ class PitchDifference implements Parcelable {
         dest.writeString(closest.getName().name());
         dest.writeDouble(deviation);
     }
-
-    public static final Parcelable.Creator<PitchDifference> CREATOR
-            = new Parcelable.Creator<PitchDifference>() {
-        public PitchDifference createFromParcel(Parcel in) {
-            return new PitchDifference(in);
-        }
-
-        public PitchDifference[] newArray(int size) {
-            return new PitchDifference[size];
-        }
-    };
 }
