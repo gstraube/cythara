@@ -44,6 +44,7 @@ In chronological order:
 * [thim](https://github.com/thim) added the cello tuning, fixed issues, and updated library versions
 * [obibon](https://github.com/obibon) provided the translation to Basque
 * [Daveed9](https://github.com/Daveed9) added the viola tuning
+* [SiIky](https://github.com/SiIky) added the Drop C bass tuning and suggested a more reliable way of handling note frequencies
 
 Thank you all!
 
