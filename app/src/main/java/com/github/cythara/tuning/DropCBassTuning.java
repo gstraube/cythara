@@ -6,7 +6,7 @@ import com.github.cythara.Tuning;
 
 import static com.github.cythara.NoteName.*;
 
-public class BassCGCFTuning implements Tuning {
+public class DropCBassTuning implements Tuning {
 
     @Override
     public Note[] getNotes() {
