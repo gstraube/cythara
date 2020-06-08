@@ -2,6 +2,7 @@ package com.github.cythara;
 
 import android.util.Log;
 
+import com.github.cythara.tuning.DropCBassTuning;
 import com.github.cythara.tuning.BassTuning;
 import com.github.cythara.tuning.CelloTuning;
 import com.github.cythara.tuning.ChromaticTuning;
@@ -24,11 +25,12 @@ class TuningMapper {
     private static final int DROP_C_SHARP_TUNING_POSITION = 4;
     private static final int OPEN_G_TUNING = 5;
     private static final int BASS_TUNING_POSITION = 6;
-    private static final int UKULELE_TUNING_POSITION = 7;
-    private static final int D_TUNING_POSITION = 8;
-    private static final int VIOLIN_TUNING_POSITION = 9;
-    private static final int CELLO_TUNING_POSITION = 10;
-    private static final int VIOLA_TUNING_POSITION = 11;
+    private static final int BASS_DROP_C_TUNING_POSITION = 7;
+    private static final int UKULELE_TUNING_POSITION = 8;
+    private static final int D_TUNING_POSITION = 9;
+    private static final int VIOLIN_TUNING_POSITION = 10;
+    private static final int CELLO_TUNING_POSITION = 11;
+    private static final int VIOLA_TUNING_POSITION = 12;
 
     static Tuning getTuningFromPosition(int position) {
         switch (position) {
@@ -46,6 +48,8 @@ class TuningMapper {
                 return new OpenGGuitarTuning();
             case BASS_TUNING_POSITION:
                 return new BassTuning();
+            case BASS_DROP_C_TUNING_POSITION:
+                return new DropCBassTuning();
             case UKULELE_TUNING_POSITION:
                 return new UkuleleTuning();
             case D_TUNING_POSITION:
