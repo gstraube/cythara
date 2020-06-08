@@ -20,10 +20,10 @@ public class BassCGCFTuning implements Tuning {
 
     private enum Pitch implements Note {
 
-        C1(C, 1, 32.7),
-        G1(G, 1, 49),
-        C2(C, 2, 65.41),
-        F2(F, 2, 87.31);
+        C1(C, 1, 32.7f),
+        G1(G, 1, 49f),
+        C2(C, 2, 65.41f),
+        F2(F, 2, 87.31f);
 
         private final String sign;
         private final int octave;
