@@ -176,28 +176,26 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case RECORD_AUDIO_PERMISSION: {
-                if (grantResults.length > 0) {
-                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                        startRecording();
-                    } else {
-                        AlertDialog alertDialog = new Builder(MainActivity.this).create();
-                        alertDialog.setTitle(R.string.permission_required);
-                        alertDialog.setMessage(getString(R.string.microphone_permission_required));
-                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
-                                (dialog, which) -> {
-                                    dialog.dismiss();
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                                        finishAffinity();
-                                    } else {
-                                        finish();
-                                    }
-                                });
-                        alertDialog.show();
-                    }
+        if (requestCode == RECORD_AUDIO_PERMISSION) {
+            if (grantResults.length > 0) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startRecording();
+                } else {
+                    AlertDialog alertDialog = new Builder(MainActivity.this).create();
+                    alertDialog.setTitle(R.string.permission_required);
+                    alertDialog.setMessage(getString(R.string.microphone_permission_required));
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                            (dialog, which) -> {
+                                dialog.dismiss();
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                    finishAffinity();
+                                } else {
+                                    finish();
+                                }
+                            });
+                    alertDialog.show();
                 }
             }
         }
