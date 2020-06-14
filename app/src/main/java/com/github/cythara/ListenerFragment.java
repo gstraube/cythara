@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.fragment.app.Fragment;
+
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.io.android.AudioDispatcherFactory;
 import be.tarsos.dsp.pitch.PitchDetectionHandler;
@@ -105,8 +106,7 @@ public class ListenerFragment extends Fragment {
                 float pitch = pitchDetectionResult.getPitch();
 
                 if (pitch != -1) {
-                    float adjustedPitch = MainActivity.adjustPitch(pitch);
-                    PitchDifference pitchDifference = PitchComparator.retrieveNote(adjustedPitch);
+                    PitchDifference pitchDifference = PitchComparator.retrieveNote(pitch);
 
                     pitchDifferences.add(pitchDifference);
 
@@ -121,7 +121,8 @@ public class ListenerFragment extends Fragment {
                 }
             };
 
-            PitchProcessor pitchProcessor = new PitchProcessor(PitchEstimationAlgorithm.FFT_YIN, SAMPLE_RATE,
+            PitchProcessor pitchProcessor = new PitchProcessor(PitchEstimationAlgorithm.FFT_YIN,
+                    SAMPLE_RATE,
                     BUFFER_SIZE, pitchDetectionHandler);
 
             audioDispatcher = AudioDispatcherFactory.fromDefaultMicrophone(SAMPLE_RATE,

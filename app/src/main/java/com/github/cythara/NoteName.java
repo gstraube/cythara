@@ -25,4 +25,14 @@ public enum NoteName {
     public String getSol() {
         return sol;
     }
+
+    public static NoteName fromScientificName(String scientificName) {
+        for (NoteName noteName : NoteName.values()) {
+            if (noteName.getScientific().equalsIgnoreCase(scientificName)) {
+                return noteName;
+            }
+        }
+
+        throw new IllegalArgumentException("Could not convert from name: " + scientificName);
+    }
 }

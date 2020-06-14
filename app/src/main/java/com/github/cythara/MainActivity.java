@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
     private static final String USE_DARK_MODE = "use_dark_mode";
     private static int tuningPosition = 0;
     private static boolean isDarkModeEnabled;
-    private static PitchAdjuster pitchAdjuster;
+    private static int referencePitch;
 
     public static Tuning getCurrentTuning() {
         return TuningMapper.getTuningFromPosition(tuningPosition);
@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
         return isDarkModeEnabled;
     }
 
-    public static float adjustPitch(float pitch) {
-        return pitchAdjuster.adjustPitch(pitch);
+    public static int getReferencePitch() {
+        return referencePitch;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
         setContentView(R.layout.activity_main);
 
         setTuning();
-        setPitchAdjuster();
+        setReferencePitch();
 
         getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
         editor.putInt(REFERENCE_PITCH, newValue);
         editor.apply();
 
-        setPitchAdjuster();
+        setReferencePitch();
 
         TunerView tunerView = this.findViewById(R.id.pitch);
         tunerView.invalidate();
@@ -280,12 +280,10 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
         AppCompatDelegate.setDefaultNightMode(mode);
     }
 
-    private void setPitchAdjuster() {
+    private void setReferencePitch() {
         final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
                 MODE_PRIVATE);
-        int referencePitch = preferences.getInt(REFERENCE_PITCH, 440);
-
-        pitchAdjuster = new PitchAdjuster(referencePitch);
+        referencePitch = preferences.getInt(REFERENCE_PITCH, 440);
     }
 
     private void requestRecordAudioPermission() {
