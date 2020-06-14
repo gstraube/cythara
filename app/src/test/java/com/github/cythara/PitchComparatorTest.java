@@ -25,6 +25,7 @@ public class PitchComparatorTest {
     public void retrieveNote() {
         PowerMockito.mockStatic(MainActivity.class);
         Mockito.when(MainActivity.getCurrentTuning()).thenReturn(new GuitarTuning());
+        Mockito.when(MainActivity.getReferencePitch()).thenReturn(440);
 
         Map<Float, PitchDifference> expectations = new HashMap<>();
         expectations.put(20f, new PitchDifference(E2, -2451.3202694972874));
@@ -38,7 +39,7 @@ public class PitchComparatorTest {
 
             assertNotNull(expected);
             assertThat(actual.closest, is(expected.closest));
-            assertThat(actual.deviation, closeTo(expected.deviation, 0.001));
+            assertThat(actual.deviation, closeTo(expected.deviation, 0.01));
         }
     }
 }
