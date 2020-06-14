@@ -20,36 +20,29 @@ public class UkuleleDTuning implements Tuning {
 
     private enum Pitch implements Note {
 
-        A4(A, 4, 440f),
-        D4(D, 4, 293.665f),
-        F3_SHARP(F, 3, "#", 369.99f),
-        B4(B, 4, 493.88f);
+        A4(A, 4),
+        D4(D, 4),
+        F3_SHARP(F, 3, "#"),
+        B4(B, 4);
 
         private final String sign;
         private final int octave;
-        private final float frequency;
         private NoteName name;
 
-        Pitch(NoteName name, int octave, String sign, float frequency) {
+        Pitch(NoteName name, int octave, String sign) {
             this.name = name;
             this.octave = octave;
             this.sign = sign;
-            this.frequency = frequency;
         }
 
-        Pitch(NoteName name, int octave, float frequency) {
+        Pitch(NoteName name, int octave) {
             this.name = name;
             this.octave = octave;
             this.sign = "";
-            this.frequency = frequency;
         }
 
         public NoteName getName() {
             return name;
-        }
-
-        public float getFrequency() {
-            return frequency;
         }
 
         @Override

@@ -151,11 +151,6 @@ class CanvasPainter {
             public String getSign() {
                 return "";
             }
-
-            @Override
-            public float getFrequency() {
-                return referencePitch;
-            }
         };
 
         TextPaint paint = new TextPaint(ANTI_ALIAS_FLAG);

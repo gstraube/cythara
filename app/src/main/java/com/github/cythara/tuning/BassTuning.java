@@ -20,29 +20,23 @@ public class BassTuning implements Tuning {
 
     private enum Pitch implements Note {
 
-        E1(E, 1, 41.204f),
-        A1(A, 1, 55f),
-        D2(D, 2, 73.416f),
-        G2(G, 2, 97.999f);
+        E1(E, 1),
+        A1(A, 1),
+        D2(D, 2),
+        G2(G, 2);
 
         private final String sign;
         private final int octave;
-        private final float frequency;
         private NoteName name;
 
-        Pitch(NoteName name, int octave, float frequency) {
+        Pitch(NoteName name, int octave) {
             this.name = name;
             this.octave = octave;
             this.sign = "";
-            this.frequency = frequency;
         }
 
         public NoteName getName() {
             return name;
-        }
-
-        public float getFrequency() {
-            return frequency;
         }
 
         @Override

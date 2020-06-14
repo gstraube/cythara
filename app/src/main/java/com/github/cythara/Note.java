@@ -7,6 +7,4 @@ public interface Note {
     int getOctave();
 
     String getSign();
-
-    float getFrequency();
 }

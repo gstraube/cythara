@@ -20,31 +20,25 @@ public class GuitarTuning implements Tuning {
 
     public enum Pitch implements Note {
 
-        E2(E, 2, 82.407f),
-        A2(A, 2, 110f),
-        D3(D, 3, 146.832f),
-        G3(G, 3, 195.998f),
-        B3(B, 3, 246.942f),
-        E4(E, 4, 329.628f);
+        E2(E, 2),
+        A2(A, 2),
+        D3(D, 3),
+        G3(G, 3),
+        B3(B, 3),
+        E4(E, 4);
 
         private final String sign;
         private final int octave;
-        private final float frequency;
         private NoteName name;
 
-        Pitch(NoteName name, int octave, float frequency) {
+        Pitch(NoteName name, int octave) {
             this.name = name;
             this.octave = octave;
             this.sign = "";
-            this.frequency = frequency;
         }
 
         public NoteName getName() {
             return name;
-        }
-
-        public float getFrequency() {
-            return frequency;
         }
 
         @Override

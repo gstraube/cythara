@@ -20,29 +20,23 @@ public class CelloTuning implements Tuning {
 
     private enum Pitch implements Note {
 
-        C2(C, 2, 65.4f),
-        G2(G, 2, 98f),
-        D3(D, 3, 146.8f),
-        A3(A, 3, 220f);
+        C2(C, 2),
+        G2(G, 2),
+        D3(D, 3),
+        A3(A, 3);
 
         private final String sign;
         private final int octave;
-        private final float frequency;
         private NoteName name;
 
-        Pitch(NoteName name, int octave, float frequency) {
+        Pitch(NoteName name, int octave) {
             this.name = name;
             this.octave = octave;
             this.sign = "";
-            this.frequency = frequency;
         }
 
         public NoteName getName() {
             return name;
-        }
-
-        public float getFrequency() {
-            return frequency;
         }
 
         @Override

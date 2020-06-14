@@ -20,29 +20,23 @@ public class UkuleleTuning implements Tuning {
 
     private enum Pitch implements Note {
 
-        G4(G, 4, 391.995f),
-        C4(C, 4, 261.626f),
-        E4(E, 4, 329.628f),
-        A4(A, 4, 440f);
+        G4(G, 4),
+        C4(C, 4),
+        E4(E, 4),
+        A4(A, 4);
 
         private final String sign;
         private final int octave;
-        private final float frequency;
         private NoteName name;
 
-        Pitch(NoteName name, int octave, float frequency) {
+        Pitch(NoteName name, int octave) {
             this.name = name;
             this.octave = octave;
             this.sign = "";
-            this.frequency = frequency;
         }
 
         public NoteName getName() {
             return name;
-        }
-
-        public float getFrequency() {
-            return frequency;
         }
 
         @Override

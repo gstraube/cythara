@@ -52,11 +52,6 @@ public class NoteFrequencyCalculatorTest {
                     public String getSign() {
                         return finalSign;
                     }
-
-                    @Override
-                    public float getFrequency() {
-                        return 0;
-                    }
                 };
 
                 NoteFrequencyCalculator noteFrequencyCalculator =

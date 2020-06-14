@@ -20,29 +20,23 @@ public class DropCBassTuning implements Tuning {
 
     private enum Pitch implements Note {
 
-        C1(C, 1, 32.7f),
-        G1(G, 1, 49f),
-        C2(C, 2, 65.41f),
-        F2(F, 2, 87.31f);
+        C1(C, 1),
+        G1(G, 1),
+        C2(C, 2),
+        F2(F, 2);
 
         private final String sign;
         private final int octave;
-        private final float frequency;
         private NoteName name;
 
-        Pitch(NoteName name, int octave, float frequency) {
+        Pitch(NoteName name, int octave) {
             this.name = name;
             this.octave = octave;
             this.sign = "";
-            this.frequency = frequency;
         }
 
         public NoteName getName() {
             return name;
-        }
-
-        public float getFrequency() {
-            return frequency;
         }
 
         @Override

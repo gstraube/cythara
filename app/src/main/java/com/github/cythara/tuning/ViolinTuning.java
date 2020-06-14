@@ -20,29 +20,23 @@ public class ViolinTuning implements Tuning {
 
     private enum Pitch implements Note {
 
-        G3(G, 3, 196f),
-        D4(D, 4, 293.66f),
-        A4(A, 4, 440f),
-        E5(E, 5, 659.26f);
+        G3(G, 3),
+        D4(D, 4),
+        A4(A, 4),
+        E5(E, 5);
 
         private final String sign;
         private final int octave;
-        private final float frequency;
         private NoteName name;
 
-        Pitch(NoteName name, int octave, float frequency) {
+        Pitch(NoteName name, int octave) {
             this.name = name;
             this.octave = octave;
             this.sign = "";
-            this.frequency = frequency;
         }
 
         public NoteName getName() {
             return name;
-        }
-
-        public float getFrequency() {
-            return frequency;
         }
 
         @Override
