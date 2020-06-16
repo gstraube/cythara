@@ -6,6 +6,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.os.Environment;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.rule.GrantPermissionRule;
+
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,11 +22,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import androidx.test.rule.ActivityTestRule;
-import androidx.test.rule.GrantPermissionRule;
-import androidx.test.runner.AndroidJUnit4;
-
-import static androidx.test.rule.GrantPermissionRule.grant;
 import static com.github.cythara.tuning.GuitarTuning.Pitch.*;
 import static java.lang.String.format;
 
@@ -35,15 +34,15 @@ public class TunerViewTest {
 
     @Rule
     public GrantPermissionRule recordAudioRule =
-            grant(Manifest.permission.RECORD_AUDIO);
+            GrantPermissionRule.grant(Manifest.permission.RECORD_AUDIO);
 
     @Rule
     public GrantPermissionRule writePermissionRule =
-            grant(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
     @Rule
     public GrantPermissionRule readPermissionRule =
-            grant(Manifest.permission.READ_EXTERNAL_STORAGE);
+            GrantPermissionRule.grant(Manifest.permission.READ_EXTERNAL_STORAGE);
 
     @Test
     public void exactly_matching_pitch_is_displayed() throws IOException {

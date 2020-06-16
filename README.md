@@ -6,9 +6,9 @@ A musical instrument tuner for Android.
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
       alt="Get it on F-Droid"
       height="80">](https://f-droid.org/packages/com.github.cythara/)
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"
-      alt="Get it on Google Play"
-      height="80">](https://play.google.com/store/apps/details?id=com.github.cythara)
+
+NOTE: Do not use the outdated Play Store version.
+The keystore file that was used to sign it has been lost, so updates can no longer be pushed to Google Play.
 
 ## Functionality
 
@@ -27,11 +27,11 @@ can be run using `./gradlew connectedCheck`. The reference images are generated 
 
 The Tarsos DSP library (https://github.com/JorenSix/TarsosDSP) is used for pitch detection.
 
-Current library version: commit [c26e500](https://github.com/JorenSix/TarsosDSP/tree/c26e5004e203ee79be1ec25c2603b1f11b69d276)
+Current library version: commit [d958352](https://github.com/JorenSix/TarsosDSP/tree/d9583528b9573a97c220d19e6d9ab2929e9bd1c5)
 
 ## License
 
-Cythara is licensed under GPLv3. A copy of the license is included in LICENSE.txt.
+Cythara is licensed under GPLv3. A copy of the license is included in the [LICENSE](https://github.com/gstraube/cythara/blob/master/LICENSE).
 
 # Contributors
 
