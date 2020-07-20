@@ -22,7 +22,7 @@ public class UkuleleDTuning implements Tuning {
 
         A4(A, 4),
         D4(D, 4),
-        F3_SHARP(F, 3, "#"),
+        F4_SHARP(F, 4, "#"),
         B4(B, 4);
 
         private final String sign;
