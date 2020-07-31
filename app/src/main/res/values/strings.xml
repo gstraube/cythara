@@ -29,6 +29,7 @@
         <item>Violin (standard)</item>
         <item>Cello (standard)</item>
         <item>Viola (standard)</item>
+        <item>Oud (Turkish standard)</item>
     </string-array>
     <string-array name="notations">
         <item name="scientific">Scientific pitch notation</item>
