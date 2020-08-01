@@ -31,6 +31,12 @@ public class OudStdTurkishTuning implements Tuning {
         private final int octave;
         private NoteName name;
 
+        Pitch(NoteName name, int octave, String sign) {
+            this.name = name;
+            this.octave = octave;
+            this.sign = sign;
+        }
+
         Pitch(NoteName name, int octave) {
             this.name = name;
             this.octave = octave;
