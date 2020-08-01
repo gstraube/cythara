@@ -45,6 +45,7 @@ In chronological order:
 * [obibon](https://github.com/obibon) provided the translation to Basque
 * [Daveed9](https://github.com/Daveed9) added the viola tuning
 * [SiIky](https://github.com/SiIky) added the Drop C bass tuning and suggested a more reliable way of handling note frequencies
+* [romgarb](https://github.com/romgarb) added the Turkish Oud standard tuning
 
 Thank you all!
 
