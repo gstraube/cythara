@@ -22,7 +22,7 @@ public class OudStdTurkishTuning implements Tuning {
 
         C2_SHARP(C, 2, "#"),
         F2_SHARP(F, 2, "#"),
-        B3(B, 3),
+        B2(B, 2),
         E3(E, 3),
         A3(A, 3),
         D4(D, 4);
