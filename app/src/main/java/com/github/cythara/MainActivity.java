@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
     public static final String PREFS_FILE = "prefs_file";
     public static final String USE_SCIENTIFIC_NOTATION = "use_scientific_notation";
     public static final String CURRENT_TUNING = "current_tuning";
+    public static final String SHOW_EXACT_DEVIATION = "show_exact_deviation";
     protected static final String REFERENCE_PITCH = "reference_pitch";
     private static final String TAG_LISTENER_FRAGMENT = "listener_fragment";
     private static final String USE_DARK_MODE = "use_dark_mode";
@@ -156,6 +157,18 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
                 dialog.show(getSupportFragmentManager(), "number_picker");
 
                 break;
+            }
+            case R.id.show_exact_deviation: {
+                final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
+                        MODE_PRIVATE);
+                boolean currentlyShowingExactDeviation = preferences.getBoolean(
+                        SHOW_EXACT_DEVIATION, false);
+
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(SHOW_EXACT_DEVIATION, !currentlyShowingExactDeviation);
+                editor.apply();
+
+                recreate();
             }
         }
 

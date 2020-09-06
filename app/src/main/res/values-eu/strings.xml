@@ -9,4 +9,5 @@
     <string name="choose_a_frequency">Maiztasun bat hautatu:</string>
     <string name="microphone_permission_required">Mikrofonoaren baimena beharrezkoa da</string>
     <string name="ok">Ados</string>
+    <string name="show_exact_deviation">Erakutsi/ezkutatu desbideratze zehatza</string>
 </resources>

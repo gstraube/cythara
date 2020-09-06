@@ -14,6 +14,7 @@
     <string name="permission_required">Permission required</string>
     <string name="microphone_permission_required">Microphone permission is required. App will close.</string>
     <string name="ok">OK</string>
+    <string name="show_exact_deviation">Show/hide exact deviation</string>
 
     <string-array name="tunings">
         <item>Chromatic</item>

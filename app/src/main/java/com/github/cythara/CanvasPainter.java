@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 
@@ -41,6 +42,7 @@ class CanvasPainter {
     private float x;
     private float y;
     private boolean useScientificNotation;
+    private boolean showExactDeviation;
     private int referencePitch;
 
     private CanvasPainter(Context context) {
@@ -63,6 +65,8 @@ class CanvasPainter {
 
         useScientificNotation = preferences.getBoolean(
                 MainActivity.USE_SCIENTIFIC_NOTATION, true);
+
+        showExactDeviation = preferences.getBoolean(MainActivity.SHOW_EXACT_DEVIATION, false);
 
         referencePitch = preferences.getInt(
                 MainActivity.REFERENCE_PITCH, 440);
@@ -98,6 +102,10 @@ class CanvasPainter {
 
             drawIndicator();
 
+            if (showExactDeviation) {
+                drawDeviation();
+            }
+
             float x = canvas.getWidth() / 2F;
             float y = canvas.getHeight() * 0.75f;
 
@@ -105,6 +113,20 @@ class CanvasPainter {
         } else {
             drawListeningIndicator();
         }
+    }
+
+    private void drawDeviation() {
+        long rounded = Math.round(pitchDifference.deviation);
+        String text = String.valueOf(rounded);
+
+        Rect bounds = new Rect();
+        symbolPaint.getTextBounds(text, 0, text.length(), bounds);
+        int width = bounds.width();
+
+        float xPos = x - width / 2F;
+        float yPos = canvas.getHeight() / 3F;
+
+        canvas.drawText(text, xPos, yPos, symbolPaint);
     }
 
     private void drawGauge() {

@@ -12,6 +12,7 @@
         A permissão do microfone é necessária. App será fechado.
     </string>
     <string name="ok">OK</string>
+    <string name="show_exact_deviation">Mostrar/esconder o desvio exato</string>
 
     <string-array name="tunings">
         <item>Cromático</item>

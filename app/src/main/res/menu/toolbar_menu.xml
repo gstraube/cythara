@@ -21,4 +21,9 @@
         android:id="@+id/toggle_dark_mode"
         android:title="@string/toggle_dark_mode"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/show_exact_deviation"
+        android:title="@string/show_exact_deviation"
+        app:showAsAction="never" />
 </menu>
