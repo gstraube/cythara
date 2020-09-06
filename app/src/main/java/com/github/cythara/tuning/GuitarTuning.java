@@ -20,12 +20,12 @@ public class GuitarTuning implements Tuning {
 
     public enum Pitch implements Note {
 
-        E2(E, 2),
-        A2(A, 2),
-        D3(D, 3),
-        G3(G, 3),
+        E4(E, 4),
         B3(B, 3),
-        E4(E, 4);
+        G3(G, 3),
+        D3(D, 3),
+        A2(A, 2),
+        E2(E, 2);
 
         private final String sign;
         private final int octave;
