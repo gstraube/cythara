@@ -10,7 +10,15 @@ class PitchComparator {
         Tuning tuning = MainActivity.getCurrentTuning();
         int referencePitch = MainActivity.getReferencePitch();
 
-        Note[] notes = tuning.getNotes();
+        Note[] tuningNotes = tuning.getNotes();
+        Note[] notes;
+
+        if (MainActivity.isAutoModeEnabled()) {
+            notes = tuningNotes;
+        } else {
+            notes = new Note[]{tuningNotes[MainActivity.getReferencePosition()]};
+        }
+
         NoteFrequencyCalculator noteFrequencyCalculator =
                 new NoteFrequencyCalculator(referencePitch);
 

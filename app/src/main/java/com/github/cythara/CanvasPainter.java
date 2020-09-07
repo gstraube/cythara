@@ -17,6 +17,7 @@ import java.util.Objects;
 import androidx.core.content.ContextCompat;
 
 import static android.graphics.Paint.ANTI_ALIAS_FLAG;
+import static com.github.cythara.MainActivity.*;
 
 class CanvasPainter {
 
@@ -42,7 +43,6 @@ class CanvasPainter {
     private float x;
     private float y;
     private boolean useScientificNotation;
-    private boolean showExactDeviation;
     private int referencePitch;
 
     private CanvasPainter(Context context) {
@@ -61,22 +61,20 @@ class CanvasPainter {
 
     void on(Canvas canvas) {
         SharedPreferences preferences = context.getSharedPreferences(
-                MainActivity.PREFS_FILE, Context.MODE_PRIVATE);
+                PREFS_FILE, Context.MODE_PRIVATE);
 
         useScientificNotation = preferences.getBoolean(
-                MainActivity.USE_SCIENTIFIC_NOTATION, true);
-
-        showExactDeviation = preferences.getBoolean(MainActivity.SHOW_EXACT_DEVIATION, false);
+                USE_SCIENTIFIC_NOTATION, true);
 
         referencePitch = preferences.getInt(
-                MainActivity.REFERENCE_PITCH, 440);
+                REFERENCE_PITCH, 440);
 
         this.canvas = canvas;
 
         redBackground = R.color.red_light;
         greenBackground = R.color.green_light;
         textColor = Color.BLACK;
-        if (MainActivity.isDarkModeEnabled()) {
+        if (isDarkModeEnabled()) {
             int color = context.getResources().getColor(R.color.colorPrimaryDark);
             this.canvas.drawColor(color);
 
@@ -95,21 +93,34 @@ class CanvasPainter {
 
         drawGauge();
 
-        if (pitchDifference != null && Math.abs(getNearestDeviation()) <= MAX_DEVIATION) {
-            setBackground();
+        if (!isAutoModeEnabled()) {
+            Note[] tuningNotes = getCurrentTuning().getNotes();
+            Note note = tuningNotes[getReferencePosition()];
+            drawText(x, y / 4F, note, symbolPaint);
+        }
 
-            drawGauge();
+        if (pitchDifference != null) {
+            int abs = Math.abs(getNearestDeviation());
+            boolean shouldDraw = abs <= MAX_DEVIATION ||
+                    (abs <= MAX_DEVIATION * 2 && !isAutoModeEnabled());
+            if (shouldDraw) {
+                setBackground();
 
-            drawIndicator();
+                drawGauge();
 
-            if (showExactDeviation) {
-                drawDeviation();
+                drawIndicator();
+
+                if (!isAutoModeEnabled()) {
+                    drawDeviation();
+                }
+
+                float x = canvas.getWidth() / 2F;
+                float y = canvas.getHeight() * 0.75f;
+
+                drawText(x, y, pitchDifference.closest, textPaint);
+            } else {
+                drawListeningIndicator();
             }
-
-            float x = canvas.getWidth() / 2F;
-            float y = canvas.getHeight() * 0.75f;
-
-            drawText(x, y, pitchDifference.closest, textPaint);
         } else {
             drawListeningIndicator();
         }

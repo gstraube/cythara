@@ -16,6 +16,7 @@ public class NumberPickerDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final NumberPicker numberPicker = new NumberPicker(getActivity());
+        numberPicker.setTag("reference_pitch_picker");
 
         Bundle arguments = getArguments();
         int currentValue = arguments.getInt("current_value", 440);
