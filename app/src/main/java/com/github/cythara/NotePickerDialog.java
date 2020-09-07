@@ -50,7 +50,7 @@ public class NotePickerDialog extends DialogFragment {
 
                 octave = octave - 1;
             }
-            displayedValues[i + 1] = noteName + octave;
+            displayedValues[i + 1] = noteName + note.getSign() + octave;
         }
 
         numberPicker.setDisplayedValues(displayedValues);
