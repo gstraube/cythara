@@ -72,6 +72,10 @@ public class NotePickerDialog extends DialogFragment {
         builder.setNegativeButton("CANCEL", (dialog, which) -> {
         });
 
+        builder.setNeutralButton("AUTO",
+                (dialog, which) -> valueChangeListener.onValueChange(numberPicker,
+                        0, 0));
+
         builder.setView(numberPicker);
         return builder.create();
     }
