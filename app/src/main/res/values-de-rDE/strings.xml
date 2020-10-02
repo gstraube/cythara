@@ -29,6 +29,7 @@
         <item>Cello (Standard)</item>
         <item>Viola (Standard)</item>
         <item>Oud (Turkish standard)</item>
+        <item>Banjo (Standard)</item>
     </string-array>
     <string-array name="notations">
         <item name="scientific">Wissenschaftlich</item>
