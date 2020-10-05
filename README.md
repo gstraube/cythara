@@ -46,6 +46,7 @@ In chronological order:
 * [Daveed9](https://github.com/Daveed9) added the viola tuning
 * [SiIky](https://github.com/SiIky) added the Drop C bass tuning and suggested a more reliable way of handling note frequencies
 * [romgarb](https://github.com/romgarb) added the Turkish Oud standard tuning
+* [klausweiss](https://github.com/klausweiss) added the Banjo tuning and missing translations
 
 Thank you all!
 
