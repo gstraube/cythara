@@ -12,7 +12,6 @@
         Eine Mikrofongenehmigung ist erforderlich. App wird geschlossen.
     </string>
     <string name="ok">OK</string>
-    <string name="show_exact_deviation">Genaue Abweichung ein-/ausblenden</string>
 
     <string-array name="tunings">
         <item>Chromatisch</item>

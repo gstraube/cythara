@@ -23,7 +23,7 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/show_exact_deviation"
-        android:title="@string/show_exact_deviation"
+        android:id="@+id/choose_tuning_mode"
+        android:title="@string/choose_tuning_mode"
         app:showAsAction="never" />
 </menu>

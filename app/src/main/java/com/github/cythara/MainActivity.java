@@ -38,13 +38,14 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
     public static final String PREFS_FILE = "prefs_file";
     public static final String USE_SCIENTIFIC_NOTATION = "use_scientific_notation";
     public static final String CURRENT_TUNING = "current_tuning";
-    public static final String SHOW_EXACT_DEVIATION = "show_exact_deviation";
     protected static final String REFERENCE_PITCH = "reference_pitch";
     private static final String TAG_LISTENER_FRAGMENT = "listener_fragment";
     private static final String USE_DARK_MODE = "use_dark_mode";
     private static int tuningPosition = 0;
     private static boolean isDarkModeEnabled;
     private static int referencePitch;
+    private static int referencePosition;
+    private static boolean isAutoModeEnabled = true;
 
     public static Tuning getCurrentTuning() {
         return TuningMapper.getTuningFromPosition(tuningPosition);
@@ -56,6 +57,14 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
 
     public static int getReferencePitch() {
         return referencePitch;
+    }
+
+    public static boolean isAutoModeEnabled() {
+        return isAutoModeEnabled;
+    }
+
+    public static int getReferencePosition() {
+        return referencePosition - 1; //to account for the position of the AUTO option
     }
 
     @Override
@@ -154,21 +163,23 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
                 dialog.setArguments(bundle);
 
                 dialog.setValueChangeListener(this);
-                dialog.show(getSupportFragmentManager(), "number_picker");
+                dialog.show(getSupportFragmentManager(), "reference_pitch_picker");
 
                 break;
             }
-            case R.id.show_exact_deviation: {
+            case R.id.choose_tuning_mode: {
                 final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
                         MODE_PRIVATE);
-                boolean currentlyShowingExactDeviation = preferences.getBoolean(
-                        SHOW_EXACT_DEVIATION, false);
+                NotePickerDialog dialog = new NotePickerDialog();
 
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean(SHOW_EXACT_DEVIATION, !currentlyShowingExactDeviation);
-                editor.apply();
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("use_scientific_notation", preferences.getBoolean(
+                        MainActivity.USE_SCIENTIFIC_NOTATION, true));
+                bundle.putInt("current_value", referencePosition);
+                dialog.setArguments(bundle);
 
-                recreate();
+                dialog.setValueChangeListener(this);
+                dialog.show(getSupportFragmentManager(), "note_picker");
             }
         }
 
@@ -224,21 +235,35 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
         editor.apply();
 
         tuningPosition = position;
+
+        isAutoModeEnabled = true;
+        referencePosition = 0;
+
+        recreate();
     }
 
     @Override
     public void onValueChange(NumberPicker picker, int oldValue, int newValue) {
-        final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
-                MODE_PRIVATE);
+        String tag = String.valueOf(picker.getTag());
+        if ("reference_pitch_picker".equalsIgnoreCase(tag)) {
+            final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
+                    MODE_PRIVATE);
 
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(REFERENCE_PITCH, newValue);
-        editor.apply();
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt(REFERENCE_PITCH, newValue);
+            editor.apply();
 
-        setReferencePitch();
+            setReferencePitch();
 
-        TunerView tunerView = this.findViewById(R.id.pitch);
-        tunerView.invalidate();
+            TunerView tunerView = this.findViewById(R.id.pitch);
+            tunerView.invalidate();
+        } else if ("note_picker".equalsIgnoreCase(tag)) {
+            isAutoModeEnabled = newValue == 0;
+
+            referencePosition = newValue;
+
+            recreate();
+        }
     }
 
     private void startRecording() {
