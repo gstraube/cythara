@@ -3,13 +3,13 @@
 
     <string name="privacy_policy">Gizlilik politikasını göster</string>
 
-    <string name="set_notation">Notasyon ayarla</string>
-    <string name="choose_notation">Notasyon seç</string>
+    <string name="set_notation">Nota gösterimi</string>
+    <string name="choose_notation">Nota gösterimini seç</string>
     <string name="toggle_dark_mode">Temayı değiştir</string>
-    <string name="set_reference_pitch">Varsayılan frekansı ayarla</string>
+    <string name="set_reference_pitch">Varsayılan frekans</string>
     <string name="choose_a_frequency">Frekans seç:</string>
     <string name="permission_required">İzin gerekli</string>
-    <string name="microphone_permission_required">Mikrofon izni gerekli yoksa uygulama kapatılacak.</string>
+    <string name="microphone_permission_required">Mikrofon izni gerekli yoksa uygulama kapanacak.</string>
     <string name="ok">Tamam</string>
     <string name="choose_tuning_mode" tools:ignore="MissingTranslation">Akort modunu ayarla</string>
 
@@ -31,7 +31,7 @@
         <item>Banço (standard)</item>
     </string-array>
     <string-array name="notations">
-        <item name="scientific">Bilimsel frekans notasyonu</item>
-        <item name="sol">Solfej</item>
+        <item name="scientific">Bilimsel (A, B, C...)</item>
+        <item name="sol">Solfej (La, Si, Do...)</item>
     </string-array>
 </resources>
