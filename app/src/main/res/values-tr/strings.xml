@@ -1,0 +1,37 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Cythara</string>
+
+    <string name="privacy_policy">Gizlilik politikasını göster</string>
+
+    <string name="set_notation">Nota gösterimi</string>
+    <string name="choose_notation">Nota gösterimini seç</string>
+    <string name="toggle_dark_mode">Temayı değiştir</string>
+    <string name="set_reference_pitch">Varsayılan frekans</string>
+    <string name="choose_a_frequency">Frekans seç:</string>
+    <string name="permission_required">İzin gerekli</string>
+    <string name="microphone_permission_required">Mikrofon izni gerekli yoksa uygulama kapanacak.</string>
+    <string name="ok">Tamam</string>
+    <string name="choose_tuning_mode" tools:ignore="MissingTranslation">Akort modunu ayarla</string>
+
+    <string-array name="tunings">
+        <item>Kromatik</item>
+        <item>Gitar (standard)</item>
+        <item>Gitar (Drop D)</item>
+        <item>Gitar (Drop C)</item>
+        <item>Gitar (Drop C#)</item>
+        <item>Gitar (Open G)</item>
+        <item>Bas (standard)</item>
+        <item>Bas (Drop C)</item>
+        <item>Ukulele (standard)</item>
+        <item>Ukulele (D akoru)</item>
+        <item>Keman (standard)</item>
+        <item>Çello (standard)</item>
+        <item>Viyola (standard)</item>
+        <item>Ud (Türk standardı)</item>
+        <item>Banço (standard)</item>
+    </string-array>
+    <string-array name="notations">
+        <item name="scientific">Bilimsel (A, B, C...)</item>
+        <item name="sol">Solfej (La, Si, Do...)</item>
+    </string-array>
+</resources>
