@@ -28,16 +28,25 @@ class PitchComparator {
 
         double minCentDifference = Float.POSITIVE_INFINITY;
         Note closest = notes[0];
+        Note lastNote=notes[0];
         for (Note note : notes) {
             double frequency = noteFrequencyCalculator.getFrequency(note);
-            double centDifference = 1200d * log2(pitch / frequency);
+            if (pitch < frequency) {
+                double centDifferenceCurrentNote = 1200d * log2(pitch / frequency);
 
-            if (Math.abs(centDifference) < Math.abs(minCentDifference)) {
-                minCentDifference = centDifference;
-                closest = note;
+                double frequencyLastNote=noteFrequencyCalculator.getFrequency(lastNote);
+                double centDifferenceLastNote= 1200d * log2(pitch / frequencyLastNote);
+                if (Math.abs(centDifferenceCurrentNote) < Math.abs(centDifferenceLastNote)) {
+                    minCentDifference = centDifferenceCurrentNote;
+                    closest = note;
+                }else{
+                    minCentDifference = centDifferenceLastNote;
+                    closest = lastNote;
+                }
+                break;
             }
+            lastNote=note;
         }
-
         return new PitchDifference(closest, minCentDifference);
     }
 
