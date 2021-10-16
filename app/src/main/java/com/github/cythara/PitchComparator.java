@@ -35,6 +35,8 @@ class PitchComparator {
             if (Math.abs(centDifference) < Math.abs(minCentDifference)) {
                 minCentDifference = centDifference;
                 closest = note;
+            }else{
+                break;
             }
         }
 
