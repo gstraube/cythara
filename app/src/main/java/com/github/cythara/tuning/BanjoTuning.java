@@ -6,7 +6,7 @@ import com.github.cythara.Tuning;
 
 import static com.github.cythara.NoteName.*;
 
-public class BanjoTuning implements Tuning {
+public class BanjoTuning implements Tuning  {
 
     @Override
     public Note[] getNotes() {

@@ -11,7 +11,7 @@ class Sampler {
         Note mostFrequentNote = extractMostFrequentNote(samples);
         List<PitchDifference> filteredSamples = filterByNote(samples, mostFrequentNote);
 
-        double deviationSum = 0;
+        float deviationSum = 0;
         int sameNoteCount = 0;
         for (PitchDifference pitchDifference : filteredSamples) {
             deviationSum += pitchDifference.deviation;
@@ -19,7 +19,7 @@ class Sampler {
         }
 
         if (sameNoteCount > 0) {
-            double averageDeviation = deviationSum / sameNoteCount;
+            float averageDeviation = deviationSum / sameNoteCount;
 
             return new PitchDifference(mostFrequentNote, averageDeviation);
         }

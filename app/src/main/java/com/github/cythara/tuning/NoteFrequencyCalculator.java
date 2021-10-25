@@ -9,7 +9,7 @@ public class NoteFrequencyCalculator {
 
     private static List<String> notes =
             Arrays.asList("C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B");
-    private float referenceFrequency;
+    private double referenceFrequency;
 
     public NoteFrequencyCalculator(float referenceFrequency) {
         this.referenceFrequency = referenceFrequency;

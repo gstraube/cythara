@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
     private static int referencePosition;
     private static boolean isAutoModeEnabled = true;
 
+
     public static Tuning getCurrentTuning() {
         return TuningMapper.getTuningFromPosition(tuningPosition);
     }
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
         setTuning();
         setReferencePitch();
 
+        PitchComparator.fillNotesArr();
         getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
@@ -182,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
                 dialog.show(getSupportFragmentManager(), "note_picker");
             }
         }
-
+        PitchComparator.fillNotesArr();
         return false;
     }
 
