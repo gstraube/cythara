@@ -26,10 +26,11 @@ public class PitchComparatorTest {
         PowerMockito.mockStatic(MainActivity.class);
         Mockito.when(MainActivity.getCurrentTuning()).thenReturn(new GuitarTuning());
         Mockito.when(MainActivity.getReferencePitch()).thenReturn(440);
+        Mockito.when(MainActivity.isAutoModeEnabled()).thenReturn(true);
 
         Map<Float, PitchDifference> expectations = new HashMap<>();
         expectations.put(20f, new PitchDifference(E2, -2451.3202694972874));
-        expectations.put(500f, new PitchDifference(E4, 721.3071582323822));
+        expectations.put(332f, new PitchDifference(E4, 12.415661386718076));
         expectations.put(197.67f, new PitchDifference(G3, 14.705999652460953));
         expectations.put(128.415f, new PitchDifference(D3, -232.0232233030192));
 
