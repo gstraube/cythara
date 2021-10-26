@@ -105,18 +105,19 @@ public class ListenerFragment extends Fragment {
 
                 float pitch = pitchDetectionResult.getPitch();
 
-                if (pitch != -1) {
+                if (pitch >= 0) {
                     PitchDifference pitchDifference = PitchComparator.retrieveNote(pitch);
+                    if (pitchDifference.deviation >= 0) {
+                        pitchDifferences.add(pitchDifference);
 
-                    pitchDifferences.add(pitchDifference);
+                        if (pitchDifferences.size() >= MIN_ITEMS_COUNT) {
+                            PitchDifference average =
+                                    Sampler.calculateAverageDifference(pitchDifferences);
 
-                    if (pitchDifferences.size() >= MIN_ITEMS_COUNT) {
-                        PitchDifference average =
-                                Sampler.calculateAverageDifference(pitchDifferences);
+                            publishProgress(average);
 
-                        publishProgress(average);
-
-                        pitchDifferences.clear();
+                            pitchDifferences.clear();
+                        }
                     }
                 }
             };

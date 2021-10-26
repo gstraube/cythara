@@ -32,7 +32,6 @@ class PitchComparator {
         });
         for (int i=0;i< tuning.getNotesSize();i++) {
             noteValues[i]=(int)Math.round((log2((double)notes[i][1]))*12);
-            System.out.println(noteValues[i]);
 
 
             /* TEST to show that the next Value==Value+1(important for binarySearch)
@@ -52,17 +51,18 @@ class PitchComparator {
         }
     }
     static PitchDifference retrieveNote(float pitch) {
-        System.out.println((int)Math.round(log2(pitch)*12));
-        int index=binarySearch(noteValues,(int)Math.round(log2(pitch)*12));
-        System.out.println(index);
-        Object[][] centDifference =new Object[3][2];
-        centDifference[1][1] = 1200d * log2(pitch / (double) notes[index][1]);
-        for (int i=0;i<3;i++){
-            centDifference[i][1]=1200d * log2(pitch / (double) notes[index][1]);
-            centDifference[i][0]=notes[index][0];
+
+        int index = binarySearch(noteValues, (int) Math.round(log2(pitch) * 12));
+        Object[][] centDifference = new Object[3][2];
+        if (index > 0) {
+            for (int i = -1; i < 2; i++) {
+                centDifference[i+1][1] = 1200.0*(log2((double) notes[index+i][1])-log2((double) pitch));
+                centDifference[i+1][0] = notes[index+i][0];
+            }
+            Arrays.sort(centDifference, (a, b) -> Double.compare(Math.abs((double) a[1]), Math.abs((double) b[1])));
         }
-        Arrays.sort(centDifference, (a, b) -> Double.compare((double)a[1],(double) b[1]));
-        return new PitchDifference((Note)centDifference[0][0],(double)centDifference[0][1]);
+        return new PitchDifference((Note) centDifference[0][0], (double)centDifference[0][1]);
+
     }
 
     private static double log2(double number) {
