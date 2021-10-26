@@ -60,9 +60,9 @@ class PitchComparator {
                 centDifference[i+1][0] = notes[index+i][0];
             }
             Arrays.sort(centDifference, (a, b) -> Double.compare(Math.abs((double) a[1]), Math.abs((double) b[1])));
+            return new PitchDifference((Note) centDifference[0][0], (double)centDifference[0][1]);
         }
-        return new PitchDifference((Note) centDifference[0][0], (double)centDifference[0][1]);
-
+        return new PitchDifference((Note) centDifference[0][0], (double)(2024*2048));
     }
 
     private static double log2(double number) {

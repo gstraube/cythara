@@ -107,7 +107,7 @@ public class ListenerFragment extends Fragment {
 
                 if (pitch >= 0) {
                     PitchDifference pitchDifference = PitchComparator.retrieveNote(pitch);
-                    if (pitchDifference.deviation >= 0) {
+                    if (pitchDifference.deviation <1024*1024) {
                         pitchDifferences.add(pitchDifference);
 
                         if (pitchDifferences.size() >= MIN_ITEMS_COUNT) {
