@@ -4,6 +4,8 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 
+import com.github.cythara.MainActivity;
+
 import java.util.TimerTask;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -19,15 +21,13 @@ public class MyGLRenderer extends TimerTask implements GLSurfaceView.Renderer {
     private final float[] rotationMatrix = new float[16];
     private final float[] translationMback = new float[16];
 
-    private static float averagePitch=0;
     private static float newAveragePitch=0;
-    private static float lastAveragePitch=0;
+    private static float averagePitch=0;
     private final float[] scratch = new float[16];
     public static void setNewAveragePitch(float averagePitch) {
-        MyGLRenderer.lastAveragePitch=averagePitch;
         MyGLRenderer.newAveragePitch =averagePitch;
     }
-    static void setAveragePitch(float averagePitch){
+    public static void setAveragePitch(float averagePitch){
         MyGLRenderer.averagePitch=averagePitch;
     }
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
@@ -81,18 +81,15 @@ public class MyGLRenderer extends TimerTask implements GLSurfaceView.Renderer {
 
     @Override
     public void run() {
-        float pitchDifference=newAveragePitch-lastAveragePitch;
-        for (int i=0;i<10;i++) {
-            if (lastAveragePitch > 1) {
-                try {
-                    Thread.sleep(10);
-                    com.github.cythara.glView.MyGLRenderer.setAveragePitch(lastAveragePitch += pitchDifference *0.1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }else{
+        float pitchDifference=newAveragePitch-averagePitch;
+        System.out.println(pitchDifference);
+        if (!(Math.abs(pitchDifference) < 0.1)) {
+            if((Math.abs(pitchDifference) < 1)) {
                 com.github.cythara.glView.MyGLRenderer.setAveragePitch(averagePitch);
+            }else{
+                com.github.cythara.glView.MyGLRenderer.setAveragePitch(averagePitch += pitchDifference *0.5);
             }
+            MainActivity.setRenderer=true;
         }
 
     }

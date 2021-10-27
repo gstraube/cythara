@@ -121,8 +121,6 @@ public class ListenerFragment extends Fragment {
                         int notePosition = noteFrequencyCalculator.getPosition(pitchDifference.closest);
                         float averagePitch = (notePosition * 100) + (float) pitchDifference.deviation;
                         MyGLRenderer.setNewAveragePitch(averagePitch);
-                        MyGLRenderer renderer = new MyGLRenderer();
-                        renderer.run();
                         publishProgress(average);
 
                         pitchDifferences.clear();

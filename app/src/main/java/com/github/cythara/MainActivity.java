@@ -30,6 +30,10 @@ import com.shawnlin.numberpicker.NumberPicker;
 import com.shawnlin.numberpicker.NumberPicker.OnValueChangeListener;
 
 import java.util.Arrays;
+import java.util.Timer;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.jar.Attributes;
 
 import androidx.annotation.NonNull;
@@ -52,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
     protected static final String REFERENCE_PITCH = "reference_pitch";
     private static final String TAG_LISTENER_FRAGMENT = "listener_fragment";
     private static final String USE_DARK_MODE = "use_dark_mode";
+    public static boolean setRenderer=false;
     private static int tuningPosition = 0;
     private static boolean isDarkModeEnabled;
     private static int referencePitch;
@@ -108,6 +113,25 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
         myToolbar.setTitle(R.string.app_name);
         myToolbar.showOverflowMenu();
         setSupportActionBar(myToolbar);
+        // And From your main() method or any other method
+        MyGLRenderer renderer = new MyGLRenderer();
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        executor.scheduleAtFixedRate(renderer, 0, 15, TimeUnit.MILLISECONDS);
+        try {
+            sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        while (true){
+            try {
+                sleep(15);
+                if (setRenderer){
+                    setRenderer=false;
+                    glView.requestRender();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
     }
 
     @Override
