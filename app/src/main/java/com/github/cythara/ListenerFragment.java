@@ -1,6 +1,5 @@
 package com.github.cythara;
 
-import static com.github.cythara.MainActivity.getReferencePitch;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,7 +13,6 @@ import java.util.List;
 import androidx.fragment.app.Fragment;
 
 import com.github.cythara.glView.MyGLRenderer;
-import com.github.cythara.glView.MyGLSurfaceView;
 import com.github.cythara.tuning.NoteFrequencyCalculator;
 
 import be.tarsos.dsp.AudioDispatcher;
@@ -32,8 +30,8 @@ public class ListenerFragment extends Fragment {
     static boolean IS_RECORDING;
     private static List<PitchDifference> pitchDifferences = new ArrayList<>();
     private static TaskCallbacks taskCallbacks;
+    private static NoteFrequencyCalculator noteFrequencyCalculator;
     private PitchListener pitchListener;
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -54,7 +52,7 @@ public class ListenerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        noteFrequencyCalculator=new NoteFrequencyCalculator(MainActivity.getReferencePitch());
         setRetainInstance(true);
 
         pitchListener = new PitchListener();
@@ -119,20 +117,18 @@ public class ListenerFragment extends Fragment {
                     if (pitchDifferences.size() >= MIN_ITEMS_COUNT) {
                         PitchDifference average = Sampler.calculateAverageDifference(pitchDifferences);
                         if (!average.equals(null)) {
-                            int notePosition = MainActivity.noteFrequencyCalculator.getPosition(average.closest);
-                            float averagePitch = notePosition + (float) average.deviation * 0.01f;
-                            float pitchDifferenceCalc = (averagePitch - MyGLRenderer.averagePitch) * 0.1f;
+                            int notePosition = noteFrequencyCalculator.getPosition(average.closest);
+                            float averagePitch = notePosition*10 + (float) average.deviation * 0.1f;
+                            float pitchDifferenceCalc = averagePitch - MyGLRenderer.averagePitch;
+                            pitchDifferenceCalc/=8;
                             if (Math.abs(pitchDifferenceCalc) > 0.1) {
-                                if (Math.abs(pitchDifferenceCalc) > 10) {
-                                    pitchDifferenceCalc /= 2;
-                                }
-                                for (int i = 0; i < 10; i++) {
+                                for (int i = 7; i > -1; i--) {
                                     try {
-                                        Thread.sleep(10);
+                                        Thread.sleep(15);
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     }
-                                    MyGLRenderer.averagePitch += pitchDifferenceCalc;
+                                    MyGLRenderer.averagePitch = averagePitch-pitchDifferenceCalc*i;
                                 }
                             }
 

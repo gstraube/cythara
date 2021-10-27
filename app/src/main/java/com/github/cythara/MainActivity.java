@@ -14,9 +14,7 @@ import android.view.MenuItem;
 import android.view.WindowManager.LayoutParams;
 
 import com.github.cythara.ListenerFragment.TaskCallbacks;
-import com.github.cythara.glView.MyGLRenderer;
 import com.github.cythara.glView.MyGLSurfaceView;
-import com.github.cythara.tuning.NoteFrequencyCalculator;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.jaredrummler.materialspinner.MaterialSpinner.OnItemSelectedListener;
 import com.jaredrummler.materialspinner.MaterialSpinnerAdapter;
@@ -24,9 +22,6 @@ import com.shawnlin.numberpicker.NumberPicker;
 import com.shawnlin.numberpicker.NumberPicker.OnValueChangeListener;
 
 import java.util.Arrays;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -54,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
     private static int referencePosition;
     private static boolean isAutoModeEnabled = true;
 
-    static NoteFrequencyCalculator noteFrequencyCalculator;
     GLSurfaceView glView;
     public static Tuning getCurrentTuning() {
         return TuningMapper.getTuningFromPosition(tuningPosition);
@@ -89,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
         } else {
             startRecording();
         }
-        noteFrequencyCalculator = new NoteFrequencyCalculator(getReferencePitch());
         enableTheme();
         glView = new MyGLSurfaceView(this,findViewById(R.id.glView));
         setContentView(R.layout.activity_main);
@@ -177,8 +170,6 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
 
                 dialog.setValueChangeListener(this);
                 dialog.show(getSupportFragmentManager(), "reference_pitch_picker");
-
-                noteFrequencyCalculator = new NoteFrequencyCalculator(getReferencePitch());
                 break;
             }
             case R.id.choose_tuning_mode: {
