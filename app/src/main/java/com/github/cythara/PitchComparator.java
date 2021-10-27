@@ -2,22 +2,45 @@ package com.github.cythara;
 
 import static java.util.Arrays.binarySearch;
 
+import com.github.cythara.tuning.ChromaticTuning;
 import com.github.cythara.tuning.NoteFrequencyCalculator;
 
 import java.util.Arrays;
-import java.util.Comparator;
+import java.util.List;
 
 class PitchComparator {
-    private static Tuning tuning = MainActivity.getCurrentTuning();
-    private static int [] noteValues = new int[tuning.getNotesSize()];
-    private static Object[][]notes = new Object[tuning.getNotesSize()][2];
-    static void fillNotesArr(){
-        notes = new Object[tuning.getNotesSize()][2];
-        int referencePitch = MainActivity.getReferencePitch();
-        NoteFrequencyCalculator noteFrequencyCalculator =
-                new NoteFrequencyCalculator(referencePitch);
+    private static final Tuning chromaticTuning = new ChromaticTuning();
+    private static final int numberOfNotes=chromaticTuning.getNotes().length;
+    private static final int referencePitch = MainActivity.getReferencePitch();
+    private static final NoteFrequencyCalculator noteFrequencyCalculator =
+            new NoteFrequencyCalculator(referencePitch);
+    private static final int [] noteValues = new int[numberOfNotes];
+    private static Object[][]notes = new Object[numberOfNotes][2];
+    private static Object[][]searchedNotes;
+    static int newNumberOfNotes;
+    static void fillSearchedNotesArr(){
+        newNumberOfNotes=MainActivity.getCurrentTuning().getNotes().length;
+        searchedNotes=new Object[newNumberOfNotes][2];
+        Note[]tuningNotes=MainActivity.getCurrentTuning().getNotes();
         int noteCounter=0;
-        for (Note note:tuning.getNotes()){
+        for (Note note:tuningNotes){
+            for(int i=0;i<2;i++){
+                if (i==0){
+                    searchedNotes[noteCounter][i]=note;
+                }else{
+                    searchedNotes[noteCounter][i]=noteFrequencyCalculator.getPosition(note);
+                }
+            }
+            noteCounter++;
+        }
+        Arrays.sort(searchedNotes, (a, b) -> {
+            return Integer.compare((int) a[1],(int)  b[1]);
+        });
+    }
+    static void fillChromaticNotesArr(){
+        notes = new Object[numberOfNotes][2];
+        int noteCounter=0;
+        for (Note note:chromaticTuning.getNotes()){
             for(int i=0;i<2;i++){
                 if (i==0){
                     notes[noteCounter][i]=note;
@@ -30,7 +53,7 @@ class PitchComparator {
         Arrays.sort(notes, (a, b) -> {
             return Double.compare((double) a[1],(double)  b[1]);
         });
-        for (int i=0;i< tuning.getNotesSize();i++) {
+        for (int i=0;i< numberOfNotes;i++) {
             noteValues[i]=(int)Math.round((log2((double)notes[i][1]))*12);
 
 
@@ -60,9 +83,36 @@ class PitchComparator {
                 centDifference[i+1][0] = notes[index+i][0];
             }
             Arrays.sort(centDifference, (a, b) -> Double.compare(Math.abs((double) a[1]), Math.abs((double) b[1])));
-            return new PitchDifference((Note) centDifference[0][0], (double)centDifference[0][1]);
+
+            return calculateDifference((Note) centDifference[0][0], (double)centDifference[0][1]);
         }
         return new PitchDifference((Note) centDifference[0][0], (double)(2024*2048));
+    }
+    private static PitchDifference calculateDifference(Note givenNote, double givenCentDifference) {
+        if(Arrays.equals(MainActivity.getCurrentTuning().getNotes(), chromaticTuning.getNotes())){
+            return new PitchDifference(givenNote,givenCentDifference);
+        }
+        int givenPosition=noteFrequencyCalculator.getPosition(givenNote);
+        int oldNoteDifference=1024;
+        int noteCounter;
+        for(noteCounter=0;noteCounter<newNumberOfNotes;noteCounter++){
+            int newNoteDifference=givenPosition-(int)searchedNotes[noteCounter][1];
+            if (Math.abs(newNoteDifference)<Math.abs(oldNoteDifference)) {
+                oldNoteDifference = newNoteDifference;
+            }else{
+                break;
+            }
+        }
+        noteCounter--;
+        double centDifference=noteFrequencyCalculator.getFrequency((Note)searchedNotes[noteCounter][0]) -
+                (noteFrequencyCalculator.getFrequency(givenNote)+givenCentDifference);
+
+        if (centDifference>60){
+            centDifference=60;
+        }else if(centDifference<-60){
+            centDifference=-60;
+        }
+        return new PitchDifference((Note)searchedNotes[noteCounter][0],centDifference);
     }
 
     private static double log2(double number) {

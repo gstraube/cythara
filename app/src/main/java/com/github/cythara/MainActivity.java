@@ -89,7 +89,9 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
         setTuning();
         setReferencePitch();
 
-        PitchComparator.fillNotesArr();
+        PitchComparator.fillChromaticNotesArr();
+        PitchComparator.fillSearchedNotesArr();
+
         getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
@@ -182,9 +184,10 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
 
                 dialog.setValueChangeListener(this);
                 dialog.show(getSupportFragmentManager(), "note_picker");
+
+                PitchComparator.fillSearchedNotesArr();
             }
         }
-        PitchComparator.fillNotesArr();
         return false;
     }
 

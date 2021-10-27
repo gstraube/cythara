@@ -14,7 +14,12 @@ public class NoteFrequencyCalculator {
     public NoteFrequencyCalculator(float referenceFrequency) {
         this.referenceFrequency = referenceFrequency;
     }
+    public int getPosition(Note note){
+        int position = 12 * note.getOctave();
 
+        position += notes.indexOf(note.getName() + note.getSign());
+        return position+64;
+    }
     public double getFrequency(Note note) {
         int semitonesPerOctave = 12;
         int referenceOctave = 4;
