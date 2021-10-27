@@ -5,14 +5,24 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
+import android.widget.LinearLayout;
 
 import com.github.cythara.ListenerFragment.TaskCallbacks;
+import com.github.cythara.glView.MyGLRenderer;
+import com.github.cythara.glView.MyGLSurfaceView;
+import com.github.cythara.tuning.NoteFrequencyCalculator;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.jaredrummler.materialspinner.MaterialSpinner.OnItemSelectedListener;
 import com.jaredrummler.materialspinner.MaterialSpinnerAdapter;
@@ -20,6 +30,7 @@ import com.shawnlin.numberpicker.NumberPicker;
 import com.shawnlin.numberpicker.NumberPicker.OnValueChangeListener;
 
 import java.util.Arrays;
+import java.util.jar.Attributes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -47,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
     private static int referencePosition;
     private static boolean isAutoModeEnabled = true;
 
-
+    GLSurfaceView glView;
     public static Tuning getCurrentTuning() {
         return TuningMapper.getTuningFromPosition(tuningPosition);
     }
@@ -83,9 +94,8 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
         }
 
         enableTheme();
-
+        glView = new MyGLSurfaceView(this,findViewById(R.id.glView));
         setContentView(R.layout.activity_main);
-
         setTuning();
         setReferencePitch();
 
@@ -194,9 +204,9 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
     @Override
     public void onProgressUpdate(PitchDifference pitchDifference) {
         TunerView tunerView = this.findViewById(R.id.pitch);
-
         tunerView.setPitchDifference(pitchDifference);
         tunerView.invalidate();
+        glView.requestRender();
     }
 
     @Override

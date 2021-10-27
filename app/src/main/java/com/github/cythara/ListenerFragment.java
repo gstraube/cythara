@@ -1,5 +1,7 @@
 package com.github.cythara;
 
+import static com.github.cythara.MainActivity.getReferencePitch;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -10,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.fragment.app.Fragment;
+
+import com.github.cythara.glView.MyGLRenderer;
+import com.github.cythara.tuning.NoteFrequencyCalculator;
 
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.io.android.AudioDispatcherFactory;
@@ -111,9 +116,16 @@ public class ListenerFragment extends Fragment {
                         pitchDifferences.add(pitchDifference);
 
                         if (pitchDifferences.size() >= MIN_ITEMS_COUNT) {
+
                             PitchDifference average =
                                     Sampler.calculateAverageDifference(pitchDifferences);
 
+                            NoteFrequencyCalculator noteFrequencyCalculator=new NoteFrequencyCalculator(getReferencePitch());
+                            int notePosition=noteFrequencyCalculator.getPosition(pitchDifference.closest);
+                            float averagePitch=(notePosition*100)+(float)pitchDifference.deviation;
+                            MyGLRenderer.setNewAveragePitch(averagePitch);
+                            MyGLRenderer renderer =new MyGLRenderer();
+                            renderer.run();
                             publishProgress(average);
 
                             pitchDifferences.clear();
