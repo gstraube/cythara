@@ -100,10 +100,10 @@ class PitchComparator {
             if (Math.abs(newNoteDifference)<Math.abs(oldNoteDifference)) {
                 oldNoteDifference = newNoteDifference;
             }else{
+                noteCounter--;
                 break;
             }
         }
-        noteCounter--;
         double centDifference=1200*(
                 log2(pitch)-log2(noteFrequencyCalculator.getFrequency((Note)searchedNotes[noteCounter][0])));
 
