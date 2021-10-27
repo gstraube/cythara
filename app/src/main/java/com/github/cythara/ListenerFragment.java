@@ -14,6 +14,7 @@ import java.util.List;
 import androidx.fragment.app.Fragment;
 
 import com.github.cythara.glView.MyGLRenderer;
+import com.github.cythara.glView.MyGLSurfaceView;
 import com.github.cythara.tuning.NoteFrequencyCalculator;
 
 import be.tarsos.dsp.AudioDispatcher;
@@ -117,13 +118,27 @@ public class ListenerFragment extends Fragment {
 
                     if (pitchDifferences.size() >= MIN_ITEMS_COUNT) {
                         PitchDifference average = Sampler.calculateAverageDifference(pitchDifferences);
-                        NoteFrequencyCalculator noteFrequencyCalculator = new NoteFrequencyCalculator(getReferencePitch());
-                        int notePosition = noteFrequencyCalculator.getPosition(pitchDifference.closest);
-                        float averagePitch = (notePosition * 100) + (float) pitchDifference.deviation;
-                        MyGLRenderer.setNewAveragePitch(averagePitch);
-                        publishProgress(average);
+                        if (!average.equals(null)) {
+                            int notePosition = MainActivity.noteFrequencyCalculator.getPosition(average.closest);
+                            float averagePitch = notePosition + (float) average.deviation * 0.01f;
+                            float pitchDifferenceCalc = (averagePitch - MyGLRenderer.averagePitch) * 0.1f;
+                            if (Math.abs(pitchDifferenceCalc) > 0.1) {
+                                if (Math.abs(pitchDifferenceCalc) > 10) {
+                                    pitchDifferenceCalc /= 2;
+                                }
+                                for (int i = 0; i < 10; i++) {
+                                    try {
+                                        Thread.sleep(10);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    MyGLRenderer.averagePitch += pitchDifferenceCalc;
+                                }
+                            }
 
-                        pitchDifferences.clear();
+                            publishProgress(average);
+                            pitchDifferences.clear();
+                        }
                     }
                 }
             };

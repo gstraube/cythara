@@ -8,16 +8,10 @@ import android.net.Uri;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.view.ContextThemeWrapper;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
-import android.widget.LinearLayout;
 
 import com.github.cythara.ListenerFragment.TaskCallbacks;
 import com.github.cythara.glView.MyGLRenderer;
@@ -30,11 +24,9 @@ import com.shawnlin.numberpicker.NumberPicker;
 import com.shawnlin.numberpicker.NumberPicker.OnValueChangeListener;
 
 import java.util.Arrays;
-import java.util.Timer;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.jar.Attributes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -56,13 +48,13 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
     protected static final String REFERENCE_PITCH = "reference_pitch";
     private static final String TAG_LISTENER_FRAGMENT = "listener_fragment";
     private static final String USE_DARK_MODE = "use_dark_mode";
-    public static boolean setRenderer=false;
     private static int tuningPosition = 0;
     private static boolean isDarkModeEnabled;
     private static int referencePitch;
     private static int referencePosition;
     private static boolean isAutoModeEnabled = true;
 
+    static NoteFrequencyCalculator noteFrequencyCalculator;
     GLSurfaceView glView;
     public static Tuning getCurrentTuning() {
         return TuningMapper.getTuningFromPosition(tuningPosition);
@@ -97,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
         } else {
             startRecording();
         }
-
+        noteFrequencyCalculator = new NoteFrequencyCalculator(getReferencePitch());
         enableTheme();
         glView = new MyGLSurfaceView(this,findViewById(R.id.glView));
         setContentView(R.layout.activity_main);
@@ -113,25 +105,8 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
         myToolbar.setTitle(R.string.app_name);
         myToolbar.showOverflowMenu();
         setSupportActionBar(myToolbar);
-        // And From your main() method or any other method
-        MyGLRenderer renderer = new MyGLRenderer();
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        executor.scheduleAtFixedRate(renderer, 0, 15, TimeUnit.MILLISECONDS);
-        try {
-            sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        while (true){
-            try {
-                sleep(15);
-                if (setRenderer){
-                    setRenderer=false;
-                    glView.requestRender();
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
+
     }
 
     @Override
@@ -203,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
                 dialog.setValueChangeListener(this);
                 dialog.show(getSupportFragmentManager(), "reference_pitch_picker");
 
+                noteFrequencyCalculator = new NoteFrequencyCalculator(getReferencePitch());
                 break;
             }
             case R.id.choose_tuning_mode: {
@@ -230,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
         TunerView tunerView = this.findViewById(R.id.pitch);
         tunerView.setPitchDifference(pitchDifference);
         tunerView.invalidate();
-        glView.requestRender();
+
     }
 
     @Override

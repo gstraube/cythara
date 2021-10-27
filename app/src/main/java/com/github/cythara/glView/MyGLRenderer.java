@@ -12,7 +12,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 
-public class MyGLRenderer extends TimerTask implements GLSurfaceView.Renderer {
+public class MyGLRenderer implements GLSurfaceView.Renderer {
     private com.github.cythara.glView.Triangle mTriangle;
     final static int TRIANGLE_COUNT=36;
     private final float[] vPMatrix = new float[16];
@@ -21,15 +21,8 @@ public class MyGLRenderer extends TimerTask implements GLSurfaceView.Renderer {
     private final float[] rotationMatrix = new float[16];
     private final float[] translationMback = new float[16];
 
-    private static float newAveragePitch=0;
-    private static float averagePitch=0;
+    public static float averagePitch=0;
     private final float[] scratch = new float[16];
-    public static void setNewAveragePitch(float averagePitch) {
-        MyGLRenderer.newAveragePitch =averagePitch;
-    }
-    public static void setAveragePitch(float averagePitch){
-        MyGLRenderer.averagePitch=averagePitch;
-    }
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
         // Set the background frame color
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -45,7 +38,7 @@ public class MyGLRenderer extends TimerTask implements GLSurfaceView.Renderer {
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0);
 
         Matrix.translateM(translationMback, 0, vPMatrix, 0, 0, -7.0f, 0);
-        float angle = averagePitch*0.1f;
+        float angle = averagePitch;
         Matrix.setRotateM(rotationMatrix, 0, angle, 0.0f, 0, -1.0f);
         // Combine the rotation matrix with the projection and camera view
         // Note that the vPMatrix factor *must be first* in order
@@ -79,18 +72,4 @@ public class MyGLRenderer extends TimerTask implements GLSurfaceView.Renderer {
         return shader;
     }
 
-    @Override
-    public void run() {
-        float pitchDifference=newAveragePitch-averagePitch;
-        System.out.println(pitchDifference);
-        if (!(Math.abs(pitchDifference) < 0.1)) {
-            if((Math.abs(pitchDifference) < 1)) {
-                com.github.cythara.glView.MyGLRenderer.setAveragePitch(averagePitch);
-            }else{
-                com.github.cythara.glView.MyGLRenderer.setAveragePitch(averagePitch += pitchDifference *0.5);
-            }
-            MainActivity.setRenderer=true;
-        }
-
-    }
 }
