@@ -79,16 +79,16 @@ class PitchComparator {
         Object[][] centDifference = new Object[3][2];
         if (index > 0) {
             for (int i = -1; i < 2; i++) {
-                centDifference[i+1][1] = 1200.0*(log2((double) notes[index+i][1])-log2((double) pitch));
+                centDifference[i+1][1] = 1200.0*(log2((double) pitch)-log2((double) notes[index+i][1]));
                 centDifference[i+1][0] = notes[index+i][0];
             }
             Arrays.sort(centDifference, (a, b) -> Double.compare(Math.abs((double) a[1]), Math.abs((double) b[1])));
 
-            return calculateDifference((Note) centDifference[0][0], (double)centDifference[0][1]);
+            return calculateDifference((Note) centDifference[0][0], (double)centDifference[0][1],(double)pitch);
         }
         return new PitchDifference((Note) centDifference[0][0], (double)(2024*2048));
     }
-    private static PitchDifference calculateDifference(Note givenNote, double givenCentDifference) {
+    private static PitchDifference calculateDifference(Note givenNote, double givenCentDifference,double pitch) {
         if(Arrays.equals(MainActivity.getCurrentTuning().getNotes(), chromaticTuning.getNotes())){
             return new PitchDifference(givenNote,givenCentDifference);
         }
@@ -104,8 +104,8 @@ class PitchComparator {
             }
         }
         noteCounter--;
-        double centDifference=noteFrequencyCalculator.getFrequency((Note)searchedNotes[noteCounter][0]) -
-                (noteFrequencyCalculator.getFrequency(givenNote)+givenCentDifference);
+        double centDifference=1200*(
+                log2(pitch)-log2(noteFrequencyCalculator.getFrequency((Note)searchedNotes[noteCounter][0])));
 
         if (centDifference>60){
             centDifference=60;
