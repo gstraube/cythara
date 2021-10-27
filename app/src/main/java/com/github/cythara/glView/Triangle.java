@@ -71,7 +71,7 @@ public class Triangle {
     private final int mProgram;
     private int colorHandle;
 
-    public Triangle(int count) {
+    Triangle(int count) {
 
         setTriangleCoords();
         int vertexShader = MyGLRenderer.loadShader(GLES20.GL_VERTEX_SHADER,

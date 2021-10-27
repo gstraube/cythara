@@ -110,30 +110,25 @@ public class ListenerFragment extends Fragment {
 
                 float pitch = pitchDetectionResult.getPitch();
 
-                if (pitch >= 0) {
+                if (pitch >= 10) {
                     PitchDifference pitchDifference = PitchComparator.retrieveNote(pitch);
-                    if (pitchDifference.deviation <1024*1024) {
-                        pitchDifferences.add(pitchDifference);
 
-                        if (pitchDifferences.size() >= MIN_ITEMS_COUNT) {
+                    pitchDifferences.add(pitchDifference);
 
-                            PitchDifference average =
-                                    Sampler.calculateAverageDifference(pitchDifferences);
+                    if (pitchDifferences.size() >= MIN_ITEMS_COUNT) {
+                        PitchDifference average = Sampler.calculateAverageDifference(pitchDifferences);
+                        NoteFrequencyCalculator noteFrequencyCalculator = new NoteFrequencyCalculator(getReferencePitch());
+                        int notePosition = noteFrequencyCalculator.getPosition(pitchDifference.closest);
+                        float averagePitch = (notePosition * 100) + (float) pitchDifference.deviation;
+                        MyGLRenderer.setNewAveragePitch(averagePitch);
+                        MyGLRenderer renderer = new MyGLRenderer();
+                        renderer.run();
+                        publishProgress(average);
 
-                            NoteFrequencyCalculator noteFrequencyCalculator=new NoteFrequencyCalculator(getReferencePitch());
-                            int notePosition=noteFrequencyCalculator.getPosition(pitchDifference.closest);
-                            float averagePitch=(notePosition*100)+(float)pitchDifference.deviation;
-                            MyGLRenderer.setNewAveragePitch(averagePitch);
-                            MyGLRenderer renderer =new MyGLRenderer();
-                            renderer.run();
-                            publishProgress(average);
-
-                            pitchDifferences.clear();
-                        }
+                        pitchDifferences.clear();
                     }
                 }
             };
-
             PitchProcessor pitchProcessor = new PitchProcessor(PitchEstimationAlgorithm.FFT_YIN,
                     SAMPLE_RATE,
                     BUFFER_SIZE, pitchDetectionHandler);

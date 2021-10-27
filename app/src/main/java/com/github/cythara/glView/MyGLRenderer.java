@@ -33,7 +33,7 @@ public class MyGLRenderer extends TimerTask implements GLSurfaceView.Renderer {
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
         // Set the background frame color
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        mTriangle = new com.github.cythara.glView.Triangle(TRIANGLE_COUNT);
+        mTriangle = new Triangle(TRIANGLE_COUNT);
     }
     public void onDrawFrame(GL10 unused) {
         // Redraw background color
