@@ -44,8 +44,11 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
     private static final String TAG_LISTENER_FRAGMENT = "listener_fragment";
     private static final String USE_DARK_MODE = "use_dark_mode";
     private static final String TUNING_SPEED = "tuning_speed";
+    private static final String CURRENT_SCALE = "current_scale";
     private static int tuningSpeed=1;
     private static int tuningPosition = 0;
+    private static int scalePosition = 0;
+
     private static boolean isDarkModeEnabled;
     private static int referencePitch;
     private static int referencePosition;
@@ -53,7 +56,13 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
 
     GLSurfaceView glView;
     public static Tuning getCurrentTuning() {
-        return TuningMapper.getTuningFromPosition(tuningPosition);
+        if (scalePosition==0){
+            return TuningMapper.getTuningFromPosition(tuningPosition);
+        }
+        return ScaleTuningMapper.getTuningFromPosition(scalePosition);
+    }
+    public static Tuning getCurrentScale() {
+        return TuningMapper.getTuningFromPosition(scalePosition);
     }
 
     public static boolean isDarkModeEnabled() {
@@ -93,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
         glView = new MyGLSurfaceView(this,findViewById(R.id.glView));
         setContentView(R.layout.activity_main);
         setTuning();
+        setScale();
         setReferencePitch();
 
         PitchComparator.fillChromaticNotesArr();
@@ -335,6 +345,28 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
         spinner.setSelectedIndex(tuningPosition);
+    }
+    private void setScale() {
+        final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
+                MODE_PRIVATE);
+        scalePosition = preferences.getInt(CURRENT_SCALE, 0);
+
+        int textColorDark = getResources().getColor(R.color.colorTextDark);
+
+        MaterialSpinner spinner = findViewById(R.id.scale);
+        MaterialSpinnerAdapter<String> adapter = new MaterialSpinnerAdapter<>(this,
+                Arrays.asList(getResources().getStringArray(R.array.scale)));
+
+        if (isDarkModeEnabled) {
+            spinner.setTextColor(textColorDark);
+            spinner.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            spinner.setTextColor(textColorDark);
+            spinner.setArrowColor(textColorDark);
+        }
+
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+        spinner.setSelectedIndex(scalePosition);
     }
     public void setScaleTuning() {
         final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
