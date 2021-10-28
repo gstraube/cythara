@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
 
     GLSurfaceView glView;
     public static Tuning getCurrentTuning() {
-        if (scalePosition==-1){
+        if (scalePosition==0){
             return TuningMapper.getTuningFromPosition(tuningPosition);
         }
         return ScaleMapper.getScaleFromPosition(scalePosition);
@@ -263,12 +263,15 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
     public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
         final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
                 MODE_PRIVATE);
-
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(CURRENT_TUNING, position);
+        if (view.getId()==R.id.scale) {
+            editor.putInt(CURRENT_SCALE, position);
+            scalePosition = position;
+        }else {
+            editor.putInt(CURRENT_TUNING, position);
+            tuningPosition = position;
+        }
         editor.apply();
-
-        tuningPosition = position;
 
         isAutoModeEnabled = true;
         referencePosition = 0;
