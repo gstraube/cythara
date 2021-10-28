@@ -6,7 +6,7 @@ import com.github.cythara.Tuning;
 
 import static com.github.cythara.NoteName.*;
 
-public class CSharpTuning implements Tuning {
+public class DFlatTuning implements Tuning {
 
     @Override
     public Note[] getNotes() {
