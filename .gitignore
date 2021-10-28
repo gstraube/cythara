@@ -76,3 +76,8 @@ Thumbs.db
 ### AndroidStudio Patch ###
 
 # End of https://www.gitignore.io/api/androidstudio
+
+#for VS Code:
+.classpath
+.project
+org.eclipse.buildship.core.prefs
