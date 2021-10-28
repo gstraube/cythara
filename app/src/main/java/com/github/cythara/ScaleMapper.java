@@ -17,7 +17,7 @@ import com.github.cythara.scales.GTuning;
 import com.github.cythara.tuning.ChromaticTuning;
 
 
-class ScaleTuningMapper {
+class ScaleMapper {
 
     private static final int C_POSITION = 0;
     private static final int C_SHARP_POSITION = 1;
@@ -32,7 +32,7 @@ class ScaleTuningMapper {
     private static final int A_SHARP_POSITION = 10;
     private static final int B_POSITION = 11;
 
-    static Tuning getTuningFromPosition(int position) {
+    static Tuning getScaleFromPosition(int position) {
         switch (position) {
             case C_POSITION:
                 return new CTuning();
