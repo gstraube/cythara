@@ -37,6 +37,7 @@
         <item>Banjo (standard)</item>
     </string-array>
     <string-array name="scale">
+        <item>No scale</item>
         <item>C</item>
         <item>C#</item>
         <item>D</item>
@@ -50,7 +51,7 @@
         <item>A#</item>
         <item>B</item>
     </string-array>
-    <string name="scale">Scale</string>
+
     <string-array name="notations">
         <item name="scientific">Scientific pitch notation</item>
         <item name="sol">Solfège</item>

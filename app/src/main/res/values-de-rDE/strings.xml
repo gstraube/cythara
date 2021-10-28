@@ -33,6 +33,7 @@
         <item>Banjo (Standard)</item>
     </string-array>
     <string-array name="tonleiter">
+        <item>Keine Tonleiter</item>
         <item>C</item>
         <item>C#</item>
         <item>D</item>

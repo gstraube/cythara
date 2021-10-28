@@ -29,12 +29,14 @@
     <com.github.cythara.TunerView
         android:id="@+id/pitch"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="0dp"
+        android:layout_weight="10"
         android:theme="@style/AppTheme" />
     <com.github.cythara.glView.MyGLSurfaceView
         android:id="@+id/glView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
         android:theme="@style/AppTheme" />
 
 </LinearLayout>

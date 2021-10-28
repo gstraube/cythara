@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
     private static final String CURRENT_SCALE = "current_scale";
     private static int tuningSpeed=1;
     private static int tuningPosition = 0;
-    private static int scalePosition = 0;
+    private static int scalePosition = -1;
 
     private static boolean isDarkModeEnabled;
     private static int referencePitch;
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
 
     GLSurfaceView glView;
     public static Tuning getCurrentTuning() {
-        if (scalePosition==0){
+        if (scalePosition==-1){
             return TuningMapper.getTuningFromPosition(tuningPosition);
         }
         return ScaleMapper.getScaleFromPosition(scalePosition);
@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
         enableTheme();
         glView = new MyGLSurfaceView(this,findViewById(R.id.glView));
         setContentView(R.layout.activity_main);
+        setScale();
         setTuning();
         setReferencePitch();
 
