@@ -3,7 +3,9 @@
 
     <string name="privacy_policy">Datenschutzrichtlinie anzeigen</string>
     <string name="set_notation">Notation wählen</string>
+    <string name="set_tuning_speed">Geschwindigkeit auswählen</string>
     <string name="choose_notation">Wähle die Notation</string>
+    <string name="choose_speed">Wähle die Geschwindigkeit</string>
     <string name="toggle_dark_mode">Dunkelmodus umschalten</string>
     <string name="set_reference_pitch">Referenztonhöhe einstellen</string>
     <string name="choose_a_frequency">Wähle eine Frequenz:</string>
@@ -30,6 +32,21 @@
         <item>Oud (Turkish standard)</item>
         <item>Banjo (Standard)</item>
     </string-array>
+    <string-array name="tonleiter">
+        <item>C</item>
+        <item>C#</item>
+        <item>D</item>
+        <item>D#</item>
+        <item>E</item>
+        <item>F</item>
+        <item>F#</item>
+        <item>G</item>
+        <item>G#</item>
+        <item>A</item>
+        <item>A#</item>
+        <item>B</item>
+    </string-array>
+    <string name="scale">Tonleiter</string>
     <string-array name="notations">
         <item name="scientific">Wissenschaftlich</item>
         <item name="sol">Solfège</item>

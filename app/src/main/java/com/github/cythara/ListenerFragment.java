@@ -114,29 +114,29 @@ public class ListenerFragment extends Fragment {
 
                     pitchDifferences.add(pitchDifference);
 
-                    if (pitchDifferences.size() >= MIN_ITEMS_COUNT) {
+                    if (pitchDifferences.size() >= MIN_ITEMS_COUNT/MainActivity.getTuningSpeed()) {
                         PitchDifference average = Sampler.calculateAverageDifference(pitchDifferences);
-                        if (!average.equals(null)) {
-                            int notePosition = noteFrequencyCalculator.getPosition(average.closest);
-                            float averagePitch = notePosition*10 + (float) average.deviation * 0.1f;
-                            float pitchDifferenceCalc = averagePitch - MyGLRenderer.averagePitch;
-                            pitchDifferenceCalc/=8;
-                            if (Math.abs(pitchDifferenceCalc) > 0.1) {
-                                for (int i = 7; i > -1; i--) {
-                                    try {
-                                        Thread.sleep(15);
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
-                                    MyGLRenderer.averagePitch = averagePitch-pitchDifferenceCalc*i;
-                                }
-                            }
 
-                            publishProgress(average);
-                            pitchDifferences.clear();
+                        int notePosition = noteFrequencyCalculator.getPosition(average.closest);
+                        float averagePitch = notePosition*10 + (float) average.deviation * 0.1f;
+                        float pitchDifferenceCalc = averagePitch - MyGLRenderer.averagePitch;
+                        pitchDifferenceCalc/=8;
+                        if (Math.abs(pitchDifferenceCalc) > 0.1) {
+                            for (int i = 7; i > -1; i--) {
+                                try {
+                                    Thread.sleep(15);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                MyGLRenderer.averagePitch = averagePitch-pitchDifferenceCalc*i;
+                            }
                         }
+
+                        publishProgress(average);
+                        pitchDifferences.clear();
                     }
                 }
+
             };
             PitchProcessor pitchProcessor = new PitchProcessor(PitchEstimationAlgorithm.FFT_YIN,
                     SAMPLE_RATE,

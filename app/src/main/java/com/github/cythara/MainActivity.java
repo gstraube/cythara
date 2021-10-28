@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
     protected static final String REFERENCE_PITCH = "reference_pitch";
     private static final String TAG_LISTENER_FRAGMENT = "listener_fragment";
     private static final String USE_DARK_MODE = "use_dark_mode";
+    private static final String TUNING_SPEED = "tuning_speed";
+    private static int tuningSpeed=1;
     private static int tuningPosition = 0;
     private static boolean isDarkModeEnabled;
     private static int referencePitch;
@@ -69,6 +71,10 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
     public static int getReferencePosition() {
         return referencePosition - 1; //to account for the position of the AUTO option
     }
+    public static int getTuningSpeed() {
+        return tuningSpeed; //to account for the position of the AUTO option
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,6 +178,20 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
                 dialog.show(getSupportFragmentManager(), "reference_pitch_picker");
                 break;
             }
+            case R.id.set_tuning_speed: {
+                final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
+                        MODE_PRIVATE);
+                SpeedPickerDialog dialog = new SpeedPickerDialog();
+
+                int tuningSpeed = preferences.getInt(TUNING_SPEED, 1);
+                Bundle bundle = new Bundle();
+                bundle.putInt("current_value", tuningSpeed);
+                dialog.setArguments(bundle);
+
+                dialog.setValueChangeListener(this);
+                dialog.show(getSupportFragmentManager(), "tuning_speed_picker");
+                break;
+            }
             case R.id.choose_tuning_mode: {
                 final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
                         MODE_PRIVATE);
@@ -187,6 +207,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
                 dialog.show(getSupportFragmentManager(), "note_picker");
 
                 PitchComparator.fillSearchedNotesArr();
+                break;
             }
         }
         return false;
@@ -269,6 +290,13 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
             referencePosition = newValue;
 
             recreate();
+        }else if ("speed_picker".equalsIgnoreCase(tag)) {
+            final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
+                    MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt(TUNING_SPEED, newValue);
+            editor.apply();
+            tuningSpeed= newValue;
         }
     }
 
@@ -308,6 +336,28 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
         spinner.setOnItemSelectedListener(this);
         spinner.setSelectedIndex(tuningPosition);
     }
+    public void setScaleTuning() {
+        final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
+                MODE_PRIVATE);
+        tuningPosition = preferences.getInt(CURRENT_TUNING, 0);
+
+        int textColorDark = getResources().getColor(R.color.colorTextDark);
+
+        MaterialSpinner spinner = findViewById(R.id.tuning);
+        MaterialSpinnerAdapter<String> adapter = new MaterialSpinnerAdapter<>(this,
+                Arrays.asList(getResources().getStringArray(R.array.scale)));
+
+        if (isDarkModeEnabled) {
+            spinner.setTextColor(textColorDark);
+            spinner.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            spinner.setTextColor(textColorDark);
+            spinner.setArrowColor(textColorDark);
+        }
+
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+        spinner.setSelectedIndex(tuningPosition);
+    }
 
     private void enableTheme() {
         final SharedPreferences preferences = getSharedPreferences(PREFS_FILE,
@@ -327,6 +377,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
                 MODE_PRIVATE);
         referencePitch = preferences.getInt(REFERENCE_PITCH, 440);
     }
+
 
     private void requestRecordAudioPermission() {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO},
