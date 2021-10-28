@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements TaskCallbacks,
     private static final String CURRENT_SCALE = "current_scale";
     private static int tuningSpeed=1;
     private static int tuningPosition = 0;
-    private static int scalePosition = -1;
+    private static int scalePosition = 0;
 
     private static boolean isDarkModeEnabled;
     private static int referencePitch;
