@@ -23,7 +23,7 @@ public class GuitaleleTuning implements Tuning {
         A2(A, 2),
         D3(D, 3),
         G3(G, 3),
-        C3(C, 3),
+        C4(C, 4),
         E4(E, 4),
         A4(A, 4);
 
