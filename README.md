@@ -7,9 +7,6 @@ A musical instrument tuner for Android.
       alt="Get it on F-Droid"
       height="80">](https://f-droid.org/packages/com.github.cythara/)
 
-NOTE: Do not use the outdated Play Store version.
-The keystore file that was used to sign it has been lost, so updates can no longer be pushed to Google Play.
-
 ## Functionality
 
 * Provides tunings for various instruments and supports chromatic tuning.
