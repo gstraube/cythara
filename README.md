@@ -45,6 +45,7 @@ In chronological order:
 * [romgarb](https://github.com/romgarb) added the Turkish Oud standard tuning
 * [klausweiss](https://github.com/klausweiss) added the Banjo tuning and missing translations
 * [berkaygunduzz](https://github.com/berkaygunduzz) provided the translation to Turkish
+* [gtataranni](https://github.com/gtataranni) added the guitalele tuning
 
 Thank you all!
 
