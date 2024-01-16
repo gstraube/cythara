@@ -10,6 +10,7 @@ import com.github.cythara.tuning.ChromaticTuning;
 import com.github.cythara.tuning.DropCGuitarTuning;
 import com.github.cythara.tuning.DropCSharpGuitarTuning;
 import com.github.cythara.tuning.DropDGuitarTuning;
+import com.github.cythara.tuning.GuitaleleTuning;
 import com.github.cythara.tuning.GuitarTuning;
 import com.github.cythara.tuning.OpenGGuitarTuning;
 import com.github.cythara.tuning.OudStdTurkishTuning;
@@ -30,11 +31,12 @@ class TuningMapper {
     private static final int BASS_DROP_C_TUNING_POSITION = 7;
     private static final int UKULELE_TUNING_POSITION = 8;
     private static final int D_TUNING_POSITION = 9;
-    private static final int VIOLIN_TUNING_POSITION = 10;
-    private static final int CELLO_TUNING_POSITION = 11;
-    private static final int VIOLA_TUNING_POSITION = 12;
-    private static final int OUDSTDTR_TUNING_POSITION = 13;
-    private static final int BANJO_TUNING_POSITION = 14;
+    private static final int GUITALELE_TUNING_POSITION = 10;
+    private static final int VIOLIN_TUNING_POSITION = 11;
+    private static final int CELLO_TUNING_POSITION = 12;
+    private static final int VIOLA_TUNING_POSITION = 13;
+    private static final int OUDSTDTR_TUNING_POSITION = 14;
+    private static final int BANJO_TUNING_POSITION = 15;
 
     static Tuning getTuningFromPosition(int position) {
         switch (position) {
@@ -58,6 +60,8 @@ class TuningMapper {
                 return new UkuleleTuning();
             case D_TUNING_POSITION:
                 return new UkuleleDTuning();
+            case GUITALELE_TUNING_POSITION:
+                return new GuitaleleTuning();
             case VIOLIN_TUNING_POSITION:
                 return new ViolinTuning();
             case CELLO_TUNING_POSITION:
